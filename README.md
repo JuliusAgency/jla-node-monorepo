@@ -80,15 +80,19 @@ Monorepo for development and deployment Nodejs packages
   ```bash
   cd packages
   mkdir <new-package-name>
-  cd <new-package-name>
   ```
   Copy the package template to the directory:
   ```bash
-
+  cp -r ./packages/package_template/* ./packages/private(public)/<new-package-name>/
+  cd <new-package-name>
   ```
+  In the package.json file:   
+    - change "package-name" to the "new-package-name";  
+    - edit the "dependencies" and "devDependencies" sections if need;  
+
   Install:
   ```bash
-  npm install
+  npm install 
   ```
 #### 3. Write a package code , pack and tests locally:
   - Packaging:
@@ -146,6 +150,16 @@ Monorepo for development and deployment Nodejs packages
 
 
 ### Usage the commands from the command line during the development:
+
+Run a npm script for all packages from the project root:
+```bash
+npm run <script-name>
+```
+
+Run a npm script for a single package from the project root:
+```bash
+npm run <script-name> -w packages/private(public)/<package-name>
+```
 
 Linting:
 ```bash

@@ -1,15 +1,15 @@
-name: Release Github base-mongo-user
+name: Release Github base-user-mngr
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/base-mongo-user/**'
+    paths: 'packages/base-user-mngr/**'
 
   # workflow_run:
   #   branches: [ main ]
-  #   workflows: ["Test base-mongo-user"]
+  #   workflows: ["Test base-user-mngr"]
   #   types:
   #     - completed
-  #   paths: 'packages/base-mongo-user/**'
+  #   paths: 'packages/base-user-mngr/**'
 
 jobs:
   build:

@@ -1,17 +1,17 @@
-name: Test base-user-mongo
+name: Test base-user-sql
 
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/base-user-mongo/**'
+    paths: 'packages/base-user-sql/**'
 
   # workflow_run:
   # push:
   #   branches: [ main ]
-  #   paths: 'Test base-user-mongo'
+  #   paths: 'Test base-user-sql'
   # pull_request:
   #   branches: [ main ]
-  #   paths: 'packages/base-user-mongo/**'
+  #   paths: 'packages/base-user-sql/**'
 
 jobs:
   build:
