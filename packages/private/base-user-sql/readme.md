@@ -2,7 +2,7 @@
 
 The base-user-sql package - is a component of the @juliusagency/node [packages set](https://github.com/JuliusAgency/node-packages-set) for Nodejs applications.  
 
-<p>
+<!-- <p>
   <a href="https://www.npmjs.com/package/@juliusagency/base-user-sql" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/@juliusagency/base-user-sql.svg">
   </a>
@@ -15,7 +15,7 @@ The base-user-sql package - is a component of the @juliusagency/node [packages s
   <a href="https://github.com/JuliusAgency/auth-strategies/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
-</p>
+</p> -->
 
 ### Installation
 ```bash
