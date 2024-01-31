@@ -24,6 +24,10 @@
     "lint:packages": "npm run lint --workspaces",
     "lint:fix": "npm run lint:fix:packages",
     "lint:fix:packages": "npm run lint:fix --workspaces",
+    "prepack": "npm run prepack:packages",
+    "prepack:packages": "npm run prepack --workspaces",
+    "pack:local": "npm run pack:local:packages",
+    "pack:local:packages": "npm run pack:local --workspaces",
     "prepare": "husky install"
   },
   "devDependencies": {

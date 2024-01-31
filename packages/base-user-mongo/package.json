@@ -27,10 +27,8 @@
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "test": "jest --detectOpenHandles --coverage --verbose",
-    "rename": "./node_modules/move-file-cli/cli.js README.md gitREADME.md",
-    "rename:back": "./node_modules/move-file-cli/cli.js gitREADME.md README.md",
     "prepack": "npm run build",
-    "pack:local": "npm run rename&& npm run build && npm pack && npm run rename:back",
+    "pack:local": "npm run build && npm pack",
     "semantic-release": "semantic-release --branches main",
     "commit": "git-cz"
   },
@@ -44,14 +42,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JuliusAgency/base-user-mongo.git"
+    "url": "git+https://github.com/JuliusAgency/jla-node-monorepo.git"
   },
   "author": "ekarpovs",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JuliusAgency/base-user-mongo/issues"
+    "url": "https://github.com/JuliusAgency/jla-node-monorepo/issues"
   },
-  "homepage": "https://github.com/JuliusAgency/base-user-mongo#readme",
+  "homepage": "https://github.com/JuliusAgency/jla-node-monorepo#readme",
   "keywords": [
     "npm",
     "javascript",
