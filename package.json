@@ -23,7 +23,8 @@
     "lint": "npm run lint:packages",
     "lint:packages": "npm run lint --workspaces",
     "lint:fix": "npm run lint:fix:packages",
-    "lint:fix:packages": "npm run lint:fix --workspaces"
+    "lint:fix:packages": "npm run lint:fix --workspaces",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.10",

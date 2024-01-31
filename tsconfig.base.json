@@ -9,6 +9,5 @@
     "declaration": true,
     "declarationMap": true,
     "allowSyntheticDefaultImports": true
-  },
-  "files": ["./packages/base-user-mongo/src/index.ts"]
+  }
 }

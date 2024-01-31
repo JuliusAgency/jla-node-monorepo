@@ -31,7 +31,6 @@
     "rename:back": "./node_modules/move-file-cli/cli.js gitREADME.md README.md",
     "prepack": "npm run build",
     "pack:local": "npm run rename&& npm run build && npm pack && npm run rename:back",
-    "prepare": "husky install",
     "semantic-release": "semantic-release --branches main",
     "commit": "git-cz"
   },
