@@ -3,6 +3,7 @@
         "juliusagency",
         "mngr",
         "mworkflows",
-        "packlist"
+        "packlist",
+        "typeorm"
     ]
 }
