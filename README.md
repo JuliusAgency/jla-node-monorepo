@@ -19,10 +19,10 @@ Monorepo for development and deployment Nodejs packages
 
 ├── .eslintrc  
 ├── .github  
-│   └── mworkflows  
-│       ├── <package-name>-github.yaml  
-│       ├── <package-name>-npm.yaml  
-│       └── <package-name>-test.yaml  
+│     └── mworkflows  
+│       ├── {package-name}-github.yaml  
+│       ├── {package-name}-npm.yaml  
+│       └── {package-name}-test.yaml  
 ├── .gitignore  
 ├── husky  
 │   ├── _  
@@ -37,8 +37,23 @@ Monorepo for development and deployment Nodejs packages
 ├── jest.config.ts  
 ├── package-lock.json  
 ├── package.json  
+├── development  
+│   ├── actions_templates  
+│   │   ├── new-package-github.yaml  
+│   │   ├── new-package-npm.yaml  
+│   │   └── new-package-test.yaml  
+│   └── package_template  
+│       ├── babel.config.json  
+│       ├── package.json  
+│       ├── readme.md  
+│       ├── src  
+│       │   └── index.ts  
+│       ├── test  
+│       │   └── index.test.ts  
+│       ├── tsconfig.cjs.json  
+│       └── tsconfig.esm.json  
 ├── packages  
-│   └── <package-name>  
+│   └── {package-name}  
 │       ├── babel.config.json  
 │       ├── package.json  
 │       ├── readme.md  
@@ -76,19 +91,24 @@ Monorepo for development and deployment Nodejs packages
 
 #### 2. Create a package project
 
-  Create a folder under the packages folder:
+  Run the script
   ```bash
-  cd packages
-  mkdir <new-package-name>
+  $ ./development/create-pack.bash private(public) <new-package-name>
   ```
-  Copy the package template to the directory:
-  ```bash
-  cp -r ./packages/package_template/* ./packages/private(public)/<new-package-name>/
-  cd <new-package-name>
-  ```
+  
+  It will be:
+    - create a folder under the packages folder;  
+    - copy the package template to the appropriate directory;  
+    - copy the actions templates to the .github/workflows;  
+  
+  After that:
   In the package.json file:   
     - change "package-name" to the "new-package-name";  
     - edit the "dependencies" and "devDependencies" sections if need;  
+
+  In the .github/workflows folder:
+    - rename new-package-*.yaml files;
+    - edit those files;  
 
   Install:
   ```bash
