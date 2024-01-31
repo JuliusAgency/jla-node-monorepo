@@ -1,15 +1,15 @@
 ## Base User model for app with MongoDb
 
-A Base user model - a solution for Nodejs applications with MongoDb
+The Julius Agency Node Monorepo - monorepo for Nodejs packages and starters
 
 <p>
-  <a href="https://github.com/JuliusAgency/base-user-mongo#readme" target="_blank">
+  <a href="https://github.com/JuliusAgency/jla-node-monorepo#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
-  <a href="https://github.com/JuliusAgency/base-user-mongo/graphs/commit-activity" target="_blank">
+  <a href="https://github.com/JuliusAgency/jla-node-monorepo/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://github.com/JuliusAgency/base-user-mongo/blob/master/LICENSE" target="_blank">
+  <a href="https://github.com/JuliusAgency/jla-node-monorepo/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
 </p>
@@ -17,33 +17,6 @@ A Base user model - a solution for Nodejs applications with MongoDb
 
 ### The project file system tree:
 
-├── .github  
-│   ├── workflows  
-│   │   ├── ci.yaml  
-│   │   └── npm.yaml  
-├── .husky  
-│   ├── _  
-│   │   ├── .gitignore  
-│   │   └── husky.sh  
-│   ├── pre-commit  
-│   └── pre-push  
-├── src  
-│   └── index.ts  
-├── test  
-│   └── index.test.ts  
-├── .eslintrc  
-├── .gitignore  
-├── .prettierrc  
-├── .releaserc  
-├── babel.config.js  
-├── jest.config.ts  
-├── LICENSE  
-├── package-lock.json  
-├── package.json  
-├── README.md  
-├── tsconfig.base.json  
-├── tsconfig.cjs.json  
-└── tsconfig.esm.json  
 
 ### The project infrastructure
 
@@ -58,48 +31,46 @@ A Base user model - a solution for Nodejs applications with MongoDb
 [cz-conventional-changelog"]() - Prompts for conventional changelog standard. 
 
 ### Get started
-#### 1. Create a package project
+#### 1. Clone the monorepo, install and activate git hooks
 
-    Create a folder:
+
+#### 2. Create a package project
+
+    Create a folder under the packages folder:
     ```bash
+    cd packages
     mkdir <new-package-name>
     cd <new-package-name>
     ```
-    Clone the repository:
+    Copy the package template to the directory:
     ```bash
-    git clone https://github.com/JuliusAgency/base-user-mongo.git .
+    
     ```
     Install:
     ```bash
     npm install
     ```
-    Activate Git hooks:
-    ```bash
-    npm run prepare
-    ```
-    Note: After the command is executed once, the Git hooks will run automatically before each commit and push.
-
-#### 2. Write the package code , pack and tests locally:
+#### 3. Write the package code , pack and tests locally:
   - Packaging:
   ```bash
   npm run pack:local
   ```
   - Testing:
-  Copy path a ekarpovs-{package-name}-0.0.0-development.tgz
+  Copy path a juliusagency-{package-name}-0.0.0-development.tgz
   Install the package from root directory of a node application project:
   ```bash
-  npm i ekarpovs-{package-name}-0.0.0-development.tgz
+  npm i @juliusagency-{package-name}-0.0.0-development.tgz
   ```
 
-#### 3. Prepare to publish the package: 
-##### 3.1. [Sign up with npm](https://www.npmjs.com/signup).
-##### 3.2. Sign in with your npm account in the terminal:
+#### 4. Prepare to publish the package: 
+##### 4.1. [Sign up with npm](https://www.npmjs.com/signup).
+##### 4.2. Sign in with your npm account in the terminal:
     ```bash
     npm login 
     follow the on-screen instructions
     ```
-#### 4. Publish the package:
-##### 4.1. Manual publishing:
+#### 5. Publish the package:
+##### 5.1. Manual publishing:
  - Check the contents that will be included in the published version of the package:
     ```bash
     npx npm-packlist-cli
@@ -113,7 +84,7 @@ A Base user model - a solution for Nodejs applications with MongoDb
     npm publish --access=public
     ```
     Note: --access=public is needed for scoped package (`@scope/<package-name>`) as it's private by default. If it's not scoped and doesn't have the `private` field set to `true` in `package.json` it will be public as well.
-##### 4.2 Automated publishing:
+##### 5.2 Automated publishing:
     The publishing process is defined via Github Actions:
     - ci.yaml - build and tests.
     - npm.yaml - publish the package to the npm registry.
@@ -169,9 +140,4 @@ npm run pack:local
 Prepare:
 ```bash
 npm run prepare
-```
-Git client hooks:
-```bash
-.husky/pre-commit
-.husky/pre-push
 ```
