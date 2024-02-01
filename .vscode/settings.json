@@ -4,6 +4,7 @@
         "mngr",
         "mworkflows",
         "packlist",
-        "typeorm"
+        "typeorm",
+        "varchar"
     ]
 }
