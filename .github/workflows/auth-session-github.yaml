@@ -2,14 +2,13 @@ name: Release Github auth-session
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/auth-session/**'
 
-  # workflow_run:
-  #   branches: [ main ]
-  #   workflows: ["Test auth-session"]
-  #   types:
-  #     - completed
-  #   paths: 'packages/auth-session/**'
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test auth-session"]
+    types:
+      - completed
+    paths: 'packages/private/auth-session/**'
 
 jobs:
   build:
@@ -26,8 +25,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci
+      - run: npm ci -w packages/private/auth-session
       # - run: npm unpublish --force
-      - run: npm publish
+      - run: npm publish -w packages/private/auth-session
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

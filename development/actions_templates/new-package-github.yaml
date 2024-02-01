@@ -2,14 +2,13 @@ name: Release Github {package-name}
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/{package-name}/**'
 
-  # workflow_run:
-  #   branches: [ main ]
-  #   workflows: ["Test {package-name}"]
-  #   types:
-  #     - completed
-  #   paths: 'packages/{package-name}/**'
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test {package-name}"]
+    types:
+      - completed
+    paths: 'packages/private/{package-name}/**'
 
 jobs:
   build:
@@ -26,8 +25,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci
+      - run: npm ci -w packages/private/{package-name}
       # - run: npm unpublish --force
-      - run: npm publish
+      - run: npm publish -w packages/private/{package-name}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
