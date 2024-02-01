@@ -7,7 +7,7 @@ on:
 
   push:
     branches: [ main ]
-    paths: ['packages/base-user-sql/**']
+    paths: ['packages/private/base-user-sql/**']
   # pull_request:
   #   branches: [ main ]
   #   paths: 'packages/base-user-sql/**'
