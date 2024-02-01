@@ -5,10 +5,10 @@ on:
     branches: [ main ]
     paths: 'packages/base-user-sql/**'
 
-  # workflow_run:
-  # push:
-  #   branches: [ main ]
-  #   paths: 'Test base-user-sql'
+  workflow_run:
+  push:
+    branches: [ main ]
+    paths: ['packages/base-user-sql/**']
   # pull_request:
   #   branches: [ main ]
   #   paths: 'packages/base-user-sql/**'
