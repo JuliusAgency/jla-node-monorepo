@@ -29,6 +29,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READ_FROM_REGISTRY }}
      # - run: npm unpublish --force
-      - run: npm publish -w packages/public/auth-ses-sql-set
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
