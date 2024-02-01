@@ -1,0 +1,31 @@
+name: Test auth-strategies
+
+on:
+  workflow_dispatch:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+    paths: ['packages/private/auth-strategies/**']
+  # pull_request:
+  #   branches: [ main ]
+  #   paths: ['packages/private/auth-strategies/**']
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci -w packages/private/auth-strategies
+      - run: npm run build -w packages/private/auth-strategies --if-present
+      - run: npm test -w packages/private/auth-strategies
