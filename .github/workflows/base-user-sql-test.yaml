@@ -1,9 +1,9 @@
 name: Test base-user-sql
 
 on:
-  workflow_dispatch:
-    branches: [ main ]
-    paths: 'packages/base-user-sql/**'
+  # workflow_dispatch:
+  #   branches: [ main ]
+  #   paths: 'packages/base-user-sql/**'
 
   push:
     branches: [ main ]
