@@ -5,6 +5,7 @@
         "mworkflows",
         "packlist",
         "typeorm",
+        "unpublish",
         "varchar"
     ]
 }

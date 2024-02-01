@@ -3,15 +3,12 @@ name: Test base-user-mongo
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/base-user-mongo/**'
-
-  # workflow_run:
-  # push:
-  #   branches: [ main ]
-  #   paths: 'Test base-user-mongo'
+  push:
+    branches: [ main ]
+    paths: ['packages/private/base-user-mongo/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: 'packages/base-user-mongo/**'
+  #   paths: ['packages/private/base-user-mongo/**']
 
 jobs:
   build:
@@ -29,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+      - run: npm ci -w packages/private/base-user-mongo
+      - run: npm run build -w packages/private/base-user-mongo --if-present
+      - run: npm test -w packages/private/base-user-mongo
