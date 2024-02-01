@@ -1,14 +1,14 @@
-name: Test base-user-auth-session
+name: Test auth-session
 
 on:
   workflow_dispatch:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/base-user-auth-session/**']
+    paths: ['packages/private/auth-session/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/base-user-auth-session/**']
+  #   paths: ['packages/private/auth-session/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/base-user-auth-session
-      - run: npm run build -w packages/private/base-user-auth-session --if-present
-      - run: npm test -w packages/private/base-user-auth-session
+      - run: npm ci -w packages/private/auth-session
+      - run: npm run build -w packages/private/auth-session --if-present
+      - run: npm test -w packages/private/auth-session
