@@ -25,7 +25,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci -w packages/public/auth-ses-sql-set
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@juliusagency'
+      - name: Install dependencies
+        run: npm ci -w packages/public/auth-ses-sql-set
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READ_FROM_REGISTRY }}
       - run: npm run build -w packages/public/auth-ses-sql-set --if-present
       - run: npm test -w packages/public/auth-ses-sql-set

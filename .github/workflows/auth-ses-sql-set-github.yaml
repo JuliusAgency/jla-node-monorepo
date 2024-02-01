@@ -1,14 +1,14 @@
-name: Release Github {package-name}
+name: Release Github auth-ses-sql-set
 on:
   workflow_dispatch:
     branches: [ main ]
 
   workflow_run:
     branches: [ main ]
-    workflows: ["Test {package-name}"]
+    workflows: ["Test auth-ses-sql-set"]
     types:
       - completed
-    paths: 'packages/private/{package-name}/**'
+    paths: 'packages/public/auth-ses-sql-set/**'
 
 jobs:
   build:
@@ -25,8 +25,10 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/private/{package-name}
-      # - run: npm unpublish --force
-      - run: npm publish -w packages/private/{package-name}
+      - run: npm ci -w packages/public/auth-ses-sql-set
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READ_FROM_REGISTRY }}
+     # - run: npm unpublish --force
+      - run: npm publish -w packages/public/auth-ses-sql-set
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
