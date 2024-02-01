@@ -25,7 +25,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/public/auth-ses-sql-set
+      - run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READ_FROM_REGISTRY }}
      # - run: npm unpublish --force
