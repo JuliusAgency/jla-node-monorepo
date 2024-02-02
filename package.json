@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "install": "npm install --ignore-scripts",    
+    "install": "npm install --ignore-scripts",
     "clean": "npm run clean:packages",
     "clean:packages": "npm run clean --workspaces",
     "build": "npm run build:packages",
@@ -48,5 +48,11 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@juliusagency/auth-session": "^1.0.0",
+    "@juliusagency/auth-strategies": "^1.0.0",
+    "@juliusagency/base-user-mngr": "^1.0.0",
+    "@juliusagency/base-user-sql": "^1.0.0"
   }
 }

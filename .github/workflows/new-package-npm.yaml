@@ -1,14 +1,14 @@
-name: Release Npm auth-ses-sql-set
+name: Release Npm {package-name}
 
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/auth-ses-sql-set/**'
+    paths: 'packages/{package-name}/**'
 
   # workflow_run:
   #   branches: [ main ]
-  #   workflows: ["Test auth-ses-sql-set"]
-  #   paths: 'packages/auth-ses-sql-set/**'
+  #   workflows: ["Test {package-name}"]
+  #   paths: 'packages/{package-name}/**'
   #   types:
   #     - completed
 
@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: '18.x'
       
       - name: Install Dependencies
         run: npm ci

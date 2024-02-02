@@ -25,10 +25,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/private/base-user-mngr
-      - run: npm ci -w packages/private/base-user-sql
-      - run: npm ci -w packages/private/auth-session
-      - run: npm ci -w packages/private/auth-strategies
       - run: npm ci -w packages/public/auth-ses-sql-set
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READ_FROM_REGISTRY }}
