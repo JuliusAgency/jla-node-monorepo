@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/simple-error-handler/**']
+    paths: ['packages/public/simple-error-handler/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/simple-error-handler/**']
+  #   paths: ['packages/public/simple-error-handler/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/simple-error-handler
-      - run: npm run build -w packages/private/simple-error-handler --if-present
-      - run: npm test -w packages/private/simple-error-handler
+      - run: npm ci -w packages/public/simple-error-handler
+      - run: npm run build -w packages/public/simple-error-handler --if-present
+      - run: npm test -w packages/public/simple-error-handler

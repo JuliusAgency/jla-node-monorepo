@@ -8,7 +8,7 @@ on:
     workflows: ["Test simple-error-handler"]
     types:
       - completed
-    paths: 'packages/private/simple-error-handler/**'
+    paths: 'packages/public/simple-error-handler/**'
 
 jobs:
   build:
@@ -25,8 +25,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/private/simple-error-handler
+      - run: npm ci -w packages/public/simple-error-handler
       # - run: npm unpublish --force
-      - run: npm publish -w packages/private/simple-error-handler
+      - run: npm publish -w packages/public/simple-error-handler
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

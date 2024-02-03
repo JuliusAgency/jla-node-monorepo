@@ -3,7 +3,7 @@ name: Release Npm simple-error-handler
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/simple-error-handler/**'
+    paths: 'packages/public/simple-error-handler/**'
 
   # workflow_run:
   #   branches: [ main ]
