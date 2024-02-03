@@ -1,0 +1,32 @@
+name: Release Github simple-error-handler
+on:
+  workflow_dispatch:
+    branches: [ main ]
+
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test simple-error-handler"]
+    types:
+      - completed
+    paths: 'packages/private/simple-error-handler/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@juliusagency'
+      - run: npm ci -w packages/private/simple-error-handler
+      # - run: npm unpublish --force
+      - run: npm publish -w packages/private/simple-error-handler
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
