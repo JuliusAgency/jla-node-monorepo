@@ -17,6 +17,26 @@ pack_folder="packages"
 act_template_folder="actions_templates"
 act_folder=".github/workflows"
 
+if [ -d $pack_folder/$package_type/$package_name ]; then
+  echo "the package already exists."
+  exit 1
+fi
+
+function ask_yes_or_no() {
+    read -p "$1 ([y]es or [N]o): "
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        y|yes) echo "yes" ;;
+        *)     echo "no" ;;
+    esac
+}
+
+if [[ "no" == $(ask_yes_or_no "Are you sure?") || \
+      "no" == $(ask_yes_or_no "Are you *really* sure?") ]]
+then
+    echo "Skipped."
+    exit 0
+fi
+
 echo "the package will be created:"
 echo type $package_type:
 echo name $package_name:
