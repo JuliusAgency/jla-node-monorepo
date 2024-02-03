@@ -109,7 +109,7 @@ Monorepo for development and deployment Nodejs packages
   In the .github/workflows folder:
     - edit the package new files;  
 
-  Install:
+  Install (update package-lock.json):
   ```bash
   npm install 
   ```
