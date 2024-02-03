@@ -50,9 +50,5 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@juliusagency/auth-session": "^1.0.0",
-    "@juliusagency/auth-strategies": "^1.0.0",
-    "@juliusagency/base-user-mngr": "^1.0.0",
-    "@juliusagency/base-user-sql": "^1.0.0"
   }
 }
