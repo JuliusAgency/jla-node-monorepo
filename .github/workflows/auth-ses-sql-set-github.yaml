@@ -29,12 +29,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READ_FROM_REGISTRY }}
      # - run: npm unpublish --force
-      # - run: |
-      #     npm run build -w packages/private/auth-session \
-      #       -w packages/private/auth-strategies \
-      #       -w packages/private/base-user-mngr \
-      #       -w packages/private/base-user-sql \
-      #       -w packages/public/auth-ses-sql-set --if-present
+      - run: |
+          npm run build -w packages/private/auth-session \
+            -w packages/private/auth-strategies \
+            -w packages/private/base-user-mngr \
+            -w packages/private/base-user-sql \
+            -w packages/public/auth-ses-sql-set --if-present
       - run: npm publish -w packages/public/auth-ses-sql-set
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
