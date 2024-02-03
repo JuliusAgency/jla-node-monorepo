@@ -1,31 +1,38 @@
-name: Test authorization-ses-checker
+name: Release Npm authorization-ses-checker
 
 on:
   workflow_dispatch:
     branches: [ main ]
-  push:
-    branches: [ main ]
-    paths: ['packages/private/authorization-ses-checker/**']
-  # pull_request:
+    paths: 'packages/authorization-ses-checker/**'
+
+  # workflow_run:
   #   branches: [ main ]
-  #   paths: ['packages/private/authorization-ses-checker/**']
+  #   workflows: ["Test authorization-ses-checker"]
+  #   paths: 'packages/authorization-ses-checker/**'
+  #   types:
+  #     - completed
 
 jobs:
-  build:
-
+  release:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci -w packages/private/authorization-ses-checker
-      - run: npm run build -w packages/private/authorization-ses-checker --if-present
-      - run: npm test -w packages/private/authorization-ses-checker
+          node-version: '18.x'
+      
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: Rename README
+        run: npm run rename
+        
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release

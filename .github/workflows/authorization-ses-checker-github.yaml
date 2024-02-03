@@ -1,31 +1,32 @@
-name: Test authorization-ses-checker
-
+name: Release Github authorization-ses-checker
 on:
   workflow_dispatch:
     branches: [ main ]
-  push:
+
+  workflow_run:
     branches: [ main ]
-    paths: ['packages/private/authorization-ses-checker/**']
-  # pull_request:
-  #   branches: [ main ]
-  #   paths: ['packages/private/authorization-ses-checker/**']
+    workflows: ["Test authorization-ses-checker"]
+    types:
+      - completed
+    paths: 'packages/private/authorization-ses-checker/**'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
-
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      # Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          node-version: '20.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@juliusagency'
       - run: npm ci -w packages/private/authorization-ses-checker
-      - run: npm run build -w packages/private/authorization-ses-checker --if-present
-      - run: npm test -w packages/private/authorization-ses-checker
+      # - run: npm unpublish --force
+      - run: npm publish -w packages/private/authorization-ses-checker
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

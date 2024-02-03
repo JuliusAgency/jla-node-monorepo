@@ -57,7 +57,7 @@ cp -r ./$dev_folder/$pack_template_folder/* ./$pack_folder/$package_type/$packag
 
 # Create the new package actions
 cp -r ./$dev_folder/$act_template_folder/new-package-test.yaml ./$act_folder/${package_name}-test.yaml
-cp -r ./$dev_folder/$act_template_folder/new-package-test.yaml ./$act_folder/${package_name}-github.yaml
-cp -r ./$dev_folder/$act_template_folder/new-package-test.yaml ./$act_folder/${package_name}-npm.yaml
+cp -r ./$dev_folder/$act_template_folder/new-package-github.yaml ./$act_folder/${package_name}-github.yaml
+cp -r ./$dev_folder/$act_template_folder/new-package-npm.yaml ./$act_folder/${package_name}-npm.yaml
 
 exit 0
