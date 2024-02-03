@@ -3,12 +3,12 @@ name: Release Npm simple-logger
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/simple-logger/**'
+    paths: 'packages/public/simple-logger/**'
 
   # workflow_run:
   #   branches: [ main ]
   #   workflows: ["Test simple-logger"]
-  #   paths: 'packages/simple-logger/**'
+  #   paths: 'packages/public/simple-logger/**'
   #   types:
   #     - completed
 
