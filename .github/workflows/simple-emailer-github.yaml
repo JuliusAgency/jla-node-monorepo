@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     branches: [ main ]
 
-  # workflow_run:
-  #   branches: [ main ]
-  #   workflows: ["Test simple-emailer"]
-  #   types:
-  #     - completed
-  #   paths: 'packages/public/simple-emailer/**'
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test simple-emailer"]
+    types:
+      - completed
+    paths: 'packages/public/simple-emailer/**'
 
 jobs:
   build:

@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     branches: [ main ]
 
-  # workflow_run:
-  #   branches: [ main ]
-  #   workflows: ["Test auth-jwt-mongo-set"]
-  #   types:
-  #     - completed
-  #   paths: 'packages/public/auth-jwt-mongo-set/**'
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test auth-jwt-mongo-set"]
+    types:
+      - completed
+    paths: 'packages/public/auth-jwt-mongo-set/**'
 
 jobs:
   build:

@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     branches: [ main ]
 
-  # workflow_run:
-  #   branches: [ main ]
-  #   workflows: ["Test auth-ses-mongo-set"]
-  #   types:
-  #     - completed
-  #   paths: 'packages/public/auth-ses-mongo-set/**'
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test auth-ses-mongo-set"]
+    types:
+      - completed
+    paths: 'packages/public/auth-ses-mongo-set/**'
 
 jobs:
   build:

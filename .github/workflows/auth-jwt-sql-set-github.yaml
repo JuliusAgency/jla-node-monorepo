@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     branches: [ main ]
 
-  # workflow_run:
-  #   branches: [ main ]
-  #   workflows: ["Test auth-jwt-sql-set"]
-  #   types:
-  #     - completed
-  #   paths: 'packages/public/auth-jwt-sql-set/**'
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test auth-jwt-sql-set"]
+    types:
+      - completed
+    paths: 'packages/public/auth-jwt-sql-set/**'
 
 jobs:
   build:

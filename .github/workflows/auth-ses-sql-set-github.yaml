@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     branches: [ main ]
 
-  # workflow_run:
-  #   branches: [ main ]
-  #   workflows: ["Test auth-ses-sql-set"]
-  #   types:
-  #     - completed
-  #   paths: 'packages/public/auth-ses-sql-set/**'
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test auth-ses-sql-set"]
+    types:
+      - completed
+    paths: 'packages/public/auth-ses-sql-set/**'
 
 jobs:
   build:
