@@ -1,0 +1,31 @@
+name: Test authorization-ses-checker
+
+on:
+  workflow_dispatch:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+    paths: ['packages/private/authorization-ses-checker/**']
+  # pull_request:
+  #   branches: [ main ]
+  #   paths: ['packages/private/authorization-ses-checker/**']
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci -w packages/private/authorization-ses-checker
+      - run: npm run build -w packages/private/authorization-ses-checker --if-present
+      - run: npm test -w packages/private/authorization-ses-checker
