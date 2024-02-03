@@ -107,8 +107,7 @@ Monorepo for development and deployment Nodejs packages
     - edit the "dependencies" and "devDependencies" sections if need;  
 
   In the .github/workflows folder:
-    - rename new-package-*.yaml files;
-    - edit those files;  
+    - edit the package new files;  
 
   Install:
   ```bash

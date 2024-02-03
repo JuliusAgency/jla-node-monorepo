@@ -2,7 +2,7 @@
 
 if [[ -z $1 || -z $2 ]]
 then
-    echo "define type and name"
+    echo "define type (private/public) and name"
     exit 1
 fi    
 
@@ -17,6 +17,13 @@ pack_folder="packages"
 act_template_folder="actions_templates"
 act_folder=".github/workflows"
 
+# Check the type
+if [[ "$1" != "private" && "$1" != "public" ]]
+then
+    echo "the type has to be private or public"
+fi
+
+# Prevent owerwriting
 if [ -d $pack_folder/$package_type/$package_name ]; then
   echo "the package already exists."
   exit 1
@@ -30,6 +37,7 @@ function ask_yes_or_no() {
     esac
 }
 
+# Ask to continue
 if [[ "no" == $(ask_yes_or_no "Are you sure?") || \
       "no" == $(ask_yes_or_no "Are you *really* sure?") ]]
 then
@@ -43,8 +51,13 @@ echo name $package_name:
 echo package location $pack_folder/$package_type/$package_name
 echo actions location $act_folder
 
+# Create the new package
 mkdir $pack_folder/$package_type/$package_name
 cp -r ./$dev_folder/$pack_template_folder/* ./$pack_folder/$package_type/$package_name/
-cp -r ./$dev_folder/$act_template_folder/* ./$act_folder
+
+# Create the new package actions
+cp -r ./$dev_folder/$act_template_folder/new-package-test.yaml ./$act_folder/${package_name}-test.yaml
+cp -r ./$dev_folder/$act_template_folder/new-package-test.yaml ./$act_folder/${package_name}-github.yaml
+cp -r ./$dev_folder/$act_template_folder/new-package-test.yaml ./$act_folder/${package_name}-npm.yaml
 
 exit 0
