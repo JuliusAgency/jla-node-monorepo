@@ -1,0 +1,32 @@
+name: Release Github authorization-jwt-checker
+on:
+  workflow_dispatch:
+    branches: [ main ]
+
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Test authorization-jwt-checker"]
+    types:
+      - completed
+    paths: 'packages/private/authorization-jwt-checker/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@juliusagency'
+      - run: npm ci -w packages/private/authorization-jwt-checker
+      # - run: npm unpublish --force
+      - run: npm publish -w packages/private/authorization-jwt-checker
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
