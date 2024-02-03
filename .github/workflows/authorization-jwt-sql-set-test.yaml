@@ -1,0 +1,41 @@
+name: Test authorization-jwt-sql-set
+
+on:
+  workflow_dispatch:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+    paths: ['packages/public/authorization-jwt-sql-set/**']
+  # pull_request:
+  #   branches: [ main ]
+  #   paths: ['packages/public/authorization-jwt-sql-set/**']
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@juliusagency'
+      - name: Install dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READ_FROM_REGISTRY }}
+
+      - run: |
+          npm run build -w packages/private/authorization-repo-sql \
+            -w packages/private/authorization-jwt-checker \
+            -w packages/public/authorization-jwt-sql-set --if-present
+
+      - run: npm test -w packages/public/authorization-jwt-sql-set
