@@ -1,57 +1,43 @@
-## Set of packages for Authorization with Sql Db and session
+## Set of packages for Authorization with session and Sql Db
+![authorization-ses-sql-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/authorization-ses-sql-set-test.yaml/badge.svg)
+![authorization-ses-sql-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/authorization-ses-sql-set-github.yaml/badge.svg)
 
-An authorization with RBAC or ACL  - a solution for Nodejs applications
-
-<!-- <p>
-  <a href="https://www.npmjs.com/package/@juliusagency/authorization-ses-sql-set" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/@juliusagency/authorization-ses-sql-set.svg">
-  </a>
-  <a href="https://github.com/JuliusAgency/authorization-ses-sql-set#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/JuliusAgency/authorization-ses-sql-set/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
-  </a>
-  <a href="https://github.com/JuliusAgency/authorization-ses-sql-set/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-</p> -->
+The package wraps up the following private packages:
+  - authorization-ses-checker;
+  - authorization-repo-sql.
 
 ### Installation
 ```bash
   npm install --save @juliusagency/authorization-ses-sql-set
 ```
 
-### Pre-conditions:
-```
-```
-
 ### Usage  
 ```
-import {
-  AuthConfig,
-  BaseUser,
-  authSetSetup
-} from './lib/authorization-ses-sql-set';
 
-  const app: Express = express();
+  import {
+    ModelType,
+    setupAuthorizationSet,
+  } from '@juliusagency/authorization-ses-sql-set';
 
-  // Setup Auth with session and MongoDb
-  const config: AuthConfig = {
-    app: app,
-    User: BaseUser,
-    sessionConfig: configApp.session,
-  };
+  // Setup
+  const type = ModelType.RBAC(ModelType.ACL);
+  const isAuthorized = setupAuthorizationSet(connection, type);
 
-  const { authMiddleware, authRouter } = authSetSetup(config);
+  ...
 
-  // Auth middleware usage
-  const protectedRoutes = ['/first', '/second'];
-  app.use(protectedRoutes, authMiddleware);
-
-  // Routers Setup
+  // Usage
   const router = Router();
-  // Auth router usage
-  router.use('/auth', authRouter);
+
+  ...
+  
+  // Authorization-rbac
+  router.get('/test-rbac', isAuthorized('read'), (_req, res) => {
+    res.json({ message: 'You are authorized to access this resource' });
+  });
+
+  // Authorization-acl
+  router.get('/test-acl', isAuthorized('read', 'test-acl'), (_req, res) => {
+    res.json({ message: 'You are authorized to access this resource' });
+  });
 
 ```

@@ -1,21 +1,8 @@
 ## Http Logger
+![http-logger workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/http-logger-test.yaml/badge.svg)
+![http-logger workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/http-logger-github.yaml/badge.svg)
 
 A Http logger for Nodejs applications.
-
-<!-- <p>
-  <a href="https://www.npmjs.com/package/@juliusagency/http-logger" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/@juliusagency/http-logger.svg">
-  </a>
-  <a href="https://github.com/juliusagency/http-logger#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/juliusagency/http-logger/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
-  </a>
-  <a href="https://github.com/juliusagency/http-logger/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-</p> -->
 
 ### Installation
 ```bash

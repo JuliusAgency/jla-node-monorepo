@@ -1,23 +1,10 @@
 ## Authorization definitions on MongoDb.
+![authorization-repo-mongo workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/authorization-repo-mongo-test.yaml/badge.svg)
+![authorization-repo-mongo workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/authorization-repo-mongo-github.yaml/badge.svg)
 
 A npm package that provides access to authorization definitions for Node.js projects.  
 The package is dedicated to be used with the @juliusagency/authorization-checker package.  
 Supports ACL - Access Control List and RBAC - Role Based Access Control methods. 
-
-<!-- <p>
-  <a href="https://www.npmjs.com/package/@juliusagency/authorization-repo-mongo" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/@juliusagency/authorization-repo-mongo.svg">
-  </a>
-  <a href="https://github.com/juliusagency/authorization-repo-mongo#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/juliusagency/authorization-repo-mongo/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
-  </a>
-  <a href="https://github.com/juliusagency/authorization-repo-mongo/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-</p> -->
 
 ### Installation
 ```bash
@@ -26,20 +13,18 @@ Supports ACL - Access Control List and RBAC - Role Based Access Control methods.
 
 ### Usage
 ```
-import { ModelType, initRules, rulesRepository } from '@juliusagency/authorization-repo-mongo';
+  import { ModelType, initRules, rulesRepository } from '@juliusagency/authorization-repo-mongo';
 
-If an application doesn't use a Rules Management feature do the following (once only):
+  // If an application doesn't use a Rules Management feature do the following (once only):
+  // Create authorization definitions - acl.json or rbac.json file.    
+  // Add the file into the .gitignore.  
 
-Create authorization definitions - acl.json or rbac.json file.    
-
-Add the file into the .gitignore.  
-
-Populate the authorization definitions into the application DataBase:  
+  //Populate the authorization definitions into the application DataBase:  
   initRules(ModelType.ACL, aclData);
-or:  
+  // or:  
   initRules(ModelType.RBAC, rbacData);
 
-The authorization repository is ready to be used (injected into) by  
-the @juliusagency/authorization-checker package.  
+  // The authorization repository is ready to be used (injected into) by  
+  // the @juliusagency/authorization-checker package.  
 
 ```

@@ -1,7 +1,4 @@
 ## Julius Agency Node packages Monorepo
-
-Monorepo for development and deployment Nodejs packages  
-
 <p>
   <a href="https://github.com/JuliusAgency/jla-node-monorepo#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
@@ -14,6 +11,8 @@ Monorepo for development and deployment Nodejs packages
   </a>
 </p>
 
+
+Monorepo for development and deployment Nodejs packages  
 
 ### The monorepo file system tree:
 

@@ -1,6 +1,12 @@
 ## Set of packages for Authentication with Session and MongoDb
+![auth-ses-mongo-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/auth-ses-mongo-set-test.yaml/badge.svg)
+![auth-ses-mongo-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/auth-ses-mongo-set-github.yaml/badge.svg)
 
-The auth-ses-mongo-set package - is a component of the @juliusagency/node [packages set](https://github.com/JuliusAgency/node-packages-set) for Nodejs applications.  
+The package wraps up the following private packages:
+  - base-user-mngr;
+  - auth-session;
+  - auth-strategies;
+  - base-user-mongo.
 
 ### Installation
 ```bash
@@ -11,20 +17,41 @@ The auth-ses-mongo-set package - is a component of the @juliusagency/node [packa
 ```
 import {
   AuthConfig,
+  AuthSesSetSetupOptions,
+  authSetSetup,
   BaseUser,
-  authSetSetup
-} from './lib/auth-ses-mongo-set';
+  SessionConfig,
+} from ''@juliusagency/auth-ses-mongo-set';
 
   const app: Express = express();
 
-  // Setup Auth with session and MongoDb
-  const config: AuthConfig = {
-    app: app,
-    User: BaseUser,
-    sessionConfig: configApp.session,
+  const sesConfig: SessionConfig = {
+    name: appConfig.sessionName,
+    secret: appConfig.sessionSecret,
+    saveUninitialized: appConfig.sessionSaveUninitialized,
+    cookie: {
+      secure: appConfig.cookieSecure,
+      sameSite: appConfig.cookieSameSite,
+      httpOnly: appConfig.cookieHttpOnly,
+      maxAge: appConfig.cookieMaxAge,
+    },
+    resave: appConfig.sessionResave,
   };
 
-  const { authMiddleware, authRouter } = authSetSetup(config);
+
+  // Setup Auth with session and MongoDb
+  const authConfig: AuthConfig = {
+    app: app,
+    User: BaseUser,
+    sessionConfig: sesConfig,
+  };
+
+  const authSetupOptions: AuthSesSetSetupOptions = {
+    authConfig: authConfig,
+    emailer: emailer,
+  };
+
+  const { authMiddleware, authRouter } = authSetSetup(authSetupOptions);
 
   // Auth middleware usage
   const protectedRoutes = ['/first', '/second'];

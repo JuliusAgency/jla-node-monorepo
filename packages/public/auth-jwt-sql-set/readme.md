@@ -1,6 +1,12 @@
-## Set of packages for Authentication with Session and Sql Db
+## Set of packages for Authentication with JWT and Sql Db
+![auth-jwt-sql-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/auth-jwt-sql-set-test.yaml/badge.svg)
+![auth-jwt-sql-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/auth-jwt-sql-set-github.yaml/badge.svg)
 
-The auth-jwt-sql-set package - is a component of the @juliusagency/node [packages set](https://github.com/JuliusAgency/node-packages-set) for Nodejs applications.  
+The package wraps up the following private packages:
+  - base-user-mngr;
+  - auth-jwt;
+  - auth-strategies;
+  - base-user-sql.
 
 ### Installation
 ```bash
@@ -10,21 +16,27 @@ The auth-jwt-sql-set package - is a component of the @juliusagency/node [package
 ### Usage  
 ```
 import {
-  AuthConfig,
+  AuthJwtOptions,
+  AuthJwtSetSetupOptions,
   BaseUser,
-  authSetSetup
-} from './lib/auth-jwt-sql-set';
+  authSetSetup,
+} from ''@juliusagency/auth-jwt-sql-set';
 
   const app: Express = express();
 
-  // Setup Auth with session and MongoDb
-  const config: AuthConfig = {
-    app: app,
-    User: BaseUser,
-    sessionConfig: configApp.session,
+  // Setup Auth with JWT and Sql Db
+  const authJwtOptions: AuthJwtOptions = {
+    secretKey: <secretKey>,
+    lifeTime: <lifeTime>,
   };
 
-  const { authMiddleware, authRouter } = authSetSetup(config);
+  const authSetupOptions: AuthJwtSetSetupOptions = {
+    User: BaseUser,
+    authOpt: authJwtOptions,
+    emailer: emailer,
+  };
+
+  const { authMiddleware, authRouter } = authSetSetup(authSetupOptions);
 
   // Auth middleware usage
   const protectedRoutes = ['/first', '/second'];

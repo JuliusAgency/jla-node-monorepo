@@ -1,31 +1,12 @@
 ## Authentication with express, passport and passport-session
+![auth-session workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/auth-session-test.yaml/badge.svg)
+![auth-session workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/auth-session-github.yaml/badge.svg)
 
 The auth-session package - is a component of the @juliusagency/node [packages set](https://github.com/JuliusAgency/node-packages-set) for Nodejs applications.  
 
-<!-- <p>
-  <a href="https://www.npmjs.com/package/@juliusagency/auth-session" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/@juliusagency/auth-session.svg">
-  </a>
-  <a href="https://github.com/JuliusAgency/auth-session#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/JuliusAgency/auth-session/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
-  </a>
-  <a href="https://github.com/JuliusAgency/auth-session/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-</p>
- -->
 ### Installation
 ```bash
   npm install --save @juliusagency/auth-session
-```
-
-### Pre-conditions:
-```
-The package is dedicated to be used with the following @juliusagency packages:
-  - @juliusagency/base-user-mongo or @juliusagency/base-user-sql
 ```
 
 ### Usage  
@@ -35,7 +16,7 @@ import {
   SessionConfig,
   AuthConfig,
   setupAuthMiddleware,
-} from './lib/auth-session';
+} from ' @juliusagency/auth-session';
 
 import { BaseUser, dBApi } from '@juliusagency/base-user-mongo' or '@juliusagency/base-user-sql';
 

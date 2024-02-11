@@ -1,57 +1,54 @@
-## Set of packages for Authorization with Mongo Db and JWT
+## Set of packages for Authorization with JWT and Mongo Db
+![authorization-jwt-mongo-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/authorization-jwt-mongo-set-test.yaml/badge.svg)
+![authorization-jwt-mongo-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/authorization-jwt-mongo-set-github.yaml/badge.svg)
 
-An authorization with RBAC or ACL  - a solution for Nodejs applications
-
-<!-- <p>
-  <a href="https://www.npmjs.com/package/@juliusagency/authorization-jwt-mongo-set" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/@juliusagency/authorization-jwt-mongo-set.svg">
-  </a>
-  <a href="https://github.com/JuliusAgency/authorization-jwt-mongo-set#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/JuliusAgency/authorization-jwt-mongo-set/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
-  </a>
-  <a href="https://github.com/JuliusAgency/authorization-jwt-mongo-set/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-</p> -->
+The package wraps up the following private packages:
+  - authorization-jwt-checker;
+  - authorization-repo-mongo.
 
 ### Installation
 ```bash
   npm install --save @juliusagency/authorization-jwt-mongo-set
 ```
 
-### Pre-conditions:
-```
-```
-
 ### Usage  
 ```
-import {
-  AuthConfig,
-  BaseUser,
-  authSetSetup
-} from './lib/authorization-jwt-mongo-set';
+  import { Connection } from 'mongoose';
 
-  const app: Express = express();
+  import {
+    initRules,
+    ModelType,
+    setupAuthorizationSet,
+    AuthorizationJwtSetSetupOptions,
+  } from '@juliusagency/authorization-jwt-mongo-set';
 
-  // Setup Auth with session and MongoDb
-  const config: AuthConfig = {
-    app: app,
-    User: BaseUser,
-    sessionConfig: configApp.session,
+  // Setup
+  const type = ModelType.RBAC(ModelType.ACL);
+
+  const setupOptions: AuthorizationJwtSetSetupOptions = {
+    connection: connection,
+    type: type,
+    secret: <secretKey>,
   };
 
-  const { authMiddleware, authRouter } = authSetSetup(config);
+  const isAuthorized = setupAuthorizationSet(setupOptions);
 
-  // Auth middleware usage
-  const protectedRoutes = ['/first', '/second'];
-  app.use(protectedRoutes, authMiddleware);
+  ...
 
+  // Usage
   // Routers Setup
   const router = Router();
-  // Auth router usage
-  router.use('/auth', authRouter);
+  
+  ...
+
+  // Authorization-rbac
+  router.get('/test-rbac', isAuthorized('read'), (_req, res) => {
+    res.json({ message: 'You are authorized to access this resource' });
+  });
+
+  // Authorization-acl
+  router.get('/test-acl', isAuthorized('read', 'test-acl'), (_req, res) => {
+    res.json({ message: 'You are authorized to access this resource' });
+  });
 
 ```
