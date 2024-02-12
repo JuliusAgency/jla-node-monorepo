@@ -1,0 +1,38 @@
+{
+    "name": "@juliusagency/starter",
+    "version": "1.0.0",
+    "description": "Starter for nodejs app",
+    "main": "./build/main/index.js",
+    "repository": "https://github.com/juliusAgency/jla-node-monorepo",
+    "license": "MIT",
+    "keywords": [
+        "nodejs",
+        "typescript",
+        "starter"
+    ],
+    "scripts": {
+        "clean": "../../node_modules/.bin/rimraf ./coverage ./build",
+        "build": "npm run clean && npx tsc",
+        "dev": "NODE_ENV=dev nodemon ./src/index.ts",
+        "start": "NODE_ENV=prod ts-node ./src/index.ts",
+        "lint": "eslint src/**/*.ts",
+        "lint:fix": "eslint src/**/*.ts --fix",
+        "test": "jest --detectOpenHandles --coverage --verbose",
+        "run": "npm run build && export NODE_ENV=prod && node ./build/main/index.js"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.20",
+        "nodemon": "^3.0.3"
+    },
+    "prettier": {
+        "singleQuote": true
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "express-async-errors": "^3.1.1"
+    }
+}
