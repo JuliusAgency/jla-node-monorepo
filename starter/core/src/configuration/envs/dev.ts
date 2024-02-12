@@ -1,6 +1,6 @@
 import { createConfig } from '../create';
 
-export function createDevConfig() {
+export const createDevConfig = () => {
   return createConfig({
     env: 'dev',
 

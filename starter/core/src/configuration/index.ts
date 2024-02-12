@@ -11,7 +11,7 @@ import dotenv from 'dotenv';
 
 import { createDevConfig } from './envs/dev';
 import { createProdConfig } from './envs/prod';
-import { createTestConfig } from './envs/tests';
+import { createTestsConfig } from './envs/tests';
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ function getConfig() {
     case 'dev':
       return createDevConfig();
     case 'tests':
-      return createTestConfig();
+      return createTestsConfig();
     default:
       throw new Error('Invalid NODE_ENV "${process.env.NODE_ENV}"');
   }

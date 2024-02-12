@@ -16,9 +16,9 @@ const defaultConfig: Pick<AppConfig, KeysWithFallbackValue> = {
 
 // return a new object that composes from the default config and
 // overrides everything with whatever it's passed into the config
-export function createConfig(config: RequiredConfig): AppConfig {
+export const createConfig = (config: RequiredConfig): AppConfig => {
   return {
     ...defaultConfig,
     ...config,
   };
-}
+};
