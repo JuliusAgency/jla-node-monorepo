@@ -33,4 +33,6 @@ defined inside the Morgan library.
   ":remote-addr - :remote-user [:date[clf]] ':method :url HTTP/:http-version' :status 
     :res[content-length] ':referrer' ':user-agent",  
 It is possible to create a custom token.  
+
+list of tokens
 ```
