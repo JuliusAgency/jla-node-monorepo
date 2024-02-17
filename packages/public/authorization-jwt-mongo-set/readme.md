@@ -51,4 +51,9 @@ The package wraps up the following private packages:
     res.json({ message: 'You are authorized to access this resource' });
   });
 
+  ADDITION:
+  example for rbac and acl
+  isAuthorized cant be export example
+  difference between jwt and session
+  
 ```
