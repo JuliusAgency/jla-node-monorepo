@@ -47,4 +47,10 @@ import {
   const router = Router();
   // Auth router usage
   router.use('/auth', authRouter);
+
+  ADDITION:
+  base user extension example
+  default config for session or config example
+  info about emailer
+  repository examle and config*
 ```
