@@ -30,4 +30,6 @@ A simple error handler for Nodejs applications.
       }
       return res.status(ResponseCode.OK).json(item);
     };
+
+  custom handling example
 ```
