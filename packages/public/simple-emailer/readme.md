@@ -25,4 +25,6 @@ import {
   const emailer = emailerSetup(emailConfig);
 
   // Use the emailer ...
+
+  builind and sending email
 ```
