@@ -1,0 +1,13 @@
+{
+  "name": "@juliusagency/sql",
+  "version": "1.0.0",
+  "description": "",
+  "devDependencies": {
+    "@types/pg": "^8.10.9"
+  },
+  "dependencies": {
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "typeorm": "^0.3.17"
+  }
+}

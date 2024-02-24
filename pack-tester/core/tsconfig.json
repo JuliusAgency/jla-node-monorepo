@@ -4,7 +4,7 @@
     "incremental": true,
     "target": "es2017",
     "outDir": "build/main",
-    // "rootDir": "src",
+    "rootDir": "src",
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
     "declaration": true,
@@ -35,16 +35,19 @@
     "lib": [
       "es2017"
     ],
+    "types": [
+      "node"
+    ],
     "typeRoots": [
-      "node_modules/@types",
-      "starter/types"
+      "../../node_modules/@types",
+      "src/types"
     ]
   },
   "include": [
-    "./src/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules/**"
+    "../../node_modules/**"
   ],
   "compileOnSave": false
 }

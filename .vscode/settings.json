@@ -4,8 +4,11 @@
         "mngr",
         "mworkflows",
         "packlist",
+        "parens",
         "typeorm",
         "unpublish",
         "varchar"
-    ]
+    ],
+    "npm.scriptExplorerAction": "run",
+    "npm-scripts.showStartNotification": false
 }

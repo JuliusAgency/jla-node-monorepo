@@ -12,20 +12,20 @@ import dotenv from 'dotenv';
 import { createDevConfig } from './envs/dev';
 import { createProdConfig } from './envs/prod';
 import { createTestsConfig } from './envs/tests';
+import { ExternalConfig } from './create';
 
 dotenv.config();
 
-export const appConfig = getConfig();
-
-function getConfig() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const appConfig = (externalConfig?: ExternalConfig): any => {
   switch (process.env.NODE_ENV) {
     case 'prod':
-      return createProdConfig();
+      return createProdConfig(externalConfig);
     case 'dev':
-      return createDevConfig();
+      return createDevConfig(externalConfig);
     case 'tests':
-      return createTestsConfig();
+      return createTestsConfig(externalConfig);
     default:
       throw new Error('Invalid NODE_ENV "${process.env.NODE_ENV}"');
   }
-}
+};

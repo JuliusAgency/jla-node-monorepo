@@ -1,6 +1,6 @@
-import { createConfig } from '../create';
+import { ExternalConfig, createConfig } from '../create';
 
-export const createTestsConfig = () => {
+export const createTestsConfig = (externalConfig?: ExternalConfig) => {
   return createConfig({
     env: 'tests',
 
@@ -10,5 +10,6 @@ export const createTestsConfig = () => {
 
     // options
     mocksEnabled: true,
-});
-}
+  },
+  externalConfig);
+};

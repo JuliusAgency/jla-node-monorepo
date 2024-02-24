@@ -1,0 +1,10 @@
+{
+  "name": "ses-sql",
+  "version": "1.0.0",
+  "description": "",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "@juliusagency/auth-ses-sql-set": "^1.0.0"
+  }
+}

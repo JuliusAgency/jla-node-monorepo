@@ -14,11 +14,21 @@ const defaultConfig: Pick<AppConfig, KeysWithFallbackValue> = {
   mocksEnabled: false,
 };
 
+export type ExternalConfig = {[key: string]: string};
+
 // return a new object that composes from the default config and
 // overrides everything with whatever it's passed into the config
-export const createConfig = (config: RequiredConfig): AppConfig => {
+export const createConfig = (config: RequiredConfig, externalConfig?: ExternalConfig): AppConfig => {
+  resolveExternalConfig(externalConfig);
   return {
     ...defaultConfig,
     ...config,
+    ...externalConfig
   };
+};
+
+export const resolveExternalConfig = (externalConfig?: ExternalConfig) => {
+  if (externalConfig === undefined) return;
+  Object.entries(externalConfig)
+    .forEach(([key, value]) => externalConfig[key] = process.env[value] || '');
 };
