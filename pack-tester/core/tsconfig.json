@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "incremental": true,
     "target": "es2017",
@@ -41,7 +40,8 @@
     "typeRoots": [
       "../../node_modules/@types",
       "src/types"
-    ]
+    ],
+    "skipLibCheck": true,
   },
   "include": [
     "src/**/*.ts"
