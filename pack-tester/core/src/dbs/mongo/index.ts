@@ -1,1 +1,1 @@
-export { initDb, configDbMap } from './data-source/data-source';
+export { initDb } from './data-source/data-source';

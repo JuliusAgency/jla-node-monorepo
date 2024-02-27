@@ -1,10 +1,5 @@
 import mongoose from 'mongoose';
 
-export const configDbMap = {
-  'dbUrl' : 'MONGO_URI',
-  'dbName': 'MONGO_NAME'
-};
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const initDb = (config: any, entities?: []) => {
   console.log(config), entities;

@@ -1,8 +1,9 @@
 import cors from 'cors';
 
-export const setupCors = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setupCors = (config: any) => {
   return cors({
-    credentials: true,
-    origin: true,
+    credentials: config.credentials,
+    origin: config.origin,
   });
 };

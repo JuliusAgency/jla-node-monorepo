@@ -3,10 +3,11 @@
 import { LoggerFormatter, initHttpLogger } from '@juliusagency/http-logger';
 import { LoggerOptions, initLogger } from '@juliusagency/simple-logger';
 
-export const setupLogger = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setupLogger = (config: any) => {
   const loggerConfig: LoggerOptions = {
     // loggerLevel: appConfig.logger.loggerLevel,
-    loggerLevel: 'http',
+    loggerLevel: config.loggerLevel,
   };
 
   const logger = initLogger(loggerConfig);

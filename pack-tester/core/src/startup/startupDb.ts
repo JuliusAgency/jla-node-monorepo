@@ -1,15 +1,9 @@
-import { appConfig } from '../configuration';
 import { dataBase } from '../dbs';
 
-const dbType = 'SQL';
-
-export const startupDb = async () => {
-  const { initDb, configDbMap } = await dataBase(dbType);
-  // extend config by Db configuration
-  const config = appConfig(configDbMap);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const startupDb = async (config: any, dbType: string) => {
+  const initDb = await dataBase(dbType);
   const { connectDb } = initDb(config, []);
   await connectDb();
-
-  return config;
 };
   

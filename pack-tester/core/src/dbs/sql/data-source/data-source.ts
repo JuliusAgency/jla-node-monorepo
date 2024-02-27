@@ -1,9 +1,5 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 
-export const configDbMap = {
-  'dbUrl' : 'POSTGRES_URI',
-};
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const initDb = (config: any, entities?: []) => {
   const dbOptions: DataSourceOptions = {

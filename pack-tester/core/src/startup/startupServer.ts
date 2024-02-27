@@ -1,17 +1,21 @@
 import express, { Express, Router, Request, Response } from 'express';
-import { setupCors, setupHeaders } from '../common';
-import { setupErrorHandler } from '../common/error-handler';
-import { setupLogger } from '../common/logger';
+
+import { 
+  setupCors,
+  setupHeaders,
+  setupErrorHandler,
+  setupLogger,
+} from '../common';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const startupServer = (config: any) => {
   const app: Express = express();
   app.use(express.json());
 
-  app.use(setupCors());
+  app.use(setupCors(config));
   app.use(setupHeaders());
 
-  const { logger, httpLogger } = setupLogger();
+  const { logger, httpLogger } = setupLogger(config);
   app.use(httpLogger);
 
   const router = Router();
