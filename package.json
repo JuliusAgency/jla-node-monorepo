@@ -6,7 +6,7 @@
   "workspaces": [
     "./packages/private/*",
     "./packages/public/*",
-    "./pack-tester/core/"
+    "./pack-tester/"
   ],
   "author": "",
   "license": "ISC",
@@ -30,9 +30,9 @@
     "prepack:packages": "npm run prepack --workspaces",
     "pack:local": "npm run pack:local:packages",
     "pack:local:packages": "npm run pack:local --workspaces",
-    "dev": "npm run dev -w pack-tester/core",
-    "start": "npm run start -w pack-tester/core",
-    "run": "npm run run -w pack-tester/core",
+    "dev": "npm run dev -w pack-tester",
+    "start": "npm run start -w pack-tester",
+    "run": "npm run run -w pack-tester",
     "prepare": "husky install"
   },
   "devDependencies": {

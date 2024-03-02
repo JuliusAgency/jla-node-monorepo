@@ -32,7 +32,11 @@ export const resolveExternalConfig = (externalConfig?: ExternalConfig) => {
   if (externalConfig === undefined) return;
   Object.entries(externalConfig)
     .forEach(([key, value]) => {
-      if (typeof value === 'string')
+      if (typeof value === 'string') {
         externalConfig[key] = process.env[value] || '';
+      }
+      else {
+        resolveExternalConfig(value as ExternalConfig);
+      }
     });
 };

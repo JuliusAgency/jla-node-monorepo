@@ -1,5 +1,5 @@
 {
-    "name": "@juliusagency/pack-tester-core",
+    "name": "@juliusagency/pack-tester",
     "version": "1.0.0",
     "description": "JLA Packages tester for nodejs app",
     "main": "./build/main/index.js",

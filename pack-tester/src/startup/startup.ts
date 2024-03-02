@@ -14,6 +14,6 @@ export const startup = async () => {
   const config = appConfig(configMap);
   console.log(config);
     
-  await startupDb(config, dbType);
-  startupServer(config);
+  const sqlRepository = await startupDb(config, dbType);
+  startupServer(config, sqlRepository);
 };

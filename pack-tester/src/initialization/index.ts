@@ -5,7 +5,7 @@ export const getConfigMapping = (dbType: string) => {
     ...dbMap, 
     ...configCommonMapping['cors'],
     ...configCommonMapping['logger'],
-    ...configAuthMapping['session'] };
+    ...configAuthMapping['authentication']['ses'] };
 };
 
 // Definitions - move to json files
@@ -30,19 +30,23 @@ const configCommonMapping = {
 };
 
 const configAuthMapping = {
-  'session': {
-    'name': 'SESSION_NAME',
-    'secret': 'SESSION_SECRET',
-    'saveUninitialized': 'SESSION_SAVE_UNINITIALIZED',
-    'cookie': {
-      'secure': 'COOKIE_SECURE',
-      'sameSite': 'COOKIE_SAME_SITE',
-      'httpOnly': 'COOKIE_HTTP_ONLY',
-      'maxAge': 'COOKIE_MAX_AGE',
+  'authentication': {
+    'ses': {
+      'session': {
+        'name': 'SESSION_NAME',
+        'secret': 'SESSION_SECRET',
+        'saveUninitialized': 'SESSION_SAVE_UNINITIALIZED',
+        'cookie': {
+          'secure': 'COOKIE_SECURE',
+          'sameSite': 'COOKIE_SAME_SITE',
+          'httpOnly': 'COOKIE_HTTP_ONLY',
+          'maxAge': 'COOKIE_MAX_AGE',
+        },
+        'resave': 'SESSION_RESAVE',
+      }, 
     },
-    'resave': 'SESSION_RESAVE',
-  },
-  'jwt': {
-    'loggerLevel': 'SIMPLE_LOGGER_LEVEL',
+    'jwt': {
+      'loggerLevel': 'SIMPLE_LOGGER_LEVEL',
+    }, 
   },
 };

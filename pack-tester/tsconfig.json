@@ -38,7 +38,7 @@
       "node"
     ],
     "typeRoots": [
-      "../../node_modules/@types",
+      "../node_modules/@types",
       "src/types"
     ],
     "skipLibCheck": true,
@@ -47,7 +47,7 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "../../node_modules/**"
+    "../node_modules/**"
   ],
   "compileOnSave": false
 }

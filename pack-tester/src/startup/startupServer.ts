@@ -7,8 +7,10 @@ import {
   setupLogger,
 } from '../common';
 
+import { authentication } from '../extensions';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const startupServer = (config: any) => {
+export const startupServer = (config: any, sqlRepository: any) => {
   const app: Express = express();
   app.use(express.json());
 
@@ -18,6 +20,8 @@ export const startupServer = (config: any) => {
   const { logger, httpLogger } = setupLogger(config);
   app.use(httpLogger);
 
+  authentication(app, config, sqlRepository);
+  
   const router = Router();
   app.use(router);
   router.get('/', (_req: Request, res: Response) => {
