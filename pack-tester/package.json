@@ -1,5 +1,5 @@
 {
-    "name": "@juliusagency/pack-tester",
+    "name": "pack-tester",
     "version": "1.0.0",
     "description": "JLA Packages tester for nodejs app",
     "main": "./build/main/index.js",
@@ -35,6 +35,7 @@
         "singleQuote": true
     },
     "dependencies": {
+        "@juliusagency/auth-ses-sql-set": "^1.0.0",
         "@juliusagency/http-logger": "^1.0.0",
         "@juliusagency/simple-error-handler": "^1.0.0",
         "@juliusagency/simple-logger": "^1.0.0",

@@ -10,7 +10,7 @@ import {
 import { authentication } from '../extensions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const startupServer = (config: any, sqlRepository: any) => {
+export const startupServer = (config: any, db?: any) => {
   const app: Express = express();
   app.use(express.json());
 
@@ -20,9 +20,16 @@ export const startupServer = (config: any, sqlRepository: any) => {
   const { logger, httpLogger } = setupLogger(config);
   app.use(httpLogger);
 
-  authentication(app, config, sqlRepository);
+  const { authMiddleware, authRouter } = authentication(app, config, db);
+  // Auth middleware usage
+  // Define the protected routes
+  const protectedRoutes = ['/examples', '/users'];
+  app.use(protectedRoutes, authMiddleware);
   
   const router = Router();
+  // Auth router usage
+  router.use('/auth', authRouter);
+
   app.use(router);
   router.get('/', (_req: Request, res: Response) => {
     res.json({ message: `Is live` });

@@ -1,14 +1,18 @@
-export const getConfigMapping = (dbType: string) => {
+export const dbType = 'SQL';
+const AuthType = 'SES';
+
+
+export const getConfigMapping = () => {
 
   const dbMap = configDbMapping[dbType.toLowerCase()]; 
-  return{ 
+  return{
     ...dbMap, 
     ...configCommonMapping['cors'],
     ...configCommonMapping['logger'],
-    ...configAuthMapping['authentication']['ses'] };
+    ...configAuthMapping['authentication'][AuthType.toLowerCase()] };
 };
 
-// Definitions - move to json files
+// TO DO: Definitions - move to json files
 const configDbMapping = {
   'sql': {
     'dbUrl' : 'POSTGRES_URI',
