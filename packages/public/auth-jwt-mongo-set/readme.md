@@ -3,10 +3,12 @@
 ![auth-jwt-mongo-set workflow](https://github.com/juliusagency/jla-node-monorepo/actions/workflows/auth-jwt-mongo-set-github.yaml/badge.svg)
 
 The package wraps up the following private packages:
-  - base-user-mngr;
-  - auth-jwt;
-  - auth-strategies;
-  - base-user-mongo.
+  - [base-user-mngr](https://github.com/JuliusAgency/jla-node-monorepo/pkgs/npm/base-user-mngr);
+  - [auth-jwt](https://github.com/JuliusAgency/jla-node-monorepo/pkgs/npm/auth-jwt);
+  - [auth-strategies](https://github.com/JuliusAgency/jla-node-monorepo/pkgs/npm/auth-strategies);
+  - [base-user-mongo](https://github.com/JuliusAgency/jla-node-monorepo/pkgs/npm/base-user-mongo).
+
+The package uses the [simple-emailer](https://github.com/JuliusAgency/jla-node-monorepo/pkgs/npm/simple-emailer).  
 
 ### Installation
 ```bash
@@ -33,7 +35,7 @@ import {
   const authSetupOptions: AuthJwtSetSetupOptions = {
     User: BaseUser,
     authOpt: authJwtOptions,
-    emailer: emailer,
+    emailer: emailer
   };
 
   const { authMiddleware, authRouter } = authSetSetup(authSetupOptions);
@@ -47,10 +49,43 @@ import {
   const router = Router();
   // Auth router usage
   router.use('/auth', authRouter);
-
-  ADDITION:
-  base user extension example
-  default config for session or config example
-  info about emailer
-  repository examle and config*
 ```
+
+### Extend BaseUser (example)
+```
+import { Schema } from "mongoose";
+
+import { BaseUser } from "@juliusagency/base-user-mongo";
+
+
+export interface UserInterface {
+  role: string; // if an authorization will be used
+  phone?: string;
+}
+
+const UserSchema = new Schema<UserInterface>({
+  role: { // if authorization will be used
+    type: string,
+    required: true,
+    default: 'guest',
+  },
+  phone: {
+    type: String,
+    required: false,
+  },
+}, {collection: 'users'});
+
+export const User = BaseUser.discriminator("user", UserSchema);
+```
+
+### Configuration (example)
+1. Create a random JWT secret key
+```bash
+  node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
+```
+2. Add to the .env following vars:
+```
+SECRET_JWT=random-jwt-secret-key   
+LIFETIME=N # Minutes
+```
+3. For more information about the package configuration look at the readme files of the wrapped and used packages.

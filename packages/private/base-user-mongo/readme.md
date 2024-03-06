@@ -15,31 +15,3 @@ The base-user-mongo package - is a component of the @juliusagency/node [packages
 
   // Use the model for setup auth strategies and base user manager...
 ```
-
-### Extend BaseUser (example)
-```
-import { Schema } from "mongoose";
-
-import { BaseUser } from "@juliusagency/base-user-mongo";
-
-
-export interface UserInterface {
-  role: string; // if an authorization will be used
-  phone?: string;
-}
-
-const UserSchema = new Schema<UserInterface>({
-  role: { // if authorization will be used
-    type: string,
-    required: true,
-    default: 'guest',
-  },
-  phone: {
-    type: String,
-    required: false,
-  },
-}, {collection: 'users'});
-
-export const User = BaseUser.discriminator("user", UserSchema);
-```
-

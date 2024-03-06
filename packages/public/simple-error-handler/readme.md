@@ -12,10 +12,14 @@ A simple error handler for Nodejs applications.
 ```
  - in an Application (index.ts):
 
+  import { errorHandler } from '@juliusagency/simple-error-handler';
+
     const app: Express = express();
     ...
 
-    // after the last router
+  - after the last router
+    
+    // Error handling 
     app.use(errorHandler);
 
   - somewhere in a controller:
@@ -30,6 +34,4 @@ A simple error handler for Nodejs applications.
       }
       return res.status(ResponseCode.OK).json(item);
     };
-
-  custom handling example
 ```
