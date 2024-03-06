@@ -1,6 +1,6 @@
 {
   "name": "@juliusagency/simple-emailer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A npm package for use in Node.js projects.",
   "exports": {
     ".": {
@@ -60,8 +60,7 @@
     "commonjs",
     "ecmascript"
   ],
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "@juliusagency/simple-email-client": "^1.0.0"
   },

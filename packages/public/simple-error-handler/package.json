@@ -1,6 +1,6 @@
 {
   "name": "@juliusagency/simple-error-handler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A npm package for use in Node.js projects.",
   "exports": {
     ".": {

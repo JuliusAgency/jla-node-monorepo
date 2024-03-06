@@ -1,6 +1,6 @@
 {
   "name": "@juliusagency/authorization-ses-sql-set",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A npm package for use in Node.js projects.",
   "exports": {
     ".": {
@@ -60,8 +60,7 @@
     "commonjs",
     "ecmascript"
   ],
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "@juliusagency/authorization-repo-sql": "^1.0.0",
     "@juliusagency/authorization-ses-checker": "^1.0.0"
