@@ -3,7 +3,11 @@
         "juliusagency",
         "mngr",
         "mworkflows",
+        "newversion",
         "packlist",
+        "premajor",
+        "preminor",
+        "prepatch",
         "typeorm",
         "unpublish",
         "varchar"
