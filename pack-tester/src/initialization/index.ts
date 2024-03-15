@@ -15,7 +15,10 @@ export const getConfigMapping = () => {
 // TO DO: Definitions - move to json files
 const configDbMapping = {
   'sql': {
+    'type': '$$$$postgres',
     'dbUrl' : 'POSTGRES_URI',
+    'ssl': '$$$$false',
+
   },
   'mongo': {
     'dbUrl' : 'MONGO_URI',

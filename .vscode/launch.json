@@ -11,7 +11,13 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/pack-tester/core",
+            "program": "${workspaceFolder}/pack-tester",
+            // "sourceMaps": true,
+            // "trace": true,
+            // "resolveSourceMapLocations": [
+            //     "${workspaceFolder}/src/**/*.ts",
+            //     "${workspaceFolder}/../packages/**/src/**/*.ts"
+            // ],
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]

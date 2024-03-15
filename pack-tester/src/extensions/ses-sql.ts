@@ -4,10 +4,14 @@ import {
   AuthConfig,
   AuthSesSetSetupOptions,
   BaseUser,
-  // Token,
+  Token,
   authSetSetup
 } from '@juliusagency/auth-ses-sql-set';
 
+export {
+  BaseUser,
+  Token,
+};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthentication = (app: Express, config: any, sqlRepository?: any) => {
 
