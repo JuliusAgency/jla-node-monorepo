@@ -9,7 +9,8 @@ export const getConfigMapping = () => {
     ...dbMap, 
     ...configCommonMapping['cors'],
     ...configCommonMapping['logger'],
-    ...configAuthMapping['authentication'][AuthType.toLowerCase()] };
+    ...configAuthMapping['authentication'][AuthType.toLowerCase()],
+    ...configAuthorizationMapping };
 };
 
 // TO DO: Definitions - move to json files
@@ -56,4 +57,9 @@ const configAuthMapping = {
       'loggerLevel': 'SIMPLE_LOGGER_LEVEL',
     }, 
   },
+};
+
+const configAuthorizationMapping = {
+  'modelType': 'AUTHORIZATION_MODEL_TYPE',
+  'test': 'TEST'
 };

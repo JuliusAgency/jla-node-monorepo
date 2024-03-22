@@ -3,19 +3,20 @@ import { appConfig } from '../configuration';
 import { 
   // BaseUser,
   Token 
-} from '../extensions/ses-sql';
+} from '../extensions';
 
-import { User } from '../app-domain';
+import { User, setupAppDomain } from '../app-domain';
 
 import { startupDb } from './startupDb';
 import { startupServer } from './startupServer';
 
 export const startup = async () => {
-  const configMap = getConfigMapping();
+  const configMapping = getConfigMapping();
   // extend config by extensions configurations
-  const config = appConfig(configMap);
+  const config = appConfig(configMapping);
   console.log(config);
   const entities = [User, Token];
   const db = await startupDb(config, dbType, entities);
-  startupServer(config, db);
+  
+  startupServer({ config, db, User, setupAppDomain });
 };

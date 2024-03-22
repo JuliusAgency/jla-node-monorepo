@@ -4,8 +4,7 @@
   "description": "",
   "private": true,
   "workspaces": [
-    "./packages/private/*",
-    "./packages/public/*",
+    "./packages/*",
     "./pack-tester/"
   ],
   "author": "",

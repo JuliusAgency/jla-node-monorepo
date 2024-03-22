@@ -8,9 +8,9 @@ import {
 } from '@juliusagency/simple-error-handler';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setupUserController = ({ sqlRepository }) => {
+export const setupUserController = ({ db }) => {
   const getAllUsers = async (_req: Request, res: Response) => {
-    const users = await sqlRepository(User).find({ where: {} });
+    const users = await db(User).find({ where: {} });
     if (!users) {
       const errorArgs: AppErrorArgs = {
         name: 'getAllUsers',
@@ -35,7 +35,7 @@ export const setupUserController = ({ sqlRepository }) => {
     return res.status(200).json(user);
   };
   const getUserData = async (userId: string) => {
-    return await sqlRepository(User).findOne({ where: { _id: userId } });
+    return await db(User).findOne({ where: { _id: userId } });
   };
 
   return {

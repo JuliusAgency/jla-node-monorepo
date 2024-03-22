@@ -1,0 +1,75 @@
+{
+  "name": "@juliusagency/auth-jwt",
+  "version": "1.0.0",
+  "description": "A npm package for use in Node.js projects.",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/esm/types/index.d.ts",
+        "default": "./lib/esm/index.mjs"
+      },
+      "require": {
+        "types": "./lib/cjs/types/index.d.ts",
+        "default": "./lib/cjs/index.js"
+      }
+    }
+  },
+  "types": "./lib/cjs/types/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "clean": "../../node_modules/.bin/rimraf ./lib ./coverage ./*.tgz",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p ./tsconfig.esm.json && move-file lib/esm/index.js lib/esm/index.mjs",
+    "build:cjs": "tsc -p ./tsconfig.cjs.json",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "test": "jest --detectOpenHandles --coverage --verbose",
+    "prepack": "npm run build",
+    "pack:local": "npm run build && npm pack",
+    "semantic-release": "semantic-release --branches main",
+    "commit": "git-cz"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JuliusAgency/jla-node-monorepo.git"
+  },
+  "author": "ekarpovs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JuliusAgency/jla-node-monorepo/issues"
+  },
+  "homepage": "https://github.com/JuliusAgency/jla-node-monorepo#readme",
+  "keywords": [
+    "npm",
+    "javascript",
+    "typescript",
+    "esm",
+    "cjs",
+    "nodejs",
+    "commonjs",
+    "ecmascript"
+  ],
+  "devDependencies": {
+    "@types/express": "^4.17.20"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jwt-simple": "^0.5.6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "../../node_modules/cz-conventional-changelog"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 
-import { BaseUser } from '@juliusagency/auth-ses-sql-set';
+import { BaseUser } from '@juliusagency/base-user-sql';
 import { Column, Entity } from 'typeorm';
 
 @Entity('users')

@@ -6,8 +6,8 @@ import { setupExamples } from './examples';
 
 export { User } from './users';
 
-export const setupAppDomain = ({ router, isAuthorized, sqlRepository }) => {
-  const usersRouter = setupUsers({ isAuthorized, sqlRepository });
+export const setupAppDomain = ({ router, isAuthorized, db }) => {
+  const usersRouter = setupUsers({ isAuthorized, db });
   const examplesRouter = setupExamples({ isAuthorized });
   router.use('/users', usersRouter);
   router.use('/examples', examplesRouter);

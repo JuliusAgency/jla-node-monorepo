@@ -5,7 +5,7 @@ export const setupExamples = ({ isAuthorized }) => {
   const router = Router();
 
   router.get('/', (_req: Request, res: Response) => {
-    res.json({ message: `Is live` });
+    res.json({ message: `Example route Is live` });
   });
 
   // Setup 2 protected routes for test
@@ -14,7 +14,7 @@ export const setupExamples = ({ isAuthorized }) => {
   });
 
   router.get('/second', (_req: Request, res: Response) => {
-    res.json({ message: `You have reached the second protected` });
+    res.json({ message: `You have reached the second protected route` });
   });
 
   // For test an authorization-rbac
