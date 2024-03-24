@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { User } from './model';
-import { AppError, AppErrorArgs, ResponseCode } from '@juliusagency/simple-error-handler';
+import { AppError, AppErrorArgs, ResponseCode } from '../../../../packages/simple-error-handler/src';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupUserController = ({ repository }) => {

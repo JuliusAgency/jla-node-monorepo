@@ -1,9 +1,4 @@
-import {
-  ModelType,
-  rulesModel,
-  initRules,
-  rulesRepository,
-} from '../../../../packages/authorization-repo-sql/src';
+import { ModelType, rulesModel, initRules, rulesRepository } from '../../../../packages/authorization-repo-sql/src';
 import { setupAuthorization } from '../../../../packages/authorization-ses-checker/src';
 
 import { aclData } from '../../dbs/authorization-definitions/acl';
