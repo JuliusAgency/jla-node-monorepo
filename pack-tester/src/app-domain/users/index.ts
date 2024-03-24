@@ -6,7 +6,7 @@ import { setupUserRouter } from './router';
 
 export { User } from './model';
 
-export const setupUsers = ({ isAuthorized, db }) => {
-  const controller = setupUserController({ db });
+export const setupUsers = ({ isAuthorized, repository }) => {
+  const controller = setupUserController({ repository });
   return setupUserRouter({ isAuthorized, controller });
 };

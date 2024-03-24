@@ -26,9 +26,9 @@ export const initDb = (config: any, entities?: []) => {
         console.error("Can't connect to SQL Db :", err);
       });
   };
-  
+
   return {
     sqlRepository,
-    connectDb
+    connectDb,
   };
 };

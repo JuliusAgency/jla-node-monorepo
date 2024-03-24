@@ -1,16 +1,12 @@
 import { Request, Response } from 'express';
 
 import { User } from './model';
-import {
-  AppError,
-  AppErrorArgs,
-  ResponseCode,
-} from '@juliusagency/simple-error-handler';
+import { AppError, AppErrorArgs, ResponseCode } from '@juliusagency/simple-error-handler';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setupUserController = ({ db }) => {
+export const setupUserController = ({ repository }) => {
   const getAllUsers = async (_req: Request, res: Response) => {
-    const users = await db(User).find({ where: {} });
+    const users = await repository(User).find({ where: {} });
     if (!users) {
       const errorArgs: AppErrorArgs = {
         name: 'getAllUsers',
@@ -35,7 +31,7 @@ export const setupUserController = ({ db }) => {
     return res.status(200).json(user);
   };
   const getUserData = async (userId: string) => {
-    return await db(User).findOne({ where: { _id: userId } });
+    return await repository(User).findOne({ where: { _id: userId } });
   };
 
   return {

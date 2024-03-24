@@ -18,7 +18,7 @@ Monorepo for development and deployment Nodejs packages
 
 ├── .eslintrc  
 ├── .github  
-│     └── mworkflows  
+│     └── workflows  
 │       ├── {package-name}-github.yaml  
 │       ├── {package-name}-npm.yaml  
 │       └── {package-name}-test.yaml  

@@ -1,15 +1,17 @@
 import { ExternalConfig, createConfig } from '../create';
 
 export const createDevConfig = (externalConfig?: ExternalConfig) => {
-  return createConfig({
-    env: 'dev',
+  return createConfig(
+    {
+      env: 'dev',
 
-    // server
-    port: '3050',
-    baseUrl: 'http://127.0.0.1',
-    
-    // options
-    mocksEnabled: true,
-  },
-  externalConfig);
+      // server
+      port: '3050',
+      baseUrl: 'http://127.0.0.1',
+
+      // options
+      mocksEnabled: true,
+    },
+    externalConfig,
+  );
 };

@@ -15,7 +15,7 @@ const defaultConfig: Pick<AppConfig, KeysWithFallbackValue> = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExternalConfig = {[key: string]: string | unknown};
+export type ExternalConfig = { [key: string]: string | unknown };
 
 // return a new object that composes from the default config and
 // overrides everything with whatever it's passed into the config
@@ -24,19 +24,17 @@ export const createConfig = (config: RequiredConfig, externalConfig?: ExternalCo
   return {
     ...defaultConfig,
     ...config,
-    ...externalConfig
+    ...externalConfig,
   };
 };
 
 export const resolveExternalConfig = (externalConfig?: ExternalConfig) => {
   if (externalConfig === undefined) return;
-  Object.entries(externalConfig)
-    .forEach(([key, value]) => {
-      if (typeof value === 'string') {
-        externalConfig[key] = process.env[value] || '';
-      }
-      else {
-        resolveExternalConfig(value as ExternalConfig);
-      }
-    });
+  Object.entries(externalConfig).forEach(([key, value]) => {
+    if (typeof value === 'string') {
+      externalConfig[key] = process.env[value] || '';
+    } else {
+      resolveExternalConfig(value as ExternalConfig);
+    }
+  });
 };

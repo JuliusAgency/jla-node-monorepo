@@ -12,7 +12,7 @@ export const initDb = (config: any) => {
       .on('connected', () => {
         console.log('connected to mongodb');
       });
-  
+
     // The actual connection to the database happens here.
     await mongoose.connect(config.dbUrl, {
       dbName: config.dbName,

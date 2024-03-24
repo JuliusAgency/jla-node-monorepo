@@ -1,18 +1,11 @@
 import express, { Express, Router, Request, Response } from 'express';
 
-import { 
-  setupCors,
-  setupHeaders,
-  setupErrorHandler,
-  setupLogger,
-} from '../common';
+import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../common';
 
-import { 
-  authentication,
-  authorization } from '../extensions/ses-sql';
+import { authentication, authorization } from '../extensions/ses-sql';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const startupServer = ({ config, db, User, setupAppDomain}) => {
+export const startupServer = ({ config, db, User, setupAppDomain }) => {
   const app: Express = express();
   app.use(express.json());
 
@@ -22,15 +15,13 @@ export const startupServer = ({ config, db, User, setupAppDomain}) => {
   const { logger, httpLogger } = setupLogger(config);
   app.use(httpLogger);
 
-  console.log(db);
-
   const { authMiddleware, authRouter } = authentication({ app, config, db, User });
 
   const isAuthorized = authorization({ config, db });
 
   // Auth middleware usage
   // Define the protected routes
- 
+
   const router = Router();
   // Auth router usage
   router.use('/auth', authRouter);
@@ -38,7 +29,7 @@ export const startupServer = ({ config, db, User, setupAppDomain}) => {
   const protectedRoutes = setupAppDomain({
     router,
     isAuthorized,
-    db,
+    repository: db.sqlRepository,
   });
   app.use(protectedRoutes, authMiddleware);
 
@@ -46,9 +37,9 @@ export const startupServer = ({ config, db, User, setupAppDomain}) => {
   router.get('/', (_req: Request, res: Response) => {
     res.json({ message: `Is live` });
   });
-    
+
   app.use(setupErrorHandler());
-  
+
   app.listen(config.port, () => {
     logger.info(`⚡️[server]: Server is running
       at: ${config.baseUrl}:${config.port}

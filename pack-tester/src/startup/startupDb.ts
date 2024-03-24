@@ -7,4 +7,3 @@ export const startupDb = async (config: any, dbType: string, entities?: any) => 
   await db.connectDb();
   return db;
 };
-  

@@ -1,30 +1,16 @@
-import {
-  AuthMngrOPtions,
-  setupAuthManager,
-} from '../../../../packages/base-user-mngr';
-import {
-  initStrategies,
-  StrategyOptions,
-} from '../../../../packages/auth-strategies';
-import { 
-  BaseUser, 
-  dBApi,
-  Token } from '@juliusagency/base-user-sql';
-import {
-  AuthConfig,
-  SessionConfig,
-  setupAuthMiddleware,
-} from '../../../../packages/auth-session';
+import { AuthMngrOPtions, setupAuthManager } from '../../../../packages/base-user-mngr/src';
+import { initStrategies, StrategyOptions } from '../../../../packages/auth-strategies/src';
+import { BaseUser, dBApi, Token } from '../../../../packages/base-user-sql/src';
+import { AuthConfig, SessionConfig, setupAuthMiddleware } from '../../../../packages/auth-session/src';
 
 // Reexport
-export { BaseUser,Token };
- 
+export { BaseUser, Token };
+
 // Setup Auth with session and Sql Db
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthenticationSet = ({ app, config, db, User }) => {
-
   // Wrap up the User and the Token
-  const user = dBApi(db.sqlRepository(User ? User: BaseUser));
+  const user = dBApi(db.sqlRepository(User ? User : BaseUser));
   const token = dBApi(db.sqlRepository(Token));
 
   // Setup the strategy and the user manager with the user
@@ -45,7 +31,6 @@ export const setupAuthenticationSet = ({ app, config, db, User }) => {
   };
   const authRouter = setupAuthManager(authMngrOPtions);
 
-
   // Session
   const sesConfig: SessionConfig = {
     name: config.sessionName,
@@ -59,7 +44,7 @@ export const setupAuthenticationSet = ({ app, config, db, User }) => {
     },
     resave: config.sessionResave,
   };
-  
+
   // Auth middleware setup
   const authConfig: AuthConfig = {
     app: app,

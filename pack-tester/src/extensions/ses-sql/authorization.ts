@@ -1,23 +1,24 @@
 import {
-  // ModelType,
-  // initRules,
+  ModelType,
+  rulesModel,
+  initRules,
   rulesRepository,
-} from '../../../../packages/authorization-repo-sql';
-import { setupAuthorization } from '../../../../packages/authorization-ses-checker';
+} from '../../../../packages/authorization-repo-sql/src';
+import { setupAuthorization } from '../../../../packages/authorization-ses-checker/src';
 
-// import { aclData } from '../../dbs/authorization-definitions/acl';
-// import { rbacData } from '../../dbs/authorization-definitions/rbac';
+import { aclData } from '../../dbs/authorization-definitions/acl';
+import { rbacData } from '../../dbs/authorization-definitions/rbac';
 
+export { rulesModel };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthorizationSet = ({ config, db }) => {
-  const modelType = config.modelType;
-  // const rules = modelType === ModelType.ACL ? aclData : rbacData;
+  const modelType = config.modelType === 'ACL' ? ModelType.ACL : ModelType.RBAC;
   if (config.test) {
-    // initRules(db, modelType, rules);
+    const rules = modelType === ModelType.ACL ? aclData : rbacData;
+    initRules(db, modelType, rules);
   }
 
   const rulesRepo = rulesRepository(db, modelType);
   // // Init the authorization package
   return setupAuthorization({ rulesRepo });
 };
-

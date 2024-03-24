@@ -1,7 +1,7 @@
 // import { appConfig } from '../configuration';
 
-import { LoggerFormatter, initHttpLogger } from '@juliusagency/http-logger';
-import { LoggerOptions, initLogger } from '@juliusagency/simple-logger';
+import { LoggerFormatter, initHttpLogger } from '../../../packages/http-logger/src';
+import { LoggerOptions, initLogger } from '../../../packages/simple-logger/src';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupLogger = (config: any) => {
@@ -13,8 +13,7 @@ export const setupLogger = (config: any) => {
   const logger = initLogger(loggerConfig);
 
   const formatter: LoggerFormatter = {
-    token:
-      ':remote-addr :method :url :status :res[content-length] - :response-time ms',
+    token: ':remote-addr :method :url :status :res[content-length] - :response-time ms',
   };
   const httpLogger = initHttpLogger(logger, formatter);
   return { logger, httpLogger };
