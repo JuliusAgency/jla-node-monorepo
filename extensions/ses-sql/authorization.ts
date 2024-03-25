@@ -1,8 +1,8 @@
-import { ModelType, rulesModel, initRules, rulesRepository } from '../../../../packages/authorization-repo-sql/src';
-import { setupAuthorization } from '../../../../packages/authorization-ses-checker/src';
+import { ModelType, rulesModel, initRules, rulesRepository } from '../../packages/authorization-repo-sql/src';
+import { setupAuthorization } from '../../packages/authorization-ses-checker/src';
 
-import { aclData } from '../../dbs/authorization-definitions/acl';
-import { rbacData } from '../../dbs/authorization-definitions/rbac';
+import { aclData } from '../../pack-tester/src/dbs/authorization-definitions/acl';
+import { rbacData } from '../../pack-tester/src/dbs/authorization-definitions/rbac';
 
 export { rulesModel };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

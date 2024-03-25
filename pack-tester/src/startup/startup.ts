@@ -4,7 +4,7 @@ import {
   // BaseUser,
   Token,
   rulesModel,
-} from '../extensions';
+} from '../../../extensions';
 
 import { User, setupAppDomain } from '../app-domain';
 

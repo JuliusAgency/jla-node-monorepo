@@ -2,7 +2,7 @@ import express, { Express, Router, Request, Response } from 'express';
 
 import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../common';
 
-import { authentication, authorization } from '../extensions/ses-sql';
+import { authentication, authorization } from '../../../extensions/ses-sql';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const startupServer = ({ config, db, User, setupAppDomain }) => {
