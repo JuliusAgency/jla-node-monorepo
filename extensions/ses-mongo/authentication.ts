@@ -1,7 +1,7 @@
 import { AuthMngrOPtions, setupAuthManager } from '../../packages/base-user-mngr/src';
 import { initStrategies, StrategyOptions } from '../../packages/auth-strategies/src';
 import { AuthConfig, SessionConfig, setupAuthMiddleware } from '../../packages/auth-session/src';
-import { BaseUser, dBApi, Token } from '../../packages/base-user-sql/src';
+import { BaseUser, dBApi, Token } from '../../packages/base-user-mongo/src';
 
 // Reexport
 export { BaseUser, Token };

@@ -1,3 +1,3 @@
-export { BaseUser, Token, setupAuthenticationSet as authentication } from './authentication';
+export { BaseUser, Token, setupAuthentication as authentication } from './authentication';
 
-export { rulesModel, setupAuthorizationSet as authorization } from './authorization';
+export { rulesModel, setupAuthorization as authorization } from './authorization';

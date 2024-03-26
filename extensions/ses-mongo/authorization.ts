@@ -1,10 +1,10 @@
 import { setupAuthorization as authorization} from '../../packages/authorization-ses-checker/src';
-import { ModelType, rulesModel, initRules, rulesRepository } from '../../packages/authorization-repo-sql/src';
+import { ModelType, initRules, rulesRepository } from '../../packages/authorization-repo-mongo/src';
 
 import { aclData } from '../../pack-tester/src/dbs/authorization-definitions/acl';
 import { rbacData } from '../../pack-tester/src/dbs/authorization-definitions/rbac';
 
-export { rulesModel };
+// export { rulesModel };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthorization = ({ config, db }) => {
   const modelType = config.modelType === 'ACL' ? ModelType.ACL : ModelType.RBAC;
