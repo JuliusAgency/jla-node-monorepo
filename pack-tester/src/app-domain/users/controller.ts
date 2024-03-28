@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 
-import { User } from './model';
 import { AppError, AppErrorArgs, ResponseCode } from '../../../../packages/simple-error-handler/src';
+
+// import { User } from './model_mongo';
+import { User } from './model_sql';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupUserController = ({ repository }) => {

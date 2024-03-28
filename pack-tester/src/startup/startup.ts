@@ -1,14 +1,10 @@
 import { dbType, getConfigMapping } from '../initialization';
 import { appConfig } from '../configuration';
-import {
-  // BaseUser,
-  Token,
-  rulesModel,
-} from '../../../extensions';
 
 import { User, setupAppDomain } from '../app-domain';
 
 import { startupDb } from './startupDb';
+import { setupExtension } from './setupExtension';
 import { startupServer } from './startupServer';
 
 export const startup = async () => {
@@ -17,10 +13,7 @@ export const startup = async () => {
   const config = appConfig(configMapping);
   console.log(config);
 
-  const Acl = rulesModel(0);
-  const Rbac = rulesModel(1);
-  const entities = [User, Token, Acl, Rbac];
-  const db = await startupDb(config, dbType, entities);
+  const db = await startupDb(config, dbType, User);
 
-  startupServer({ config, db, User, setupAppDomain });
+  startupServer({ config, db, User, setupExtension: setupExtension, setupAppDomain });
 };
