@@ -16,14 +16,14 @@ export const errorHandler = (
   };
 
   const internalErrorHandler = (error: Error, response: Response) => {
-    console.log(`internalErrorHandler ${error.message}`);
+    console.log(`internalErrorHandler ${error.message}, call stack: ${error.stack}`);
     response
       .status(ResponseCode.INTERNAL_SERVER_ERROR)
       .send('Internal server error');
   };
 
   const criticalErrorHandler = (error: Error) => {
-    console.log(`criticalErrorHandler ${error.message}`);
+    console.log(`criticalErrorHandler ${error.message}, call stack: ${error.stack}`);
     process.exit(1);
   };
 
