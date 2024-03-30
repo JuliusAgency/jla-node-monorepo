@@ -1,7 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const initDb = (config: any, entities?: []) => {
+export const initDb = async (config: any, entities?: []) => {
   const dbOptions: DataSourceOptions = {
     type: 'postgres',
     url: config.dbUrl,
@@ -26,9 +26,6 @@ export const initDb = (config: any, entities?: []) => {
         console.error("Can't connect to SQL Db :", err);
       });
   };
-
-  return {
-    sqlRepository,
-    connectDb,
-  };
+  await connectDb();
+  return sqlRepository;
 };

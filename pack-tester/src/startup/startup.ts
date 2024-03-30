@@ -8,8 +8,8 @@ import { setupExtension } from './setupExtension';
 import { startupServer } from './startupServer';
 
 export const startup = async () => {
-  // const dbType = 'MONGO';
-  const dbType = 'SQL';
+  const dbType = 'MONGO';
+  // const dbType = 'SQL';
   const authType = 'SES';
   const configMapping = getConfigMapping(dbType, authType);
 

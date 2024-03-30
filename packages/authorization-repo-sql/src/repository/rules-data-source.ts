@@ -6,7 +6,7 @@ export { rulesModel };
 export const rulesDataSource = (db: any, type: ModelType) => {
   const getRules = async () => {
     const rulesCollection = rulesModel(type);
-    const repository = await db.sqlRepository(rulesCollection);
+    const repository = await db(rulesCollection);
     return await repository.find({ where: {} });
   };
 

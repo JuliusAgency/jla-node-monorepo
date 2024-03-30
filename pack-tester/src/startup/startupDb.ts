@@ -7,7 +7,6 @@ export const startupDb = async (config: any, dbType: string, User: any) => {
   const rules = ext.rulesEntity(config);
   const entities = [User? User : ext.BaseUser, ext.Token, rules];
 
-  const db = initDb(config, entities);
-  await db.connectDb();
+  const db = await initDb(config, entities);
   return db;
 };

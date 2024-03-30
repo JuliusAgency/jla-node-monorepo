@@ -12,12 +12,10 @@ export const setupExtension = async({ config, db, app, router, appDomain }) => {
   // Auth router usage
   router.use('/auth', authRouter);
   // Setup the app domain
-  // const repository = db.connectDb; //mongo
   const protectedRoutes = appDomain.setupAppDomain({
     router,
     isAuthorized,
-    repository: db.sqlRepository, //sql
-    // repository: repository, // mongo
+    repository: db,
   });
 
   app.use(protectedRoutes, authMiddleware);    

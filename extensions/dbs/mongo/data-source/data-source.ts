@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const initDb = (config: any) => {  
+export const initDb = async (config: any) => {  
   let connection = undefined;
   const connectDb = async () => {
     if (connection != undefined) { 
@@ -23,5 +23,5 @@ export const initDb = (config: any) => {
     connection = mongoose.connection;
     return connection;
   };
-  return { connectDb };
+  return await connectDb();
 };

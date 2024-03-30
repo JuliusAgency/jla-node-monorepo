@@ -13,12 +13,12 @@ import { ModelType, rulesModel } from './model';
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const initRules = async (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  { sqlRepository },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  db: any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type: ModelType,
   data: unknown,
 ) => {
   const model = rulesModel(type);
-  await sqlRepository(model).save(data);
+  await db(model).save(data);
 };
