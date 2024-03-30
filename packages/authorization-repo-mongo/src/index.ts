@@ -2,4 +2,4 @@
  *  Authorization Rules - Repository MongDb
  */
 
-export { ModelType, initRules, rulesRepository } from './repository/repository';
+export { ModelType, initRules, rulesModel, rulesRepository } from './repository/repository';
