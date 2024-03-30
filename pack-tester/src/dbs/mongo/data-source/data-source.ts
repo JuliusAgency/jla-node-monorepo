@@ -1,9 +1,12 @@
 import mongoose from 'mongoose';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const initDb = (config: any) => {
-  console.log(config);
+export const initDb = (config: any) => {  
+  let connection = undefined;
   const connectDb = async () => {
+    if (connection != undefined) { 
+      return connection;
+    }
     // The `EventListeners` is setup here.
     mongoose.connection
       .on('error', (err) => {
@@ -17,7 +20,8 @@ export const initDb = (config: any) => {
     await mongoose.connect(config.dbUrl, {
       dbName: config.dbName,
     });
-    return mongoose.connection;
+    connection = mongoose.connection;
+    return connection;
   };
   return { connectDb };
 };
