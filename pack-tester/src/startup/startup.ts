@@ -1,4 +1,4 @@
-import { dbType, getConfigMapping } from '../initialization';
+import { getConfigMapping } from '../initialization';
 import { appConfig } from '../configuration';
 
 import { User, setupAppDomain } from '../app-domain';
@@ -8,7 +8,11 @@ import { setupExtension } from './setupExtension';
 import { startupServer } from './startupServer';
 
 export const startup = async () => {
-  const configMapping = getConfigMapping();
+  // const dbType = 'MONGO';
+  const dbType = 'SQL';
+  const authType = 'SES';
+  const configMapping = getConfigMapping(dbType, authType);
+
   // extend config by extensions configurations
   const config = appConfig(configMapping);
   console.log(config);

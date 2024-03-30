@@ -10,8 +10,9 @@ export { BaseUser, Token };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthentication = ({ app, config, db, User }) => {
   // Wrap up the User and the Token
-  const user = dBApi(db.sqlRepository(User ? User : BaseUser));
-  const token = dBApi(db.sqlRepository(Token));
+  console.log(db);
+  const user = dBApi(User ? User : BaseUser);
+  const token = dBApi(Token);
 
   // Setup the strategy and the user manager with the user
   // Strategy

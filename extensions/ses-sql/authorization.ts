@@ -1,8 +1,8 @@
 import { setupAuthorization as authorization} from '../../packages/authorization-ses-checker/src';
 import { ModelType, rulesModel, initRules, rulesRepository } from '../../packages/authorization-repo-sql/src';
 
-import { aclData } from '../../pack-tester/src/dbs/authorization-definitions/acl';
-import { rbacData } from '../../pack-tester/src/dbs/authorization-definitions/rbac';
+import { aclData } from './authorization-definitions/acl';
+import { rbacData } from './authorization-definitions/rbac';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const rulesEntity = (config: any) => {
@@ -10,7 +10,6 @@ export const rulesEntity = (config: any) => {
   return rulesModel(modelType);
 };
 
-export { ModelType, rulesModel };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthorization = ({ config, db }) => {
   const modelType = config.modelType === 'ACL' ? ModelType.ACL : ModelType.RBAC;

@@ -1,19 +1,27 @@
 import { setupAuthorization as authorization} from '../../packages/authorization-ses-checker/src';
-import { ModelType, initRules, rulesRepository } from '../../packages/authorization-repo-mongo/src';
+import { ModelType, rulesModel, initRules, rulesRepository } from '../../packages/authorization-repo-mongo/src';
 
-import { aclData } from '../../pack-tester/src/dbs/authorization-definitions/acl';
-import { rbacData } from '../../pack-tester/src/dbs/authorization-definitions/rbac';
+import { aclData } from './authorization-definitions/acl';
+import { rbacData } from './authorization-definitions/rbac';
 
-// export { rulesModel };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+export const rulesEntity = (_config: any) => {
+  return null;
+};
+
+export { rulesModel };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setupAuthorization = ({ config, db }) => {
+export const setupAuthorization = async ({ config, db }) => {
+  const connection = await db.connectDb();
   const modelType = config.modelType === 'ACL' ? ModelType.ACL : ModelType.RBAC;
   if (config.test) {
     const rules = modelType === ModelType.ACL ? aclData : rbacData;
-    initRules(db, modelType, rules);
+
+    await initRules(connection, modelType, rules);
+    console.log(`authorization rules for ${config.modelType} created`);
   }
 
-  const rulesRepo = rulesRepository(db, modelType);
+  const rulesRepo = rulesRepository(connection, modelType);
   // // Init the authorization package
   return authorization({ rulesRepo });
 };

@@ -1,13 +1,13 @@
-export const dbType = 'SQL';
-const AuthType = 'SES';
+// dbType = 'MONGO' || 'SQL';
+// authType = 'SES' || 'JWT';
 
-export const getConfigMapping = () => {
+export const getConfigMapping = (dbType: string, authType: string) => {
   const dbMap = configDbMapping[dbType.toLowerCase()];
   return {
     ...dbMap,
     ...configCommonMapping['cors'],
     ...configCommonMapping['logger'],
-    ...configAuthMapping['authentication'][AuthType.toLowerCase()],
+    ...configAuthMapping['authentication'][authType.toLowerCase()],
     ...configAuthorizationMapping,
   };
 };
