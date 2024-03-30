@@ -3,11 +3,7 @@ import express, { Express, Router, Request, Response } from 'express';
 import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../common';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const startupServer = ({ config, db, User, setupExtension, setupAppDomain }) => {
-  // console.log(db);
-  // console.log(User);
-  // console.log(setupExtension);
-  // console.log(setupAppDomain);
+export const startupServer = ({ config, db, setupExtension, appDomain }) => {
 
   const app: Express = express();
   app.use(express.json());
@@ -19,7 +15,7 @@ export const startupServer = ({ config, db, User, setupExtension, setupAppDomain
   app.use(httpLogger);
 
   const router = Router();
-  setupExtension({ config, db, app, router, User, setupAppDomain });
+  setupExtension({ config, db, app, router, appDomain });
 
   app.use(router);
   router.get('/', (_req: Request, res: Response) => {
