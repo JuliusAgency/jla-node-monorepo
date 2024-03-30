@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 
-import { BaseUser } from '../../../../packages/base-user-sql/src';
+import { BaseUser } from '../../../../../packages/base-user-sql/src';
 import { Column, Entity } from 'typeorm';
 
 @Entity('users')

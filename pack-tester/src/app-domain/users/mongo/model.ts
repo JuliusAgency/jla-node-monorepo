@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import { BaseUser } from '../../../../packages/base-user-mongo/src';
+import { BaseUser } from '../../../../../packages/base-user-mongo/src';
 
 export interface UserInterface {
   role: string;

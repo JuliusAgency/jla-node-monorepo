@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 
-import { AppError, AppErrorArgs, ResponseCode } from '../../../../packages/simple-error-handler/src';
+import { AppError, AppErrorArgs, ResponseCode } from '../../../../../packages/simple-error-handler/src';
 
-// import { User } from './model_mongo';
-import { User } from './model_sql';
+import { User } from './model';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupUserController = ({ repository }) => {
+  console.log(repository);
   const getAllUsers = async (_req: Request, res: Response) => {
-    const users = await repository(User).find({ where: {} });
+    const users = await User.find({});
     if (!users) {
       const errorArgs: AppErrorArgs = {
         name: 'getAllUsers',
@@ -26,14 +26,14 @@ export const setupUserController = ({ repository }) => {
       const errorArgs: AppErrorArgs = {
         name: 'getUserById',
         code: ResponseCode.OK,
-        description: 'The user not found',
+        description: 'There are no users',
       };
       throw new AppError(errorArgs);
-    }
+    };
     return res.status(200).json(user);
   };
   const getUserData = async (userId: string) => {
-    return await repository(User).findOne({ where: { _id: userId } });
+    return await User.findById(userId);
   };
 
   return {
