@@ -202,6 +202,11 @@ npm run build:esm
 npm run build:cjs
 npm run build
 ```
+Update a package version:  
+```bash
+npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git]
+ -w <workspace/package>  
+```
 Prepack:
 ```bash
 npm run prepack

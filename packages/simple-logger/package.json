@@ -1,6 +1,6 @@
 {
   "name": "@juliusagency/simple-logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A npm package for use in Node.js projects.",
   "exports": {
     ".": {
@@ -60,8 +60,7 @@
     "commonjs",
     "ecmascript"
   ],
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "winston": "^3.10.0",
     "winston-daily-rotate-file": "^4.7.1"

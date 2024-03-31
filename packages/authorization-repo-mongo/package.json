@@ -60,8 +60,7 @@
     "commonjs",
     "ecmascript"
   ],
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "mongoose": "^8.0.1"
   },
