@@ -5,8 +5,7 @@ import { AppError, AppErrorArgs, ResponseCode } from '../../../../../packages/si
 import { User } from './model';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setupUserController = ({ repository }) => {
-  console.log(repository);
+export const setupUserController = ({ }) => {
   const getAllUsers = async (_req: Request, res: Response) => {
     const users = await User.find({});
     if (!users) {

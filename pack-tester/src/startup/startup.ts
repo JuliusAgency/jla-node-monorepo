@@ -15,7 +15,7 @@ export const startup = async () => {
 
   // extend config by extensions configurations
   const config = appConfig(configMapping);
-  console.log(config);
+  // console.log(config);
 
   const db = await startupDb(config, dbType, appDomain.User);
 

@@ -6,7 +6,6 @@ import { User } from './model';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupUserController = ({ repository }) => {
-  console.log(repository);
   const getAllUsers = async (_req: Request, res: Response) => {
     const users = await repository(User).find({ where: {} });
     if (!users) {

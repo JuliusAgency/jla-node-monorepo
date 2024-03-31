@@ -10,7 +10,7 @@ export { BaseUser, Token };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthentication = ({ app, config, db, User }) => {
   // Wrap up the User and the Token
-  console.log(db);
+  console.log(db.name);
   const user = dBApi(User ? User : BaseUser);
   const token = dBApi(Token);
 
