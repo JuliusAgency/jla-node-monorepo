@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.esm.json",
+  "compilerOptions": { 
+    "strict": false,
+    "outDir": "./lib/esm",  
+    "declarationDir": "./lib/esm/types"  
+  },
+  "files": ["./src/index.ts"]
+}

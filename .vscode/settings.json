@@ -5,11 +5,14 @@
         "mworkflows",
         "newversion",
         "packlist",
+        "parens",
         "premajor",
         "preminor",
         "prepatch",
         "typeorm",
         "unpublish",
         "varchar"
-    ]
+    ],
+    "npm.scriptExplorerAction": "run",
+    "npm-scripts.showStartNotification": false
 }

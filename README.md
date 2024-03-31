@@ -18,7 +18,7 @@ Monorepo for development and deployment Nodejs packages
 
 ├── .eslintrc  
 ├── .github  
-│     └── mworkflows  
+│     └── workflows  
 │       ├── {package-name}-github.yaml  
 │       ├── {package-name}-npm.yaml  
 │       └── {package-name}-test.yaml  
@@ -215,3 +215,6 @@ Pack for local installation:
 ```bash
 npm run pack:local
 ```
+### Dynamic loader
+[Import](https://medium.com/@nlfernando11/javascript-dynamically-import-c2b890d75b5a)  
+[TS](https://marketsplash.com/tutorials/typescript/import-typescript/)
