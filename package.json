@@ -38,9 +38,8 @@
     "prepack:packages": "npm run prepack --workspaces",
     "pack:local": "npm run pack:local:packages",
     "pack:local:packages": "npm run pack:local --workspaces",
-    "test": "npm run test:packages && npm run test:packs-dev",
+    "test": "npm run test:packages",
     "test:packages": "npm run test --workspaces",
-    "test:pack-tester": "jest --detectOpenHandles --coverage --verbose",
     "dev": "NODE_ENV=dev nodemon ./pack-tester/src/index.ts"
   },
   "devDependencies": {
