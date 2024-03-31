@@ -1,8 +1,6 @@
-
 import { authentication, authorization } from '../../../extensions';
 
-export const setupExtension = async({ config, db, app, router, appDomain }) => {
-
+export const setupExtension = async ({ config, db, app, router, appDomain }) => {
   const User = appDomain.User;
   const { authMiddleware, authRouter } = authentication({ app, config, db, User });
 
@@ -18,5 +16,5 @@ export const setupExtension = async({ config, db, app, router, appDomain }) => {
     repository: db,
   });
 
-  app.use(protectedRoutes, authMiddleware);    
+  app.use(protectedRoutes, authMiddleware);
 };

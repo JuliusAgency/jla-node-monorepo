@@ -32,8 +32,7 @@
     "fix:packages": "npm run lint:fix --workspaces",
     "fix:prettier": "prettier \"pack-tester/**/*.ts\" --write",
     "fix:lint": "eslint pack-tester --quiet --ext .ts --fix",
-    "build": "npm run build:packages && npm run build:pack-tester",
-    "build:pack-tester": "run-s clean:pack-tester && npx tsc",
+    "build": "npm run build:packages",
     "build:packages": "npm run build --workspaces",
     "prepack": "npm run prepack:packages",
     "prepack:packages": "npm run prepack --workspaces",
@@ -42,9 +41,7 @@
     "test": "npm run test:packages && npm run test:packs-dev",
     "test:packages": "npm run test --workspaces",
     "test:pack-tester": "jest --detectOpenHandles --coverage --verbose",
-    "dev": "NODE_ENV=dev nodemon ./pack-tester/src/index.ts",
-    "start": "NODE_ENV=prod ts-node ./pack-tester/src/index.ts",
-    "run": "export NODE_ENV=prod && node ./build/main/pack-tester/src/index.js"
+    "dev": "NODE_ENV=dev nodemon ./pack-tester/src/index.ts"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.10",

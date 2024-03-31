@@ -34,9 +34,9 @@ export const resolveExternalConfig = (externalConfig?: ExternalConfig) => {
     if (typeof value === 'string') {
       const envValue = process.env[value] || '';
       if (envValue === 'true') {
-        externalConfig[key] = true; 
+        externalConfig[key] = true;
       } else if (envValue === 'false') {
-        externalConfig[key] = false; 
+        externalConfig[key] = false;
       } else {
         externalConfig[key] = envValue;
       }

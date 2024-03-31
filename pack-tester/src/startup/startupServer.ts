@@ -4,7 +4,6 @@ import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../comm
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const startupServer = ({ config, db, setupExtension, appDomain }) => {
-
   const app: Express = express();
   app.use(express.json());
 

@@ -29,7 +29,7 @@ export const setupUserController = ({ repository }) => {
         description: 'There are no users',
       };
       throw new AppError(errorArgs);
-    };
+    }
     return res.status(200).json(user);
   };
   const getUserData = async (userId: string) => {
