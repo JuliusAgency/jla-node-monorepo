@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/base-user-mngr/**']
+    paths: ['packages/base-user-mngr/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/base-user-mngr/**']
+  #   paths: ['packages/base-user-mngr/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/base-user-mngr
-      - run: npm run build -w packages/private/base-user-mngr --if-present
-      - run: npm test -w packages/private/base-user-mngr
+      - run: npm ci -w packages/base-user-mngr
+      - run: npm run build -w packages/base-user-mngr --if-present
+      - run: npm test -w packages/base-user-mngr

@@ -8,7 +8,7 @@ on:
     workflows: ["Test base-user-sql"]
     types:
       - completed
-    paths: 'packages/private/base-user-sql/**'
+    paths: 'packages/base-user-sql/**'
 
 jobs:
   build:
@@ -25,8 +25,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/private/base-user-sql
+      - run: npm ci -w packages/base-user-sql
       # - run: npm unpublish --force
-      - run: npm publish -w packages/private/base-user-sql
+      - run: npm publish -w packages/base-user-sql
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

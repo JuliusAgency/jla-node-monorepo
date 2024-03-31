@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/base-user-sql/**']
+    paths: ['packages/base-user-sql/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/base-user-sql/**']
+  #   paths: ['packages/base-user-sql/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/base-user-sql
-      - run: npm run build -w packages/private/base-user-sql --if-present
-      - run: npm test -w packages/private/base-user-sql
+      - run: npm ci -w packages/base-user-sql
+      - run: npm run build -w packages/base-user-sql --if-present
+      - run: npm test -w packages/base-user-sql

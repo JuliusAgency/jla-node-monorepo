@@ -8,7 +8,7 @@ on:
     workflows: ["Test auth-strategies"]
     types:
       - completed
-    paths: 'packages/private/auth-strategies/**'
+    paths: 'packages/auth-strategies/**'
 
 jobs:
   build:
@@ -25,8 +25,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/private/auth-strategies
+      - run: npm ci -w packages/auth-strategies
       # - run: npm unpublish --force
-      - run: npm publish -w packages/private/auth-strategies
+      - run: npm publish -w packages/auth-strategies
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

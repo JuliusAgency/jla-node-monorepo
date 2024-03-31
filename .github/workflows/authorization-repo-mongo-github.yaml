@@ -8,7 +8,7 @@ on:
     workflows: ["Test authorization-repo-mongo"]
     types:
       - completed
-    paths: 'packages/private/authorization-repo-mongo/**'
+    paths: 'packages/authorization-repo-mongo/**'
 
 jobs:
   build:
@@ -25,8 +25,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/private/authorization-repo-mongo
+      - run: npm ci -w packages/authorization-repo-mongo
       # - run: npm unpublish --force
-      - run: npm publish -w packages/private/authorization-repo-mongo
+      - run: npm publish -w packages/authorization-repo-mongo
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

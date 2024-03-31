@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/auth-strategies/**']
+    paths: ['packages/auth-strategies/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/auth-strategies/**']
+  #   paths: ['packages/auth-strategies/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/auth-strategies
-      - run: npm run build -w packages/private/auth-strategies --if-present
-      - run: npm test -w packages/private/auth-strategies
+      - run: npm ci -w packages/auth-strategies
+      - run: npm run build -w packages/auth-strategies --if-present
+      - run: npm test -w packages/auth-strategies

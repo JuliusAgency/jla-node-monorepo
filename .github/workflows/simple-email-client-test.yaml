@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/simple-email-client/**']
+    paths: ['packages/simple-email-client/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/simple-email-client/**']
+  #   paths: ['packages/simple-email-client/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/simple-email-client
-      - run: npm run build -w packages/private/simple-email-client --if-present
-      - run: npm test -w packages/private/simple-email-client
+      - run: npm ci -w packages/simple-email-client
+      - run: npm run build -w packages/simple-email-client --if-present
+      - run: npm test -w packages/simple-email-client

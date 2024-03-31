@@ -8,7 +8,7 @@ on:
     workflows: ["Test auth-jwt"]
     types:
       - completed
-    paths: 'packages/private/auth-jwt/**'
+    paths: 'packages/auth-jwt/**'
 
 jobs:
   build:
@@ -25,8 +25,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/private/auth-jwt
+      - run: npm ci -w packages/auth-jwt
       # - run: npm unpublish --force
-      - run: npm publish -w packages/private/auth-jwt
+      - run: npm publish -w packages/auth-jwt
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

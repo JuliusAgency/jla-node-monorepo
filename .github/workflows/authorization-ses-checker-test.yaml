@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/authorization-ses-checker/**']
+    paths: ['packages/authorization-ses-checker/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/authorization-ses-checker/**']
+  #   paths: ['packages/authorization-ses-checker/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/authorization-ses-checker
-      - run: npm run build -w packages/private/authorization-ses-checker --if-present
-      - run: npm test -w packages/private/authorization-ses-checker
+      - run: npm ci -w packages/authorization-ses-checker
+      - run: npm run build -w packages/authorization-ses-checker --if-present
+      - run: npm test -w packages/authorization-ses-checker

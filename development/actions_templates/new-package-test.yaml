@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/{package-name}/**']
+    paths: ['packages/{package-name}/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/{package-name}/**']
+  #   paths: ['packages/{package-name}/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/{package-name}
-      - run: npm run build -w packages/private/{package-name} --if-present
-      - run: npm test -w packages/private/{package-name}
+      - run: npm ci -w packages/{package-name}
+      - run: npm run build -w packages/{package-name} --if-present
+      - run: npm test -w packages/{package-name}

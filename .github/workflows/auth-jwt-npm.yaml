@@ -3,7 +3,7 @@ name: Release Npm auth-jwt
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/private/auth-jwt/**'
+    paths: 'packages/auth-jwt/**'
 
   # workflow_run:
   #   branches: [ main ]

@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/authorization-repo-mongo/**']
+    paths: ['packages/authorization-repo-mongo/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/authorization-repo-mongo/**']
+  #   paths: ['packages/authorization-repo-mongo/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/authorization-repo-mongo
-      - run: npm run build -w packages/private/authorization-repo-mongo --if-present
-      - run: npm test -w packages/private/authorization-repo-mongo
+      - run: npm ci -w packages/authorization-repo-mongo
+      - run: npm run build -w packages/authorization-repo-mongo --if-present
+      - run: npm test -w packages/authorization-repo-mongo

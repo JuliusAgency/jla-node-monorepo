@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/authorization-repo-sql/**']
+    paths: ['packages/authorization-repo-sql/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/authorization-repo-sql/**']
+  #   paths: ['packages/authorization-repo-sql/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/authorization-repo-sql
-      - run: npm run build -w packages/private/authorization-repo-sql --if-present
-      - run: npm test -w packages/private/authorization-repo-sql
+      - run: npm ci -w packages/authorization-repo-sql
+      - run: npm run build -w packages/authorization-repo-sql --if-present
+      - run: npm test -w packages/authorization-repo-sql

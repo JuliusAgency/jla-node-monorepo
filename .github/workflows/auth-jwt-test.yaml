@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/auth-jwt/**']
+    paths: ['packages/auth-jwt/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/auth-jwt/**']
+  #   paths: ['packages/auth-jwt/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/auth-jwt
-      - run: npm run build -w packages/private/auth-jwt --if-present
-      - run: npm test -w packages/private/auth-jwt
+      - run: npm ci -w packages/auth-jwt
+      - run: npm run build -w packages/auth-jwt --if-present
+      - run: npm test -w packages/auth-jwt

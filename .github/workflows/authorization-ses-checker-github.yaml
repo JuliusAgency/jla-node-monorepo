@@ -8,7 +8,7 @@ on:
     workflows: ["Test authorization-ses-checker"]
     types:
       - completed
-    paths: 'packages/private/authorization-ses-checker/**'
+    paths: 'packages/authorization-ses-checker/**'
 
 jobs:
   build:
@@ -25,8 +25,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@juliusagency'
-      - run: npm ci -w packages/private/authorization-ses-checker
+      - run: npm ci -w packages/authorization-ses-checker
       # - run: npm unpublish --force
-      - run: npm publish -w packages/private/authorization-ses-checker
+      - run: npm publish -w packages/authorization-ses-checker
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
-    paths: ['packages/private/authorization-jwt-checker/**']
+    paths: ['packages/authorization-jwt-checker/**']
   # pull_request:
   #   branches: [ main ]
-  #   paths: ['packages/private/authorization-jwt-checker/**']
+  #   paths: ['packages/authorization-jwt-checker/**']
 
 jobs:
   build:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci -w packages/private/authorization-jwt-checker
-      - run: npm run build -w packages/private/authorization-jwt-checker --if-present
-      - run: npm test -w packages/private/authorization-jwt-checker
+      - run: npm ci -w packages/authorization-jwt-checker
+      - run: npm run build -w packages/authorization-jwt-checker --if-present
+      - run: npm test -w packages/authorization-jwt-checker

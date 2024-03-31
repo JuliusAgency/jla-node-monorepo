@@ -3,12 +3,12 @@ name: Release Npm authorization-jwt-checker
 on:
   workflow_dispatch:
     branches: [ main ]
-    paths: 'packages/private/authorization-jwt-checker/**'
+    paths: 'packages/authorization-jwt-checker/**'
 
   # workflow_run:
   #   branches: [ main ]
   #   workflows: ["Test authorization-jwt-checker"]
-  #   paths: 'packages/private/authorization-jwt-checker/**'
+  #   paths: 'packages/authorization-jwt-checker/**'
   #   types:
   #     - completed
 
