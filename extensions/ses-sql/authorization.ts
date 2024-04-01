@@ -1,7 +1,7 @@
 import { setupAuthorization as authorization} from '../../packages/authorization-ses-checker/src';
 import { ModelType, rulesModel, initRules, rulesRepository } from '../../packages/authorization-repo-sql/src';
 
-import { aclData, rbacData } from './authorization-definitions';
+import { aclData, rbacData } from '../dbs/mongo/authorization-definitions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const rulesEntity = (config: any) => {
