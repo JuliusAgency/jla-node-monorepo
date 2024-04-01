@@ -8,6 +8,9 @@ export const getPermissions = ({ rulesRepo }) => {
 const permissionService = ({ rulesRepo }): { getRolePermissions: (role: string, resource?: string) => Promise<unknown>; } => {
   const getRolePermissions = async (role: string, resource?: string) => {
     const definition = await rulesRepo.getRules();
+    if (definition.length === 0) {
+      return returnPermissions([false, false, false, false]);
+    }
     if (resource) {
       // ACL
       const rules = definition;
