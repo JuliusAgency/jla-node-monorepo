@@ -9,6 +9,7 @@ export { BaseUser, Token };
 // Setup Auth with session and Sql Db
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthentication = ({ app, config, db, User }) => {
+  console.log(db.name);
   // Wrap up the User and the Token
   const user = dBApi(db(User ? User : BaseUser));
   const token = dBApi(db(Token));
