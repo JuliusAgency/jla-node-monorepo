@@ -52,7 +52,8 @@ const configAuthMapping = {
       },
     },
     jwt: {
-      loggerLevel: 'SIMPLE_LOGGER_LEVEL',
+      secretKey: 'SECRET_JWT',
+      lifeTime: 'LIFE_TIME',
     },
   },
 };
