@@ -4,7 +4,7 @@ import { AuthMngrOPtions } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthService = (options: AuthMngrOPtions) => {
-  const { User, Token } = options;
+  const { User, Token, salt } = options;
   const crypt = cryptUtils();
 
   const changePassword = async (
@@ -21,7 +21,7 @@ export const setupAuthService = (options: AuthMngrOPtions) => {
     }
 
     // Change password
-    const hash = await crypt.hash(passwordNew);
+    const hash = await crypt.hash(passwordNew, salt);
     await User.findOneAndUpdate({ email }, { password: hash }, { new: true });
 
     const changeParams = {
@@ -51,7 +51,7 @@ export const setupAuthService = (options: AuthMngrOPtions) => {
     const token = await Token.findOne({ user: id });
     if (token) await Token.deleteOne(token);
     const resetPasswordToken = crypto.randomBytes(32).toString('hex');
-    const hash = await crypt.hash(resetPasswordToken);
+    const hash = await crypt.hash(resetPasswordToken, salt);
 
     // save the token
     await Token.save({
@@ -65,7 +65,7 @@ export const setupAuthService = (options: AuthMngrOPtions) => {
 
   const resetPassword = async (id: string, token: string, password: string) => {
     const passwordResetToken = await validateResetToken(id, token);
-    const hash = await crypt.hash(password);
+    const hash = await crypt.hash(password, salt);
     const pkn = User.getPrimaryKeyName();
     await User.findOneAndUpdate(
       { [pkn]: id },

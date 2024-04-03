@@ -18,6 +18,7 @@ export const setupAuthentication = ({ app, config, db, User }) => {
   // Strategy
   const strategyOptions: StrategyOptions = {
     dBApi: user,
+    salt: config.salt,
   };
 
   const strategy = initStrategies(strategyOptions);
@@ -26,6 +27,7 @@ export const setupAuthentication = ({ app, config, db, User }) => {
   const authMngrOPtions: AuthMngrOPtions = {
     User: user,
     strategy: strategy,
+    salt: config.salt,
     session: true,
     Token: token,
     emailer: config.emailer,

@@ -19,24 +19,26 @@ import { Request } from 'express';
 import passport from 'passport';
 import { Strategy } from 'passport-local';
 import { cryptUtils } from '../utils';
+import { StrategyOptions } from '.';
 
 class LocalStrategy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public static init(api: any): void {
+  public static init(options: StrategyOptions): void {
+    const { dBApi, salt } = options;
     const crypt = cryptUtils();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const register = async (req: Request, email: string, password: string, done: any) => {
       try {
         if (!email) done(null, false);
-        const user = await api.findOne({ email: email.toLowerCase() });
+        const user = await dBApi.findOne({ email: email.toLowerCase() });
         if (user) {
           done(null, false, { message: 'User already exist' });
         } else {
           const newUser = req.body;
-          newUser.password = await crypt.hash(password);
+          newUser.password = await crypt.hash(password, salt);
           newUser.createdAt = new Date();
           try {
-            const user = await api.save(newUser);
+            const user = await dBApi.save(newUser);
             done(null, user);
           } catch (e) {
             done(e);
@@ -53,7 +55,7 @@ class LocalStrategy {
         if (!email) {
           done(null, false);
         }
-        const user = await api.findOne({ email: email.toLowerCase() });
+        const user = await dBApi.findOne({ email: email.toLowerCase() });
         if (!user) {
           return done(null, false, { message: 'User not found.' });
         }
