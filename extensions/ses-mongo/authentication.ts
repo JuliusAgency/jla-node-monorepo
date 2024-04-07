@@ -1,5 +1,5 @@
 import { AuthMngrOPtions, setupAuthManager } from '../../packages/base-user-mngr/src';
-import { initStrategies, StrategyOptions } from '../../packages/auth-strategies/src';
+import { initStrategy, StrategyOptions } from '../../packages/auth-strategy-local/src';
 import { AuthConfig, SessionConfig, setupAuthMiddleware } from '../../packages/auth-session/src';
 import { BaseUser, dBApi, Token } from '../../packages/base-user-mongo/src';
 
@@ -8,7 +8,8 @@ export { BaseUser, Token };
 
 // Setup Auth with session and Sql Db
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setupAuthentication = ({ app, config, db, User }) => {
+export const setupAuthentication = (authOptions: any) => {
+  const { app, config, db, User } = authOptions;
   // Wrap up the User and the Token
   console.log(db.name);
   const user = dBApi(User ? User : BaseUser);
@@ -21,7 +22,7 @@ export const setupAuthentication = ({ app, config, db, User }) => {
     salt: config.salt,
   };
 
-  const strategy = initStrategies(strategyOptions);
+  const strategy = initStrategy(strategyOptions);
 
   // User manager
   const authMngrOPtions: AuthMngrOPtions = {
