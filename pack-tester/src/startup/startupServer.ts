@@ -6,6 +6,7 @@ import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../comm
 export const startupServer = ({ config, db, setupExtension, appDomain }) => {
   const app: Express = express();
   app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
   app.use(setupCors(config));
   app.use(setupHeaders());

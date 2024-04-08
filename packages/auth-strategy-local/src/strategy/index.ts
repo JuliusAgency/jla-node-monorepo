@@ -6,7 +6,7 @@ export type StrategyOptions = {
   salt: number;
 };
 
-export const initStrategies = (options: StrategyOptions) => {
+export const initStrategy = (options: StrategyOptions) => {
   LocalStrategy.init(options);
   return LocalStrategy;
 };

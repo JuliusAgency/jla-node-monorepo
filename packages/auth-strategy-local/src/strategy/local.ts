@@ -25,6 +25,7 @@ class LocalStrategy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static init(options: StrategyOptions): void {
     const { dBApi, salt } = options;
+    const saltFactor = Number(salt);
     const crypt = cryptUtils();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const register = async (req: Request, email: string, password: string, done: any) => {
@@ -35,7 +36,7 @@ class LocalStrategy {
           done(null, false, { message: 'User already exist' });
         } else {
           const newUser = req.body;
-          newUser.password = await crypt.hash(password, salt);
+          newUser.password = await crypt.hash(password, saltFactor);
           newUser.createdAt = new Date();
           try {
             const user = await dBApi.save(newUser);
