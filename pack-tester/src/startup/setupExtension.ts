@@ -7,7 +7,7 @@ export const setupExtension = async ({ config, db, app, router, appDomain }) => 
     app: app,
     config: config,
     db: db,
-    User: User
+    User: User,
   };
   const { authMiddleware, authRouter } = authentication(authOptions);
 
