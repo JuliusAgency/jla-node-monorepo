@@ -14,21 +14,18 @@ export const setupAuthController = (options: AuthMngrOPtions, service: any) => {
         req.logIn(user, { session: options.session }, async (error) => {
           if (error) return next(error);
           user.password = '[encoded password]';
-          const { email } = req.body;
-          let retData = {
-            email: email,
-            role: undefined,
-            user: undefined,
-          };
-          // for future authorization usage
-          if (user.role) {
-            retData.role = user.role;
-          }
+          
           if (!options.session) {
-            retData = options.encode(retData);
+            // jwt auth
+            const loginFieldName = options.loginFieldName;
+            let retUser = {
+              [loginFieldName]: user[loginFieldName],
+              role: user.role,
+            };
+            retUser = options.encode(retUser);
             // for front usage
-            retData.user = user;
-            return res.send(retData);
+            retUser.user = user;
+            return res.send(retUser);
           }
           return res.send(user);
         });
