@@ -1,5 +1,5 @@
 import { AuthMngrOPtions, setupAuthManager } from '../../packages/base-user-mngr/src';
-import { initStrategies, StrategyOptions } from '../../packages/auth-strategies/src';
+import { initStrategy, StrategyOptions } from '../../packages/auth-strategy-local/src';
 import { AuthJwtOptions, setupAuthMiddleware } from '../../packages/auth-jwt/src';
 import { BaseUser, dBApi, Token } from '../../packages/base-user-sql/src';
 
@@ -18,9 +18,11 @@ export const setupAuthentication = ({ config, db, User }) => {
   // Strategy
   const strategyOptions: StrategyOptions = {
     dBApi: user,
+    salt: config.salt,
+    loginFieldName: config.loginFieldName,
   };
 
-  const strategy = initStrategies(strategyOptions);
+  const strategy = initStrategy(strategyOptions);
 
   // Auth middleware setup
   const authOpt: AuthJwtOptions = {
@@ -34,10 +36,12 @@ export const setupAuthentication = ({ config, db, User }) => {
   const authMngrOPtions: AuthMngrOPtions = {
     User: user,
     strategy: strategy,
+    salt: config.salt,
     encode: encodeToken,
     session: false,
     Token: token,
     emailer: config.emailer,
+    loginFieldName: config.loginFieldName,
   };
   const authRouter = setupAuthManager(authMngrOPtions);
 

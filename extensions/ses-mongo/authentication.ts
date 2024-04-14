@@ -20,6 +20,7 @@ export const setupAuthentication = (authOptions: any) => {
   const strategyOptions: StrategyOptions = {
     dBApi: user,
     salt: config.salt,
+    loginFieldName: config.loginFieldName,
   };
 
   const strategy = initStrategy(strategyOptions);
@@ -32,6 +33,7 @@ export const setupAuthentication = (authOptions: any) => {
     session: true,
     Token: token,
     emailer: config.emailer,
+    loginFieldName: config.loginFieldName,
   };
   const authRouter = setupAuthManager(authMngrOPtions);
 
