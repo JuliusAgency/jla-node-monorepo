@@ -51,11 +51,13 @@ const configAuthMapping = {
         resave: 'SESSION_RESAVE',
       },
       salt: 'SALT_WORK_FACTOR',
+      loginFieldName: 'LOGIN_FIELD_NAME',
     },
     jwt: {
       secretKey: 'SECRET_JWT',
       lifeTime: 'LIFE_TIME',
       salt: 'SALT_WORK_FACTOR',
+      loginFieldName: 'LOGIN_FIELD_NAME',
     },
   },
 };
