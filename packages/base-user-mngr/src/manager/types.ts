@@ -7,4 +7,5 @@ export type AuthMngrOPtions = {
   strategy: any;
   session: boolean;
   emailer?: any;
+  loginFieldName: string;
 };
