@@ -1,8 +1,8 @@
+import { AuthJwtOptions, setupAuthMiddleware } from '../../packages/auth-jwt/src';
+import { BaseUser, dBApi, Token } from '../../packages/base-user-mongo/src';
 import { cryptUtils, CryptUtilsOptions } from '../../packages/auth-utils/src';
 import { initVerify, VerifyOptions } from '../../packages/auth-verify-service/src';
 import { initStrategy as InitLocal, StrategyOptions } from '../../packages/auth-strategy-local/src';
-import { AuthJwtOptions, setupAuthMiddleware } from '../../packages/auth-jwt/src';
-import { BaseUser, dBApi, Token } from '../../packages/base-user-mongo/src';
 import { AuthMngrOptions, initAuthMngr } from '../../packages/auth-mngr/src';
 import { UserMngrOPtions, setupUserManager } from '../../packages/auth-user-mngr/src';
 
@@ -12,11 +12,12 @@ export { BaseUser, Token };
 
 // Setup Auth with session and Sql Db
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setupAuthentication = ({ config, db, router, passport, User }) => {
+export const setupAuthentication = (authOptions: any) => {
+  const { config, db, router, passport, User } = authOptions;
   // Wrap up the User and the Token
   console.log(db.name);
   const user = dBApi(User ? User : BaseUser);
-  // const token = dBApi(Token);
+  const token = dBApi(Token);
 
   // Setup the strategy and the user manager with the user
   // Strategy
@@ -40,8 +41,6 @@ export const setupAuthentication = ({ config, db, router, passport, User }) => {
 
   const local = InitLocal(strategyOptions);
 
-  // passport.use('local-login', strategy);
-
   // Auth middleware setup
   const authOpt: AuthJwtOptions = {
     lifeTime: config.lifeTime,
@@ -63,7 +62,7 @@ export const setupAuthentication = ({ config, db, router, passport, User }) => {
   // User manager
   const userMngrOPtions: UserMngrOPtions = {
     User: user,
-    Token: Token,
+    Token: token,
     utils: utils,
     session: false,
     emailer: config.emailer,

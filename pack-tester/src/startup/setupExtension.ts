@@ -12,6 +12,7 @@ export const setupExtension = async ({ config, db, app, router, passport, appDom
     User: User,
   };
   const { authRouter, userMngrRouter, authMiddleware } = authentication(authOptions);
+  app.use(appDomain.protectedRoutes, authMiddleware);
 
   const authorizationOptions = {
     config: config,
@@ -25,11 +26,9 @@ export const setupExtension = async ({ config, db, app, router, passport, appDom
   router.use('/user-mngr', userMngrRouter);
 
   // Setup the app domain
-  const protectedRoutes = appDomain.setupAppDomain({
+  appDomain.setupAppDomain({
     router,
     isAuthorized,
     repository: db,
   });
-
-  app.use(protectedRoutes, authMiddleware);
 };
