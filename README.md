@@ -218,3 +218,10 @@ npm run pack:local
 ### Dynamic loader
 [Import](https://medium.com/@nlfernando11/javascript-dynamically-import-c2b890d75b5a)  
 [TS](https://marketsplash.com/tutorials/typescript/import-typescript/)
+
+
+
+### Switch between extensions
+1. app-domain/users/index - change import setupUserController $ User from '.sql' to './mongo' or versus;   
+2. initialization/index.ts - change dbType & authType  
+3. extensions/index.ts - change export from an appropriate extension.  

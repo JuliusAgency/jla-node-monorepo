@@ -1,0 +1,1 @@
+export { initVerify, VerifyOptions } from './service';

@@ -1,4 +1,5 @@
 import express, { Express, Router, Request, Response } from 'express';
+import passport from 'passport';
 
 import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../common';
 
@@ -15,7 +16,7 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
   app.use(httpLogger);
 
   const router = Router();
-  setupExtension({ config, db, app, router, appDomain });
+  setupExtension({ config, db, app, router, passport, appDomain });
 
   app.use(router);
   router.get('/', (_req: Request, res: Response) => {

@@ -15,100 +15,20 @@
  * The user data is queried and attached to req.user
  */
 
-import { Request } from 'express';
-import passport from 'passport';
 import { Strategy } from 'passport-local';
-import { cryptUtils } from '../utils';
 import { StrategyOptions } from '.';
 
-class LocalStrategy {
+export const initStrategy = (options: StrategyOptions): Strategy => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public static init(options: StrategyOptions): void {
-    const { dBApi, salt, loginFieldName } = options;
-    const saltFactor = Number(salt);
-    const crypt = cryptUtils();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const register = async (req: Request, usernameField: string, password: string, done: any) => {
-      try {
-        if (!usernameField) done(null, false);
-        if (loginFieldName === 'email') {
-          usernameField = usernameField.toLowerCase();
-        };
-        const user = await dBApi.findOne({ [loginFieldName]: usernameField });
-        if (user) {
-          done(null, false, { message: 'User already exist' });
-        } else {
-          const newUser = req.body;
-          newUser.password = await crypt.hash(password, saltFactor);
-          newUser.createdAt = new Date();
-          try {
-            const user = await dBApi.save(newUser);
-            done(null, user);
-          } catch (e) {
-            done(e);
-          }
-        }
-      } catch (e) {
-        done(e);
-      }
-    };
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const login = async (usernameField: string, password: string, done: any) => {
-      try {
-        if (!usernameField) {
-          done(null, false);
-        }
-        if (loginFieldName === 'email') {
-          usernameField = usernameField.toLowerCase();
-        };
-        const user = await dBApi.findOne({ [loginFieldName]: usernameField });
-        if (!user) {
-          return done(null, false, { message: 'User not found.' });
-        }
-        if (user && user[loginFieldName] != usernameField) {
-          done(null, false, { message: 'User or password incorrect' });
-        }
-        if (!(await crypt.compare(password, user.password))) {
-          done(null, false, { message: 'User or password incorrect' });
-        } else {
-          done(null, user);
-        }
-      } catch (e) {
-        done(e);
-      }
-    };
-
-    // configure the register strategy.
-    passport.use(
-      'local-register',
-      new Strategy(
-        {
-          // by default, local strategy uses username and password,
-          // we will override with field from options
-          usernameField: loginFieldName,
-          passwordField: 'password',
-          // allows to pass the entire request to the callback
-          passReqToCallback: true,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        },
-        register,
-      ),
-    );
-
-    // configure the login strategy.
-    passport.use(
-      'local-login',
-      new Strategy(
-        {
-          usernameField: loginFieldName,
-          passwordField: 'password',
-        },
-        login,
-      ),
-    );
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  }
-}
-
-export { LocalStrategy };
+  const login = async (usernameField: string, password: string, done: any) => {
+    options.verify(options.loginFieldName, usernameField, password, done); 
+  };
+  // configure the login strategy.
+  return new Strategy(
+    {
+      usernameField: options.loginFieldName,
+      passwordField: 'password',
+    },
+    login,
+  );
+};

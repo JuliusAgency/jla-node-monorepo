@@ -1,15 +1,18 @@
 import { authentication, authorization } from '../../../extensions';
 
-export const setupExtension = async ({ config, db, app, router, appDomain }) => {
+export const setupExtension = async ({ config, db, app, router, passport, appDomain }) => {
   const User = appDomain.User;
 
   const authOptions = {
     app: app,
+    router: router,
+    passport: passport,
     config: config,
     db: db,
     User: User,
   };
-  const { authMiddleware, authRouter } = authentication(authOptions);
+  const { authRouter, userMngrRouter, authMiddleware } = authentication(authOptions);
+  app.use(appDomain.protectedRoutes, authMiddleware);
 
   const authorizationOptions = {
     config: config,
@@ -20,12 +23,12 @@ export const setupExtension = async ({ config, db, app, router, appDomain }) => 
   // Auth middleware usage
   // Auth router usage
   router.use('/auth', authRouter);
+  router.use('/user-mngr', userMngrRouter);
+
   // Setup the app domain
-  const protectedRoutes = appDomain.setupAppDomain({
+  appDomain.setupAppDomain({
     router,
     isAuthorized,
     repository: db,
   });
-
-  app.use(protectedRoutes, authMiddleware);
 };

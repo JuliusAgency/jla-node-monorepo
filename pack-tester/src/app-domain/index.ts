@@ -11,6 +11,6 @@ export const setupAppDomain = ({ router, isAuthorized, repository }) => {
   const examplesRouter = setupExamples({ isAuthorized });
   router.use('/users', usersRouter);
   router.use('/examples', examplesRouter);
-
-  return ['/users', '/examples']; // protected routes
 };
+
+export const protectedRoutes = ['/users', '/examples'];
