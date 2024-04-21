@@ -1,5 +1,5 @@
 export const dbType = 'MONGO'; // || 'SQL';
-const authType = 'SES'; // || 'JWT';
+const authType = 'JWT'; // || 'SES';
 
 export const getConfigMapping = () => {
   const dbMap = configDbMapping[dbType.toLowerCase()];
@@ -51,11 +51,13 @@ const configAuthMapping = {
         resave: 'SESSION_RESAVE',
       },
       salt: 'SALT_WORK_FACTOR',
+      loginFieldName: 'LOGIN_FIELD_NAME',
     },
     jwt: {
       secretKey: 'SECRET_JWT',
       lifeTime: 'LIFE_TIME',
       salt: 'SALT_WORK_FACTOR',
+      loginFieldName: 'LOGIN_FIELD_NAME',
     },
   },
 };

@@ -1,10 +1,12 @@
 import { authentication, authorization } from '../../../extensions';
 
-export const setupExtension = async ({ config, db, app, router, appDomain }) => {
+export const setupExtension = async ({ config, db, app, router, passport, appDomain }) => {
   const User = appDomain.User;
 
   const authOptions = {
     app: app,
+    router: router,
+    passport: passport,
     config: config,
     db: db,
     User: User,
