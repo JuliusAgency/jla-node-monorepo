@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import passport from "passport";
+export const setupPassport = (authConfig: any): void => {
 
-export const setupPassport = (User: any): void => {
-
-  passport.serializeUser((id: any, done): void => {
+  authConfig.passport.serializeUser((id: any, done: any): void => {
     /***
      * If authentication succeeds, passport.authenticate calls the serializeUser
      * function, passing in the user object. 
@@ -13,14 +11,14 @@ export const setupPassport = (User: any): void => {
     done(null, id);
   });
 
-  passport.deserializeUser((id, done): void => {
+  authConfig.passport.deserializeUser((id: any, done: any): void => {
     /***
      * Is called with the user identifier stored in the session. 
      * deserializeUser retrieves the user object from the database using the identifier, 
      * and passes it to the next middleware in the chain.
      */
 
-    const user = User.findById(id);
+    const user = authConfig.User.findById(id);
     if (user) {
       done(null, user);
     } else {

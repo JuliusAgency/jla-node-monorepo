@@ -1,5 +1,3 @@
-import { Express } from "express";
-
 export type CookieConfig = {
   secure: string;
   sameSite: string;
@@ -31,7 +29,10 @@ export type SessionOptions = {
 };
 
 export type AuthConfig = {
-  app: Express;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  app: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  passport: any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   User: any;
   sessionConfig: SessionConfig;

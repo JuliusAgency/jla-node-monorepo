@@ -57,6 +57,7 @@ export const setupAuthentication = (authOptions: any) => {
   // Auth middleware setup
   const authConfig: AuthConfig = {
     app: app,
+    passport: passport,
     User: user,
     sessionConfig: sesConfig,
   };
