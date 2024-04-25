@@ -1,0 +1,38 @@
+name: Release Npm auth-user-mngr
+
+on:
+  workflow_dispatch:
+    branches: [ main ]
+    paths: 'packages/auth-user-mngr/**'
+
+  # workflow_run:
+  #   branches: [ main ]
+  #   workflows: ["Test auth-user-mngr"]
+  #   paths: 'packages/auth-user-mngr/**'
+  #   types:
+  #     - completed
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: Rename README
+        run: npm run rename
+        
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release

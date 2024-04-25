@@ -1,13 +1,12 @@
 #!/usr/bin/bash
 
-if [[ -z $1 || -z $2 ]]
+if [[ -z $1 ]]
 then
-    echo "define type (private/public) and name"
+    echo "define the new package name"
     exit 1
 fi    
 
-package_type=$1
-package_name=$2
+package_name=$1
 root_folder=$PWD
 dev_folder="development"
 template_folder="package_template"
@@ -17,14 +16,8 @@ pack_folder="packages"
 act_template_folder="actions_templates"
 act_folder=".github/workflows"
 
-# Check the type
-if [[ "$1" != "private" && "$1" != "public" ]]
-then
-    echo "the type has to be private or public"
-fi
-
 # Prevent owerwriting
-if [ -d $pack_folder/$package_type/$package_name ]; then
+if [ -d $pack_folder/$package_name ]; then
   echo "the package already exists."
   exit 1
 fi
@@ -45,14 +38,13 @@ then
     exit 0
 fi
 
-echo "the package will be created:"
-echo type $package_type:
+echo "the new package will be created:"
 echo name $package_name:
-echo package location $pack_folder/$package_type/$package_name
+echo package location $pack_folder/$package_name
 echo actions location $act_folder
 
 # Create the new package
-mkdir $pack_folder/$package_type/$package_name
+mkdir $pack_folder/$package_name
 cp -r ./$dev_folder/$pack_template_folder/* ./$pack_folder/$package_type/$package_name/
 
 # Create the new package actions

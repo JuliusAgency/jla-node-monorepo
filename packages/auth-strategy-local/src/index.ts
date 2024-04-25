@@ -1,5 +1,5 @@
 /**
- * The Authentication strategies package
+ * The Authentication local strategy package
  */
 
 export { initStrategy, StrategyOptions } from './strategy';

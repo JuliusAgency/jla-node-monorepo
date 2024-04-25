@@ -1,5 +1,5 @@
-export const dbType = 'MONGO'; // || 'SQL';
-const authType = 'SES'; // || 'JWT';
+export const dbType = 'SQL'; // || 'MONGO';
+const authType = 'JWT'; // || 'SES';
 
 export const getConfigMapping = () => {
   const dbMap = configDbMapping[dbType.toLowerCase()];
