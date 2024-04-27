@@ -56,6 +56,7 @@ export const setupAuthentication = (authOptions: any) => {
 
   const authConfig: AuthConfig = {
     app: app,
+    passport: passport,
     User: user,
     sessionConfig: sesConfig,
   };

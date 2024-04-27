@@ -16,8 +16,8 @@ export const setupAuthentication = (authOptions: any) => {
   const { config, db, router, passport, User } = authOptions;
   // Wrap up the User and the Token
   console.log(db.name);
-  const user = dBApi(User ? User : BaseUser);
-  const token = dBApi(Token);
+  const user = dBApi(db(User ? User : BaseUser));
+  const token = dBApi(db(Token));
 
   // Setup the strategy and the user manager with the user
   // Strategy
