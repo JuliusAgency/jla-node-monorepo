@@ -27,10 +27,15 @@ class LocalStrategy {
     const { dBApi, salt } = options;
     const crypt = cryptUtils();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const register = async (req: Request, email: string, password: string, done: any) => {
+    const register = async (req: Request, usernameField: string, password: string, done: any) => {
       try {
-        if (!email) done(null, false);
-        const user = await dBApi.findOne({ email: email.toLowerCase() });
+        if (!usernameField) {
+          done(null, false);
+        }
+        if (options.loginFieldName === 'email') {
+          usernameField = usernameField.toLowerCase();
+        };
+        const user = await dBApi.findOne({ [options.loginFieldName]: usernameField });
         if (user) {
           done(null, false, { message: 'User already exist' });
         } else {
@@ -50,16 +55,20 @@ class LocalStrategy {
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const login = async (email: string, password: string, done: any) => {
+    const login = async (usernameField: string, password: string, done: any) => {
       try {
-        if (!email) {
+        if (!usernameField) {
           done(null, false);
         }
-        const user = await dBApi.findOne({ email: email.toLowerCase() });
+        if (options.loginFieldName === 'email') {
+          usernameField = usernameField.toLowerCase();
+        };
+        const user = await dBApi.findOne({ [options.loginFieldName]: usernameField });
+
         if (!user) {
           return done(null, false, { message: 'User not found.' });
         }
-        if (user && user.email != email) {
+        if (user && user[options.loginFieldName] != usernameField) {
           done(null, false, { message: 'User or password incorrect' });
         }
         if (!(await crypt.compare(password, user.password))) {
@@ -79,7 +88,7 @@ class LocalStrategy {
         {
           // by default, local strategy uses username and password,
           // we will override with email
-          usernameField: 'email',
+          usernameField: options.loginFieldName,
           passwordField: 'password',
           // allows to pass the entire request to the callback
           passReqToCallback: true,
@@ -94,7 +103,7 @@ class LocalStrategy {
       'local-login',
       new Strategy(
         {
-          usernameField: 'email',
+          usernameField: options.loginFieldName,
           passwordField: 'password',
         },
         login,
