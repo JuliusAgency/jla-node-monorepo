@@ -26,6 +26,11 @@ export const setupAuthStrategyController = (options: AuthMngrControllerOptions) 
       (error: Error, user: any, info: any): any => {
         if (error) return res.status(403).json(error);
         if (!user) return res.status(404).send(info);
+        const role = user.role;
+        if (!role) {
+          // User doesn't exist, but may be registred after social verifycation
+          return res.send(user);         
+        }
         req.logIn(user, { session: session }, async (error) => {
           if (error) return next(error);
           user.password = '[encoded password]';

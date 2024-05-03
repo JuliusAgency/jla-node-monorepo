@@ -18,18 +18,8 @@ export const initVerify = (options: VerifyOptions) => {
       const user = await dBApi.findOne({[socialId]: profile.id});
       if (!user) {
         logger.debug(`User ${profile.id} not exists - create new one in ${__filename}`);
-        // Create new one and save via registration service
-
-        const newUser = 
-        {
-          "name": "user1",
-          "email": "user1@gmail.com",
-          "password": "111111",
-          "role": "user",
-          "github_id": profile.id,
-        };
-        const user = await dBApi.save(newUser);
-        done(null, user);
+        const key = `${profile.provider}_id`;
+        done(null, { [key]: profile.id});
 
       } else {
         logger.debug(`User ${profile.id} exists - login - in ${__filename}`);
