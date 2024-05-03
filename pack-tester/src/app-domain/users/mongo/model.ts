@@ -5,6 +5,7 @@ import { BaseUser } from '../../../../../packages/base-user-mongo/src';
 export interface UserInterface {
   role: string;
   phone?: string;
+  github_id: string;
 }
 
 const UserSchema = new Schema<UserInterface>(
@@ -15,6 +16,10 @@ const UserSchema = new Schema<UserInterface>(
       default: 'guest',
     },
     phone: {
+      type: String,
+      required: false,
+    },
+    github_id: {
       type: String,
       required: false,
     },

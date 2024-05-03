@@ -1,4 +1,4 @@
-export const dbType = 'SQL'; // || 'MONGO';
+export const dbType = 'MONGO'; // || 'SQL';
 const authType = 'JWT'; // || 'SES';
 
 export const getConfigMapping = () => {
@@ -9,6 +9,7 @@ export const getConfigMapping = () => {
     ...configCommonMapping['logger'],
     ...configAuthMapping['authentication'][authType.toLowerCase()],
     ...configAuthorizationMapping,
+    ...configAuthStrategies,
   };
 };
 
@@ -65,4 +66,10 @@ const configAuthMapping = {
 const configAuthorizationMapping = {
   modelType: 'AUTHORIZATION_MODEL_TYPE',
   test: 'TEST',
+};
+
+const configAuthStrategies = {
+  githubId: 'GITHUB_ID',
+  githubSecret: 'GITHUB_SECRET',
+  githubCallback: 'GITHUB_CALLBACK',
 };

@@ -47,6 +47,8 @@
     "@babel/preset-typescript": "^7.22.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.30",
+    "@types/passport-github2": "^1.2.9",
+    "@types/passport-local": "^1.0.38",
     "@types/pg": "^8.11.4",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
@@ -67,6 +69,8 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "passport-github2": "^0.1.12",
+    "passport-local": "^1.0.0",
     "pg": "^8.11.4",
     "pg-hstore": "^2.3.4",
     "typeorm": "^0.3.20"

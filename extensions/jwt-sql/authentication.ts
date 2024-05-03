@@ -13,7 +13,7 @@ export { BaseUser, Token };
 // Setup Auth with session and Sql Db
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthentication = (authOptions: any) => {
-  const { config, db, router, passport, User } = authOptions;
+  const { config, db, logger, router, passport, strategy, User } = authOptions;
   // Wrap up the User and the Token
   console.log(db.name);
   const user = dBApi(db(User ? User : BaseUser));
@@ -36,7 +36,9 @@ export const setupAuthentication = (authOptions: any) => {
 
   const strategyOptions: StrategyOptions = {
     verify: verifyUser,
+    strategy: strategy,
     loginFieldName: config.loginFieldName,
+    logger: logger,
   };
 
   const local = InitLocal(strategyOptions);
@@ -56,6 +58,7 @@ export const setupAuthentication = (authOptions: any) => {
     session: false,
     encode: encodeToken,
     strategies: [local],
+    logger: logger,
   };
   const authRouter = initAuthMngr(authMngrOptions);
 

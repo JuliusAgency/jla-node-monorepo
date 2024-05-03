@@ -1,11 +1,11 @@
 /**
  * The extended User
  */
-import { setupUserController } from './sql'; //'./mongo'; //
+import { setupUserController } from './mongo'; //'./sql'; //
 
 import { setupUserRouter } from './router';
 
-export { User } from './sql'; // './mongo'; //
+export { User } from './mongo'; // './sql'; //
 
 export const setupUsers = ({ isAuthorized, repository }) => {
   const controller = setupUserController({ repository });

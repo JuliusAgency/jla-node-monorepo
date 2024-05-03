@@ -15,16 +15,18 @@
  * The user data is queried and attached to req.user
  */
 
-import { Strategy } from 'passport-local';
 import { StrategyOptions } from '.';
 
-export const initStrategy = (options: StrategyOptions): Strategy => {
+export const initStrategy = (options: StrategyOptions) => {
+  const logger = options.logger;
+  logger.debug(`Init strategy - ${options.strategy.name} - ${__filename}`);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const login = async (usernameField: string, password: string, done: any) => {
+    logger.debug(`usernameField - ${usernameField}`);
     options.verify(options.loginFieldName, usernameField, password, done); 
   };
   // configure the login strategy.
-  return new Strategy(
+  return new options.strategy(
     {
       usernameField: options.loginFieldName,
       passwordField: 'password',

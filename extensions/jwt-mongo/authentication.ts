@@ -1,19 +1,33 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AuthJwtOptions, setupAuthMiddleware } from '../../packages/auth-jwt/src';
 import { BaseUser, dBApi, Token } from '../../packages/base-user-mongo/src';
 import { cryptUtils, CryptUtilsOptions } from '../../packages/auth-utils/src';
-import { initVerify, VerifyOptions } from '../../packages/auth-verify-service/src';
-import { initStrategy as InitLocal, StrategyOptions } from '../../packages/auth-strategy-local/src';
-import { AuthMngrOptions, initAuthMngr } from '../../packages/auth-mngr/src';
+import { AuthMngrOptions, AuthMngrOptionsCommon, AuthStrategyDef, initAuthMngr } from '../../packages/auth-mngr/src';
 import { UserMngrOPtions, setupUserManager } from '../../packages/auth-user-mngr/src';
+import { initVerify, VerifyOptions } from '../../packages/auth-verify-service/src';
+import { initStrategy as InitLocal, StrategyOptions as StrategyOptionsLocal } from '../../packages/auth-strategy-local/src';
+
+import { initVerify as initVerifySocial, VerifyOptions as VerifyOptionsSocial } from '../../packages/auth-verify-service-social/src';
+import { initStrategy as InitSocial, StrategyOptions as StrategyOptionsSocial } from '../../packages/auth-strategy-social/src';
 
 
 // Reexport
 export { BaseUser, Token };
 
+export type authOptions = {
+  app: any;
+  router: any;
+  passport: any;
+  strategies: any;
+  config: any;
+  db: any;
+  User: any;
+  logger: any;
+};
+
 // Setup Auth with session and Sql Db
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupAuthentication = (authOptions: any) => {
-  const { config, db, router, passport, User } = authOptions;
+  const { config, db, logger, router, passport, strategies, User } = authOptions;
   // Wrap up the User and the Token
   console.log(db.name);
   const user = dBApi(User ? User : BaseUser);
@@ -32,30 +46,63 @@ export const setupAuthentication = (authOptions: any) => {
     utils: utils,
   };
 
-  const verifyUser = initVerify(verifyOptions);
+  const verifyLocal = initVerify(verifyOptions);
 
-  const strategyOptions: StrategyOptions = {
-    verify: verifyUser,
+  const strategyOptionsLocal: StrategyOptionsLocal = {
+    verify: verifyLocal,
+    strategy: strategies.local,
     loginFieldName: config.loginFieldName,
+    logger: logger,
   };
 
-  const local = InitLocal(strategyOptions);
+  const local = InitLocal(strategyOptionsLocal);
+
+  const verifyOptionsGiyhub: VerifyOptionsSocial = {
+    dBApi: user,
+    logger: logger,
+  };
+
+  const verifyGithub = initVerifySocial(verifyOptionsGiyhub);
+
+  const strategyOptions: StrategyOptionsSocial = {
+    verify: verifyGithub,
+    strategy: strategies.github,
+    clientId: config.githubId,
+    clientSecret: config.githubSecret,
+    callbackUrl: config.githubCallback,
+    logger: logger,
+  };
+
+  const github = InitSocial(strategyOptions);
 
   // Auth middleware setup
   const authOpt: AuthJwtOptions = {
     lifeTime: config.lifeTime,
     secretKey: config.secretKey,
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { authMiddleware, encodeToken } = setupAuthMiddleware(authOpt);
 
   // Auth manager
-  const authMngrOptions: AuthMngrOptions = {
-    router: router,
+  const localStrategyDef: AuthStrategyDef = {
     passport: passport,
+    strategy: local,
+  };
+  const githubStrategyDef: AuthStrategyDef = {
+    passport: passport,
+    strategy: github,
+  };
+
+  const authMngrOptionsCommon: AuthMngrOptionsCommon = {
+    router: router,
+    User: user,
+    utils: utils,
     session: false,
     encode: encodeToken,
-    strategies: [local],
+    logger: logger,
+  };
+  const authMngrOptions: AuthMngrOptions = {
+    strategiesDef: [localStrategyDef, githubStrategyDef],
+    common: authMngrOptionsCommon,
   };
   const authRouter = initAuthMngr(authMngrOptions);
 

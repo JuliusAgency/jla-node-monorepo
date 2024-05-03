@@ -1,5 +1,7 @@
 import express, { Express, Router, Request, Response } from 'express';
 import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as GihubStrategy } from 'passport-github2';
 
 import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../common';
 
@@ -16,7 +18,18 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
   app.use(httpLogger);
 
   const router = Router();
-  setupExtension({ config, db, app, router, passport, appDomain });
+
+  const strategies = {'local': LocalStrategy, 'github': GihubStrategy};
+  setupExtension({ 
+    config,
+    db,
+    logger,
+    app,
+    router,
+    passport,
+    strategies,
+    appDomain,
+  });
 
   app.use(router);
   router.get('/', (_req: Request, res: Response) => {
