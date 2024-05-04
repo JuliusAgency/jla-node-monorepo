@@ -10,8 +10,8 @@ import {
 } from "./mngr";
 
 import { setupAuthStrategyService } from "./mngr/service";
-import { setupAuthStrategyController } from "./mngr/controller";
-import { setupAuthStrategyRouter } from "./mngr/router";
+import { setupAuthCommonController, setupAuthStrategyController } from "./mngr/controller";
+import { setupAuthCommonRouter, setupAuthStrategyRouter } from "./mngr/router";
 
 export { AuthMngrOptions, AuthMngrOptionsCommon ,AuthStrategyDef };
 
@@ -44,11 +44,19 @@ export const initAuthMngr = (options: AuthMngrOptions) => {
       strategyDef: strategyDef,
       common: options.common,
       controller: controller,
+      validation: strategyDef.validation,
     };
     setupAuthStrategyRouter(routerOptions);
   });
-  // const controller = setupAuthCommonController();
-  // setupAuthCommonRouter(options.common, controller);
+  
+  const controller = setupAuthCommonController();
+
+  const routerOptions: AuthMngrRouterOptions = {
+    strategyDef: null,
+    common: options.common,
+    controller: controller,
+  };
+  setupAuthCommonRouter(routerOptions);
   
   return options.common.router;
 };

@@ -225,3 +225,19 @@ npm run pack:local
 1. app-domain/users/index - change import setupUserController $ User from '.sql' to './mongo' or versus;   
 2. initialization/index.ts - change dbType & authType  
 3. extensions/index.ts - change export from an appropriate extension.  
+
+
+### Social logins
+
+#### Google:
+To implement Google Login, you need to set up a Google API project. Follow these steps:
+
+1. Go to the Google Developers Console (**https://console.developers.google.com/**).
+2. Create a new project or select an existing one.
+3. Enable the "Google+ API" for your project.
+4. Navigate to the "Credentials" section and click on "Create Credentials."
+5. Choose "OAuth client ID" as the credential type.
+6. Select "Web application" as the application type.
+7. Enter a name for your OAuth client ID.
+8. Add authorized JavaScript origins (e.g., http://localhost:3000) and redirect URIs (e.g., **http://localhost:3000/auth/google/callback**).
+9. Click "Create" to generate the client ID and client secret.

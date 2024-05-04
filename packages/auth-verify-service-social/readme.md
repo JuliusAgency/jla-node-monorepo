@@ -3,7 +3,7 @@
 
 ### Installation
 ```bash
-  npm install --save @juliusagency/<package-name>
+  npm install --save @juliusagency/auth-verify-service-social
 ```
 
 ### Pre-conditions:

@@ -2,6 +2,7 @@
 export type AuthStrategyDef = {
   passport: any;
   strategy: any;
+  validation?: any;
 };
 
 export type AuthMngrOptionsCommon = {
@@ -22,6 +23,7 @@ export type AuthMngrRouterOptions = {
   strategyDef: AuthStrategyDef;
   common: AuthMngrOptionsCommon;
   controller: any;
+  validation?: any;
 };
 export type AuthMngrControllerOptions = {
   strategyDef: AuthStrategyDef;

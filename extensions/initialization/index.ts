@@ -69,7 +69,12 @@ const configAuthorizationMapping = {
 };
 
 const configAuthStrategies = {
+  // Github
   githubId: 'GITHUB_ID',
   githubSecret: 'GITHUB_SECRET',
   githubCallback: 'GITHUB_CALLBACK',
+  // Google
+  googleId: 'GOOGLE_ID',
+  googleSecret: 'GOOGLE_SECRET',
+  googleCallback: 'GOOGLE_CALLBACK',
 };

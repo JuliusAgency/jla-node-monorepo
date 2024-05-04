@@ -2,6 +2,7 @@ import express, { Express, Router, Request, Response } from 'express';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GihubStrategy } from 'passport-github2';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
 import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../common';
 
@@ -19,7 +20,7 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
 
   const router = Router();
 
-  const strategies = {'local': LocalStrategy, 'github': GihubStrategy};
+  const strategies = {'local': LocalStrategy, 'github': GihubStrategy, 'google': GoogleStrategy};
   setupExtension({ 
     config,
     db,

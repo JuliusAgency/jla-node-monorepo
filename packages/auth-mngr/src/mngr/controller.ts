@@ -65,12 +65,16 @@ export const setupAuthStrategyController = (options: AuthMngrControllerOptions) 
 export const setupAuthCommonController = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const logout = (req: any, res: Response) => {
+    if (!req.session) {
+      return res.status(200).send({ message: 'logged Out', success: true });
+    }
     req.session.destroy((error: Error) => {
       if (error) {
         return res.status(500).send({ message: error, success: false });
       }
       return res.status(200).send({ message: 'logged Out', success: true });
     });
+    return res.status(200).send({ message: 'logged Out', success: true });
   };
 
   return { 
