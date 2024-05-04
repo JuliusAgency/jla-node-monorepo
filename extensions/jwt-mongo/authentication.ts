@@ -27,7 +27,7 @@ export type authOptions = {
   logger: any;
 };
 
-// Setup Auth with session and Sql Db
+// Setup Auth with JWT and Mongo Db
 export const setupAuthentication = (authOptions: any) => {
   const { config, db, logger, router, passport, strategies, User } = authOptions;
   // Wrap up the User and the Token

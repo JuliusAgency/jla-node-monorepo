@@ -20,8 +20,8 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
 
   const router = Router();
 
-  const strategies = {'local': LocalStrategy, 'github': GihubStrategy, 'google': GoogleStrategy};
-  setupExtension({ 
+  const strategies = { local: LocalStrategy, github: GihubStrategy, google: GoogleStrategy };
+  setupExtension({
     config,
     db,
     logger,

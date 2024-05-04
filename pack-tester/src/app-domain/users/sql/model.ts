@@ -9,6 +9,8 @@ export class User extends BaseUser {
   role: string;
   @Column({ nullable: true })
   phone: string;
+  @Column({ nullable: true })
+  github_id: string;
 }
 
 // @Entity('users')
