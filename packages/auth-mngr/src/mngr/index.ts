@@ -11,7 +11,7 @@ export type AuthMngrOptionsCommon = {
   utils: any;
   session: boolean;
   encode: any;
-  logger: any;
+  logger?: any;
 };
 
 export type AuthMngrOptions = {

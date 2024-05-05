@@ -27,7 +27,7 @@ export const initAuthMngr = (options: AuthMngrOptions) => {
   const logger = options.common.logger;
 
   strategiesDef.forEach((strategyDef)=> {
-    logger.debug(`Strategy name - ${strategyDef.strategy.name}`);
+    logger?.debug(`Strategy name - ${strategyDef.strategy.name}`);
     // register strategy
     strategyDef.passport.use(strategyDef.strategy.name, strategyDef.strategy);
 

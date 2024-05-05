@@ -7,5 +7,5 @@ export type StrategyOptions = {
   clientId: string;
   clientSecret: string;
   callbackUrl: string;
-  logger: any;
+  logger?: any;
 };

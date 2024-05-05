@@ -14,18 +14,18 @@ export const setupAuthStrategyRouter = (options: AuthMngrRouterOptions) => {
   // };
 
   const validationDefault = (req: Request, _res: Response, next: any) => {
-    logger.debug(`request strategy - ${strategy.name}- url -${req.url}`);
+    logger?.debug(`request strategy - ${strategy.name}- url -${req.url}`);
     next();
   };
   const validation = options.validation ? options.validation : validationDefault;
 
-  logger.debug(`setupAuthStrategyRouter for ${strategy.name}`);
+  logger?.debug(`setupAuthStrategyRouter for ${strategy.name}`);
   if (strategy.name === 'local') {
     router.post('/register', validation, controller.register);
     router.post('/login', validation, controller.login); 
   } else {
     router.get(`/${strategy.name}`, validation, controller.login); 
-    router.get(`/${strategy.name}/callback`, controller.login); 
+    router.get(`/${strategy.name}/callback`, validation, controller.login); 
   }
 };
 

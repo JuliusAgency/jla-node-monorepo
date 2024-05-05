@@ -6,7 +6,7 @@ export const setupAuthStrategyController = (options: AuthMngrControllerOptions) 
   const encode = options.common.encode;
   const logger = options.common.logger;
 
-  logger.debug(`setupAuthStrategyController for ${options.strategyDef.strategy.name}`);
+  logger?.debug(`setupAuthStrategyController for ${options.strategyDef.strategy.name}`);
 
   const register = async (req: Request, res: Response) => {
     const newUser = req.body;

@@ -19,10 +19,10 @@ import { StrategyOptions } from '.';
 
 export const initStrategy = (options: StrategyOptions) => {
   const logger = options.logger;
-  logger.debug(`Init strategy - ${options.strategy.name} - ${__filename}`);
+  logger?.debug(`Init strategy - ${options.strategy.name} - ${__filename}`);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const login = async (usernameField: string, password: string, done: any) => {
-    logger.debug(`usernameField - ${usernameField}`);
+    logger?.debug(`usernameField - ${usernameField}`);
     options.verify(options.loginFieldName, usernameField, password, done); 
   };
   // configure the login strategy.
