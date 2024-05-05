@@ -47,7 +47,7 @@ export const setupAuthentication = (authOptions: any) => {
       httpOnly: config.session.cookie.httpOnly,
       maxAge: config.session.cookie.maxAge,
     },
-    resave: config.session.sessionResave,
+    resave: config.session.resave,
   };
 
   // Auth middleware setup
