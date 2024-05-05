@@ -33,9 +33,9 @@ export const initStrategy = (options: StrategyOptions) => {
      * modify user data on their behalf.
        * accessToken - expire after a certain time, so we use refreshToken to refresh them.
      */
-    logger.debug(`accessToken - ${accessToken}`);
-    logger.debug(`refreshToken - ${refreshToken}`);
-    logger.debug(`profile - ${profile.provider} - id - ${profile.id}`);
+    logger?.debug(`accessToken - ${accessToken}`);
+    logger?.debug(`refreshToken - ${refreshToken}`);
+    logger?.debug(`profile - ${profile?.provider} - id - ${profile?.id}`);
 
     options.verify(accessToken, refreshToken, profile, done); 
 
@@ -46,6 +46,9 @@ export const initStrategy = (options: StrategyOptions) => {
       clientID: options.clientId,
       clientSecret: options.clientSecret,
       callbackURL: options.callbackUrl,
+      // passReqToCallback: true,
+      scope: ['profile', 'email'],
+      // state: true
     },
     login,
   );
