@@ -15,19 +15,12 @@ import { setupAuthCommonRouter, setupAuthStrategyRouter } from "./mngr/router";
 
 export { AuthMngrOptions, AuthMngrOptionsCommon ,AuthStrategyDef };
 
-// const route = [
-//   {method: "get", route: "/viewitem", validation: [], action: viewItem},
-//   {method: "get", route: "/list"}, validation: [], action: list},
-//   {method: "post", route: "/newitem", validation: [checkData], action: createNewItem}
-// ];
-
-
 export const initAuthMngr = (options: AuthMngrOptions) => {
   const strategiesDef = options.strategiesDef;
   const logger = options.common.logger;
 
   strategiesDef.forEach((strategyDef)=> {
-    logger?.debug(`Strategy name - ${strategyDef.strategy.name}`);
+    logger?.debug(`Strategy name - ${strategyDef.strategy.name} - ${__filename}`);
     // register strategy
     strategyDef.passport.use(strategyDef.strategy.name, strategyDef.strategy);
 

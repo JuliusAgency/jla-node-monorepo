@@ -11,6 +11,8 @@ export class User extends BaseUser {
   phone: string;
   @Column({ nullable: true })
   github_id: string;
+  @Column({ nullable: true })
+  google_id: string;
 }
 
 // @Entity('users')

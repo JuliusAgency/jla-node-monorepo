@@ -6,6 +6,7 @@ export interface UserInterface {
   role: string;
   phone?: string;
   github_id: string;
+  google_id: string;
 }
 
 const UserSchema = new Schema<UserInterface>(
@@ -20,6 +21,10 @@ const UserSchema = new Schema<UserInterface>(
       required: false,
     },
     github_id: {
+      type: String,
+      required: false,
+    },
+    google_id: {
       type: String,
       required: false,
     },

@@ -21,6 +21,7 @@ export type authOptions = {
   router: any;
   passport: any;
   strategies: any;
+  strategyPath?: string;
   config: any;
   db: any;
   User: any;
@@ -29,7 +30,7 @@ export type authOptions = {
 
 // Setup Auth with JWT and Mongo Db
 export const setupAuthentication = (authOptions: any) => {
-  const { config, db, logger, router, passport, strategies, User } = authOptions;
+  const { config, db, logger, router, passport, strategies, strategyPath, User } = authOptions;
   // Wrap up the User and the Token
   console.log(db.name);
   const user = dBApi(User ? User : BaseUser);
@@ -53,11 +54,14 @@ export const setupAuthentication = (authOptions: any) => {
   const verifyOptions: VerifyOptions = {
     dBApi: user,
     utils: utils,
+    logger: logger,
   };
   const verifyLocal = initVerify(verifyOptions);
+  // const fn = strategyNamePostfix === 'auth' ? 'email' : 'name';
   const strategyOptionsLocal: StrategyOptionsLocal = {
     verify: verifyLocal,
     strategy: strategies.local,
+    strategyPath: strategyPath,
     loginFieldName: config.loginFieldName,
     logger: logger,
   };
@@ -71,6 +75,8 @@ export const setupAuthentication = (authOptions: any) => {
   const strategyOptionsGithub: StrategyOptionsSocial = {
     verify: verifyGithub,
     strategy: strategies.github,
+    strategyName: 'guthub',
+    strategyPath: strategyPath,
     clientId: config.githubId,
     clientSecret: config.githubSecret,
     callbackUrl: config.githubCallback,
@@ -80,12 +86,15 @@ export const setupAuthentication = (authOptions: any) => {
 
   const verifyOptionsGoogle: VerifyOptionsSocial = {
     dBApi: user,
+    socialIdFieldName: 'google_id',
     logger: logger,
   };
   const verifyGoogle = initVerifySocial(verifyOptionsGoogle);
   const strategyOptionsGgoogle: StrategyOptionsSocial = {
     verify: verifyGoogle,
     strategy: strategies.google,
+    strategyName: 'google',
+    strategyPath: strategyPath,
     clientId: config.googleId,
     clientSecret: config.googleSecret,
     callbackUrl: config.googleCallback,
@@ -93,16 +102,6 @@ export const setupAuthentication = (authOptions: any) => {
   };
 
   const google = InitSocial(strategyOptionsGgoogle);
-
-  // const validation = (req: any, _res: any, next: any) => {
-  //   const { email } = req.body;
-  //   logger.debug(`request body -${email}`);
-  //   if (email === 'user1@gmail.com') {
-  //     next();
-  //   } else {
-  //     throw new Error('bad credentials');
-  //   }
-  // };
 
   // Auth manager
   const localStrategyDef: AuthStrategyDef = {

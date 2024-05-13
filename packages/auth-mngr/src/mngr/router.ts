@@ -8,24 +8,34 @@ export const setupAuthStrategyRouter = (options: AuthMngrRouterOptions) => {
   const controller = options.controller;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const trace = (req: Request, _res: Response, next: any) => {
-  //   logger.debug(`request - ${strategy.name}- url -${req.url}`);
-  //   next();
-  // };
-
-  const validationDefault = (req: Request, _res: Response, next: any) => {
-    logger?.debug(`request strategy - ${strategy.name}- url -${req.url}`);
-    next();
+  const validationDefault = (req: Request, _res: Response, _next: any) => {
+    logger?.debug(`request strategy - ${strategy.name}- url -${req.url} - ${__filename}`);
   };
   const validation = options.validation ? options.validation : validationDefault;
 
-  logger?.debug(`setupAuthStrategyRouter for ${strategy.name}`);
-  if (strategy.name === 'local') {
-    router.post('/register', validation, controller.register);
-    router.post('/login', validation, controller.login); 
+  logger?.debug(`setupAuthStrategyRouter for ${strategy.name} - ${__filename}`);
+  if (strategy.name.startsWith('local')) {
+    router.route('/register')
+      .post(async (req: Request, res: Response, next: any) => {
+        await validation(req, res, next);
+        await controller.register(req, res, next);
+      });
+    router.route('/login')
+      .post(async (req: Request, res: Response, next: any) => {
+        await validation(req, res, next);
+        await controller.login(req, res, next);
+      });
   } else {
-    router.get(`/${strategy.name}`, validation, controller.login); 
-    router.get(`/${strategy.name}/callback`, validation, controller.login); 
+    router.route(`/${strategy.name}`)
+      .get(async (req: Request, res: Response, next: any) => {
+        await validation(req, res, next);
+        await controller.login(req, res, next);
+      });
+    router.route(`/${strategy.name}/callback`)
+      .get(async (req: Request, res: Response, next: any) => {
+        await validation(req, res, next);
+        await controller.login(req, res, next);
+      });
   }
 };
 
@@ -33,16 +43,9 @@ export const setupAuthCommonRouter = (options: AuthMngrRouterOptions) => {
   const router = options.common.router;
   const controller = options.controller;
 
-  router.get('/logout', controller.logout);
-};
+  router.route('/logout')
+    .get(() => {
+      controller.logout;
+    });
 
-// Example
-// const validation = (req: any, _res: any, next: any) => {
-//   const { email } = req.body;
-//   logger.debug(`request body -${email}`);
-//   if (email === 'user1@gmail.com') {
-//     next();
-//   } else {
-//     throw new Error('bad credentials');
-//   }
-// };
+};

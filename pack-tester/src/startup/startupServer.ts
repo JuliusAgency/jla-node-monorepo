@@ -21,21 +21,23 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
   const router = Router();
 
   const strategies = { local: LocalStrategy, github: GihubStrategy, google: GoogleStrategy };
+  // const strategies = { local: LocalStrategy };
   setupExtension({
     config,
     db,
     logger,
     app,
     router,
+    Router,
     passport,
     strategies,
     appDomain,
   });
 
-  app.use(router);
   router.get('/', (_req: Request, res: Response) => {
     res.json({ message: `Is live` });
   });
+  app.use(router);
 
   app.use(setupErrorHandler());
 

@@ -24,7 +24,7 @@ import { StrategyOptions } from '.';
 
 export const initStrategy = (options: StrategyOptions) => {
   const logger = options.logger;
-  logger.debug(`Init strategy - ${options.strategy.name} - ${__filename}`);
+  logger.debug(`Init social strategy - ${__filename}`);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const login = async (accessToken: string, refreshToken: string, profile: any, done: any) => {
     /**
@@ -33,15 +33,15 @@ export const initStrategy = (options: StrategyOptions) => {
      * modify user data on their behalf.
        * accessToken - expire after a certain time, so we use refreshToken to refresh them.
      */
-    logger?.debug(`accessToken - ${accessToken}`);
-    logger?.debug(`refreshToken - ${refreshToken}`);
-    logger?.debug(`profile - ${profile?.provider} - id - ${profile?.id}`);
+    logger?.debug(`accessToken - ${accessToken} - ${__filename}`);
+    logger?.debug(`refreshToken - ${refreshToken}- ${__filename}`);
+    logger?.debug(`profile - ${profile?.provider} - id - ${profile?.id} - ${__filename}`);
 
     options.verify(accessToken, refreshToken, profile, done); 
 
   };
   // configure the login strategy.
-  return new options.strategy(
+  const social = new options.strategy(
     {
       clientID: options.clientId,
       clientSecret: options.clientSecret,
@@ -52,4 +52,8 @@ export const initStrategy = (options: StrategyOptions) => {
     },
     login,
   );
+  const name = options.strategyName ? options.strategyName : 'social';
+  const path = options.strategyPath ? options.strategyPath : '';
+  social.name = `${name}-${path}`;
+  return social;
 };

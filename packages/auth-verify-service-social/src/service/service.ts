@@ -1,21 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type VerifyOptions = {
   dBApi: any;
+  socialIdFieldName?: string;
   logger?: any;
 };
 
 export const initVerify = (options: VerifyOptions) => {
-  const { dBApi, logger } = options;
-  logger?.debug(`Init Verify service - ${__filename}`);
+  const { dBApi, logger, socialIdFieldName } = options;
+  logger?.debug(`Init Verify service for social strategy - ${__filename}`);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const verifyUser = async (_accessToken: string, _refreshToken: string, profile: any, done: any) => {
+    const socialIdName = socialIdFieldName ? socialIdFieldName : `${profile?.provider}_id`;
     try {
       logger?.debug(`Verify user ${profile?.id} - ${__filename}`);
       logger?.debug(`Verify user ${profile?.provider} - ${__filename}`);
-      const socialId = `${profile?.provider}_id`;
 
-      const user = await dBApi.findOne({[socialId]: profile.id});
+      const user = await dBApi.findOne({[socialIdName]: profile.id});
       if (!user) {
         logger?.debug(`User ${profile.id} not exists - redirect to the register ${__filename}`);
         const key = `${profile.provider}_id`;

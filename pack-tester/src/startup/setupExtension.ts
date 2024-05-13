@@ -7,26 +7,42 @@ export type ExtensionOptions = {
   logger: any;
   app: any;
   router: any;
+  Router: any;
   passport: any;
   strategies: [any];
   appDomain: any;
 };
 
 export const setupExtension = async (options: ExtensionOptions) => {
-  const { config, db, logger, app, router, passport, strategies, appDomain } = options;
+  const { config, db, logger, app, router, Router, passport, strategies, appDomain } = options;
   const User = appDomain.User;
 
-  const authOptions: authOptions = {
+  const authOptionsT: authOptions = {
     app: app,
-    router: router,
+    router: Router(),
     passport: passport,
     strategies: strategies,
+    strategyPath: 'test',
     config: config,
     db: db,
     User: User,
     logger: logger,
   };
-  const { authRouter, userMngrRouter, authMiddleware } = authentication(authOptions);
+  const { authRouter: authRouterT } = authentication(authOptionsT);
+
+  const authOptions: authOptions = {
+    app: app,
+    router: Router(),
+    passport: passport,
+    strategies: strategies,
+    strategyPath: 'auth',
+    config: config,
+    db: db,
+    User: User,
+    logger: logger,
+  };
+  const { authRouter, authMiddleware } = authentication(authOptions);
+
   app.use(appDomain.protectedRoutes, authMiddleware);
 
   const authorizationOptions = {
@@ -38,7 +54,8 @@ export const setupExtension = async (options: ExtensionOptions) => {
   // Auth middleware usage
   // Auth router usage
   router.use('/auth', authRouter);
-  router.use('/user-mngr', userMngrRouter);
+  router.use('/test', authRouterT);
+  // router.use('/user-mngr', userMngrRouter);
 
   // Setup the app domain
   appDomain.setupAppDomain({

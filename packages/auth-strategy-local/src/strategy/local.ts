@@ -19,18 +19,22 @@ import { StrategyOptions } from '.';
 
 export const initStrategy = (options: StrategyOptions) => {
   const logger = options.logger;
-  logger?.debug(`Init strategy - ${options.strategy.name} - ${__filename}`);
+  const loginFieldName = options.loginFieldName? options.loginFieldName : 'email';
+  
+  logger?.debug(`Init local strategy - ${__filename}`);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const login = async (usernameField: string, password: string, done: any) => {
-    logger?.debug(`usernameField - ${usernameField}`);
+    logger?.debug(`usernameField - ${usernameField} - ${__filename}`);
     options.verify(options.loginFieldName, usernameField, password, done); 
   };
   // configure the login strategy.
-  return new options.strategy(
+  const loginStrategy = new options.strategy(
     {
-      usernameField: options.loginFieldName,
+      usernameField: loginFieldName,
       passwordField: 'password',
     },
     login,
   );
+  loginStrategy.name = options.strategyPath ? `local-${options.strategyPath}` : 'local';
+  return loginStrategy;
 };
