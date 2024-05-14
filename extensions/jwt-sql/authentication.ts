@@ -21,6 +21,7 @@ export type authOptions = {
   router: any;
   passport: any;
   strategies: any;
+  strategyPath?: string;
   config: any;
   db: any;
   User: any;
@@ -29,7 +30,7 @@ export type authOptions = {
 
 // Setup Auth with JWT and Sql Db
 export const setupAuthentication = (authOptions: any) => {
-  const { config, db, logger, router, passport, strategies, User } = authOptions;
+  const { config, db, logger, router, passport, strategies, strategyPath, User } = authOptions;
   // Wrap up the User and the Token
   console.log(db.name);
   const user = dBApi(db(User ? User : BaseUser));
@@ -53,11 +54,13 @@ export const setupAuthentication = (authOptions: any) => {
   const verifyOptions: VerifyOptions = {
     dBApi: user,
     utils: utils,
+    logger: logger,
   };
   const verifyLocal = initVerify(verifyOptions);
   const strategyOptionsLocal: StrategyOptionsLocal = {
     verify: verifyLocal,
     strategy: strategies.local,
+    strategyPath: strategyPath,
     loginFieldName: config.loginFieldName,
     logger: logger,
   };
@@ -71,6 +74,8 @@ export const setupAuthentication = (authOptions: any) => {
   const strategyOptionsGithub: StrategyOptionsSocial = {
     verify: verifyGithub,
     strategy: strategies.github,
+    strategyName: 'guthub',
+    strategyPath: strategyPath,
     clientId: config.githubId,
     clientSecret: config.githubSecret,
     callbackUrl: config.githubCallback,
@@ -80,12 +85,15 @@ export const setupAuthentication = (authOptions: any) => {
 
   const verifyOptionsGoogle: VerifyOptionsSocial = {
     dBApi: user,
+    socialIdFieldName: 'google_id',
     logger: logger,
   };
   const verifyGoogle = initVerifySocial(verifyOptionsGoogle);
   const strategyOptionsGgoogle: StrategyOptionsSocial = {
     verify: verifyGoogle,
     strategy: strategies.google,
+    strategyName: 'google',
+    strategyPath: strategyPath,
     clientId: config.googleId,
     clientSecret: config.googleSecret,
     callbackUrl: config.googleCallback,
