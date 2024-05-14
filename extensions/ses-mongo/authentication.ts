@@ -16,148 +16,149 @@ import { UserMngrOPtions, setupUserManager } from '../../packages/auth-user-mngr
 // Reexport
 export { BaseUser, Token };
 
-export type authOptions = {
+export type AuthOptions = {
   app: any;
-  router: any;
   passport: any;
-  strategies: any;
-  strategyPath?: string;
   config: any;
   db: any;
   User: any;
   logger: any;
 };
 
+export type StrategyOptions = {
+  router: any;
+  strategies: any;
+  strategyPath?: string;
+  socialstrategyName: string;
+  socialIdFieldName?: string;
+};
+
 // Setup Auth with session and Mongo Db
-export const setupAuthentication = (authOptions: any) => {
-  const { app, config, db, logger, router, passport, strategies, strategyPath, User } = authOptions;
+export const setupAuthentication = (authOptions: AuthOptions) => {
+  const { app, config, db, logger, passport, User } = authOptions;
   // Wrap up the User and the Token
   console.log(db.name);
   const user = dBApi(User ? User : BaseUser);
   const token = dBApi(Token);
 
-
-  // Session
-  const sesConfig: SessionConfig = {
-    name: config.session.name,
-    secret: config.session.secret,
-    saveUninitialized: config.session.saveUninitialized,
-    cookie: {
-      secure: config.session.cookie.secure,
-      sameSite: config.session.cookie.sameSite,
-      httpOnly: config.session.cookie.httpOnly,
-      maxAge: config.session.cookie.maxAge,
-    },
-    resave: config.session.resave,
-  };
-
-  // Auth middleware setup
-  const authConfig: AuthConfig = {
-    app: app,
-    passport: passport,
-    User: user,
-    sessionConfig: sesConfig,
-  };
-  const authMiddleware = setupAuthMiddleware(authConfig);
-  
-  // Setup the strategy and the user manager with the user
-  // Strategy
   const cryptUtilsOptions: CryptUtilsOptions = {
     salt: Number(config.salt),
   };
 
   const utils = cryptUtils(cryptUtilsOptions);
 
-  const verifyOptions: VerifyOptions = {
-    dBApi: user,
-    utils: utils,
-    logger: logger,
-  };
+  // Middleware
+  const sessionMiddleware = () => {
+    // Session
+    const sesConfig: SessionConfig = {
+      name: config.session.name,
+      secret: config.session.secret,
+      saveUninitialized: config.session.saveUninitialized,
+      cookie: {
+        secure: config.session.cookie.secure,
+        sameSite: config.session.cookie.sameSite,
+        httpOnly: config.session.cookie.httpOnly,
+        maxAge: config.session.cookie.maxAge,
+      },
+      resave: config.session.resave,
+    };
 
-  const verifyLocal = initVerify(verifyOptions);
-  const strategyOptionsLocal: StrategyOptionsLocal = {
-    verify: verifyLocal,
-    strategy: strategies.local,
-    strategyPath: strategyPath,
-    loginFieldName: config.loginFieldName,
-    logger: logger,
+    // Auth middleware setup
+    const authConfig: AuthConfig = {
+      app: app,
+      passport: passport,
+      User: user,
+      sessionConfig: sesConfig,
+    };
+    return setupAuthMiddleware(authConfig);
   };
-  const local = InitLocal(strategyOptionsLocal);
-
-  const verifyOptionsGiyhub: VerifyOptionsSocial = {
-    dBApi: user,
-    logger: logger,
-  };
-  const verifyGithub = initVerifySocial(verifyOptionsGiyhub);
-  const strategyOptionsGithub: StrategyOptionsSocial = {
-    verify: verifyGithub,
-    strategy: strategies.github,
-    strategyName: 'guthub',
-    strategyPath: strategyPath,
-    clientId: config.githubId,
-    clientSecret: config.githubSecret,
-    callbackUrl: config.githubCallback,
-    logger: logger,
-  };
-  const github = InitSocial(strategyOptionsGithub);
-
-  const verifyOptionsGoogle: VerifyOptionsSocial = {
-    dBApi: user,
-    socialIdFieldName: 'google_id',
-    logger: logger,
-  };
-  const verifyGoogle = initVerifySocial(verifyOptionsGoogle);
-  const strategyOptionsGgoogle: StrategyOptionsSocial = {
-    verify: verifyGoogle,
-    strategy: strategies.google,
-    strategyName: 'google',
-    strategyPath: strategyPath,
-    clientId: config.googleId,
-    clientSecret: config.googleSecret,
-    callbackUrl: config.googleCallback,
-    logger: logger,
-  };
-
-  const google = InitSocial(strategyOptionsGgoogle);
 
   // Auth manager
-  const localStrategyDef: AuthStrategyDef = {
-    passport: passport,
-    strategy: local,
-    // validation: validation,
-  };
-  const githubStrategyDef: AuthStrategyDef = {
-    passport: passport,
-    strategy: github,
-  };
-  const googleStrategyDef: AuthStrategyDef = {
-    passport: passport,
-    strategy: google,
+  const authMngr = (options: StrategyOptions) => {
+    const { router, strategies, strategyPath, socialstrategyName, socialIdFieldName } = options;
+
+    const localStrategy = () => {
+      const verifyOptions: VerifyOptions = {
+        dBApi: user,
+        utils: utils,
+        logger: logger,
+      };
+    
+      const verifyLocal = initVerify(verifyOptions);
+      const strategyOptionsLocal: StrategyOptionsLocal = {
+        verify: verifyLocal,
+        strategy: strategies.local,
+        strategyPath: strategyPath,
+        loginFieldName: config.loginFieldName,
+        logger: logger,
+      };
+      return InitLocal(strategyOptionsLocal);  
+    };
+
+    const socialStrategy = () => {
+      const verifyOptionsSocial: VerifyOptionsSocial = {
+        dBApi: user,
+        socialIdFieldName: socialIdFieldName,
+        logger: logger,
+      };
+      const verifySocial = initVerifySocial(verifyOptionsSocial);
+      const strategyOptionsSocial: StrategyOptionsSocial = {
+        verify: verifySocial,
+        strategy: strategies[socialstrategyName],
+        strategyName: socialstrategyName,
+        strategyPath: strategyPath,
+        clientId: config.githubId,
+        clientSecret: config.githubSecret,
+        callbackUrl: config.githubCallback,
+        logger: logger,
+      };
+      return InitSocial(strategyOptionsSocial);     
+    };
+
+    const local = localStrategy();
+    const social = socialStrategy();
+
+    // Auth manager
+    const localStrategyDef: AuthStrategyDef = {
+      passport: passport,
+      strategy: local,
+      // validation: validation,
+    };
+    const githubStrategyDef: AuthStrategyDef = {
+      passport: passport,
+      strategy: social,
+    };
+  
+    const authMngrOptionsCommon: AuthMngrOptionsCommon = {
+      router: router,
+      User: user,
+      utils: utils,
+      session: true,
+      encode: null,
+      logger: logger,
+    };
+    const authMngrOptions: AuthMngrOptions = {
+      strategiesDef: [localStrategyDef, githubStrategyDef],
+      common: authMngrOptionsCommon,
+    };
+    return initAuthMngr(authMngrOptions); 
   };
 
-  const authMngrOptionsCommon: AuthMngrOptionsCommon = {
-    router: router,
-    User: user,
-    utils: utils,
-    session: true,
-    encode: null,
-    logger: logger,
+  // Password manager
+  const passwordMngr = () => {
+    const userMngrOPtions: UserMngrOPtions = {
+      User: user,
+      Token: token,
+      utils: utils,
+      session: true,
+      emailer: config.emailer,
+    };
+    return setupUserManager(userMngrOPtions);
   };
-  const authMngrOptions: AuthMngrOptions = {
-    strategiesDef: [localStrategyDef, githubStrategyDef, googleStrategyDef],
-    common: authMngrOptionsCommon,
-  };
-  const authRouter = initAuthMngr(authMngrOptions);
 
-  // User manager
-  const userMngrOPtions: UserMngrOPtions = {
-    User: user,
-    Token: token,
-    utils: utils,
-    session: true,
-    emailer: config.emailer,
+  return { 
+    authMngr,
+    passwordMngr,
+    sessionMiddleware,
   };
-  const userMngrRouter = setupUserManager(userMngrOPtions);
-
-  return { authRouter, userMngrRouter, authMiddleware };
 };
