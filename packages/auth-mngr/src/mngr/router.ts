@@ -44,8 +44,8 @@ export const setupAuthCommonRouter = (options: AuthMngrRouterOptions) => {
   const controller = options.controller;
 
   router.route('/logout')
-    .get(() => {
-      controller.logout;
+    .get((req: Request, res: Response, next: any) => {
+      controller.logout(req, res, next);
     });
 
 };
