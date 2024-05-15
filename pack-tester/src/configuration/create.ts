@@ -37,6 +37,9 @@ export const resolveExternalConfig = (externalConfig?: ExternalConfig) => {
         externalConfig[key] = true;
       } else if (envValue === 'false') {
         externalConfig[key] = false;
+      } else if (envValue.startsWith('[')) {
+        const arrValue = envValue.substring(1, envValue.length-1); 
+        externalConfig[key] = arrValue.split(',').map(i => i.trim());
       } else {
         externalConfig[key] = envValue;
       }
