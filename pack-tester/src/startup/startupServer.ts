@@ -19,10 +19,13 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
   app.use(httpLogger);
 
   const router = Router();
+  // Ping
+  router.get('/', (_req: Request, res: Response) => {
+    res.json({ message: `Is live` });
+  });
 
   const strategies = { local: LocalStrategy, github: GihubStrategy, google: GoogleStrategy };
-  // const strategies = { local: LocalStrategy };
-  setupExtension({
+  const options = {
     config,
     db,
     logger,
@@ -32,11 +35,10 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
     passport,
     strategies,
     appDomain,
-  });
+  };
 
-  router.get('/', (_req: Request, res: Response) => {
-    res.json({ message: `Is live` });
-  });
+  setupExtension(options);
+
   app.use(router);
 
   app.use(setupErrorHandler());
