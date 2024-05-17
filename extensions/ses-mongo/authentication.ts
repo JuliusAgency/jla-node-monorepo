@@ -115,7 +115,7 @@ export const setupAuthentication = (authOptions: AuthOptions) => {
       return InitSocial(strategyOptionsSocial);     
     };
 
-    const strategiesDef = [];
+    const strategiesDef: Array<AuthStrategyDef> = [];
     Object.entries(strategies).forEach(([name, strategy]) => {
       const strategyConfig = strategiesConfig[name];
       if (name === 'local') {

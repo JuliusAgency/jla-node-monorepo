@@ -30,6 +30,7 @@ export const setupExtension = async (options: ExtensionOptions) => {
   const { authMngr, sessionMiddleware, passwordMngr } = authentication(authOptions);
 
   // Init strategies for each strategy path
+
   const authRouters = [];
   config.strategyNameSets.pathes.forEach((p: string) => {
     const strategyNamesForPath = config.strategyNameSets[p].names;
