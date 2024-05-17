@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { authentication, authorization, AuthOptions } from '../../../extensions';
-import { StrategyOptions } from '../../../extensions/ses-mongo/authentication';
+import { StrategiesPathOptions } from '../../../extensions/ses-mongo/authentication';
 
 export type ExtensionOptions = {
   config: any;
@@ -10,7 +10,7 @@ export type ExtensionOptions = {
   router: any;
   Router: any;
   passport: any;
-  strategies: [any];
+  strategies: { string: any };
   appDomain: any;
 };
 
@@ -29,29 +29,38 @@ export const setupExtension = async (options: ExtensionOptions) => {
 
   const { authMngr, sessionMiddleware, passwordMngr } = authentication(authOptions);
 
-  const authStrategyOptionsT: StrategyOptions = {
-    router: Router(), 
-    strategies: strategies,
-    strategyPath: 'test',
-    socialstrategyName: 'github',
-    socialIdFieldName: 'github_id',
-  };
-  const authRouterT = authMngr(authStrategyOptionsT);
+  // Init strategies for each strategy path
+  const authRouters = [];
+  config.strategyNameSets.pathes.forEach((p: string) => {
+    const strategyNamesForPath = config.strategyNameSets[p].names;
+    // Init strategies for the path
+    const strategiesForPath = {};
+    strategyNamesForPath.forEach((name: any) => {
+      strategiesForPath[name] = strategies[name];
+    });
+    const authStrategyOptions: StrategiesPathOptions = {
+      router: Router(),
+      strategies: strategiesForPath,
+      strategyPath: p,
+      strategiesConfig: config.strategyNameSets[p],
+    };
+    logger.debug(`authStrategyOptions - ${authStrategyOptions}`);
+    const authRouter = authMngr(authStrategyOptions);
+    authRouters.push({ [p]: authRouter });
+  });
 
-  const authStrategyOptions: StrategyOptions = {
-    router: Router(),
-    strategies: strategies,
-    strategyPath: 'auth',
-    socialstrategyName: 'github',
-    socialIdFieldName: 'github_id',
-  };
-  const authRouter = authMngr(authStrategyOptions);
-  
-  const userMngrRouter = passwordMngr();
+  // Auth router usage
+  authRouters.forEach((ar) => {
+    Object.entries(ar).forEach(([p, r]) => {
+      router.use(`/${p}`, r);
+    });
+  });
+
+  const passwordRouter = passwordMngr();
+  router.use('/passw', passwordRouter);
 
   // Auth middleware usage
   const authMiddleware = sessionMiddleware();
-
   app.use(appDomain.protectedRoutes, authMiddleware);
 
   const authorizationOptions = {
@@ -59,11 +68,6 @@ export const setupExtension = async (options: ExtensionOptions) => {
     db: db,
   };
   const isAuthorized = await authorization(authorizationOptions);
-
-  // Auth router usage
-  router.use('/auth', authRouter);
-  router.use('/test', authRouterT);
-  router.use('/user-mngr', userMngrRouter);
 
   // Setup the app domain
   appDomain.setupAppDomain({

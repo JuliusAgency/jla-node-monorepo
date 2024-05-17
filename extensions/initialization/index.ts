@@ -8,8 +8,8 @@ export const getConfigMapping = () => {
     ...configCommonMapping['cors'],
     ...configCommonMapping['logger'],
     ...configAuthMapping['authentication'][authType.toLowerCase()],
-    ...configAuthorizationMapping,
     ...configAuthStrategies,
+    ...configAuthorizationMapping,
   };
 };
 
@@ -52,13 +52,41 @@ const configAuthMapping = {
         resave: 'SESSION_RESAVE',
       },
       salt: 'SALT_WORK_FACTOR',
-      loginFieldName: 'LOGIN_FIELD_NAME',
     },
     jwt: {
       secretKey: 'SECRET_JWT',
       lifeTime: 'LIFE_TIME',
       salt: 'SALT_WORK_FACTOR',
-      loginFieldName: 'LOGIN_FIELD_NAME',
+    },
+  },
+};
+
+const configAuthStrategies = {
+  strategyNameSets: {
+    pathes: 'STRATEGIES_PATHES',
+    auth: {
+      names: 'STRATEGIES_NAMES_AUTH',
+      local: {
+        loginFieldName: 'LOGIN_FIELD_NAME_AUTH',
+      },
+    },
+    test: {
+      names: 'STRATEGIES_NAMES_TEST',
+      local: {
+        loginFieldName: 'LOGIN_FIELD_NAME_TEST',
+      },
+      github: {
+        id: 'GITHUB_ID_TEST',
+        secret: 'GITHUB_SECRET_TEST',
+        callback: 'GITHUB_CALLBACK_TEST', 
+        idFieldName: 'GITHUB_ID_FIELD_NAME',
+      },
+      google: {
+        id: 'GOOGLE_ID_TEST',
+        secret: 'GOOGLE_SECRET_TEST',
+        callback: 'GOOGLE_CALLBACK_TEST',  
+        idFieldName: 'GOOGLE_ID_FIELD_NAME',
+      },
     },
   },
 };
@@ -68,13 +96,3 @@ const configAuthorizationMapping = {
   test: 'TEST',
 };
 
-const configAuthStrategies = {
-  // Github
-  githubId: 'GITHUB_ID',
-  githubSecret: 'GITHUB_SECRET',
-  githubCallback: 'GITHUB_CALLBACK',
-  // Google
-  googleId: 'GOOGLE_ID',
-  googleSecret: 'GOOGLE_SECRET',
-  googleCallback: 'GOOGLE_CALLBACK',
-};
