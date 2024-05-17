@@ -19,8 +19,7 @@ export const initVerify = (options: VerifyOptions) => {
       const user = await dBApi.findOne({[socialIdName]: profile.id});
       if (!user) {
         logger?.debug(`User ${profile.id} not exists - redirect to the register ${__filename}`);
-        done(null, false, { 'profile': profile });
-
+        done(null, false,{ 'profile': profile});
       } else {
         logger?.debug(`User ${profile.id} exists - login - in ${__filename}`);
         done(null, user);
