@@ -29,8 +29,7 @@ export const setupExtension = async (options: ExtensionOptions) => {
 
   const { authMngr, sessionMiddleware, passwordMngr } = authentication(authOptions);
 
-  // Init strategies for each strategy path
-
+  // Init strategies for each authentication path
   const authRouters = [];
   config.strategyNameSets.pathes.forEach((p: string) => {
     const strategyNamesForPath = config.strategyNameSets[p].names;
@@ -45,7 +44,7 @@ export const setupExtension = async (options: ExtensionOptions) => {
       strategyPath: p,
       strategiesConfig: config.strategyNameSets[p],
     };
-    logger.debug(`authStrategyOptions - ${authStrategyOptions}`);
+    logger.debug(`Start setup Auth manager for the path - (${p}) with the strategies [${strategyNamesForPath}]`);
     const authRouter = authMngr(authStrategyOptions);
     authRouters.push({ [p]: authRouter });
   });
