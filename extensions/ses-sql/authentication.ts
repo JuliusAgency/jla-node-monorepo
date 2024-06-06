@@ -23,6 +23,7 @@ export type AuthOptions = {
   db: any;
   User: any;
   logger: any;
+  emailer?: any;
 };
 
 export type StrategiesPathOptions = {
@@ -33,8 +34,9 @@ export type StrategiesPathOptions = {
 };
 
 // Setup Auth with session and Sql Db
-export const setupAuthentication = (authOptions: any) => {
-  const { app, config, db, logger, passport, User } = authOptions;
+export const setupAuthentication = (authOptions: AuthOptions) => {
+  const { app, config, db, logger, emailer, passport, User } = authOptions;
+
   // Wrap up the User and the Token
   console.log(db.name);
   const user = dBApi(db(User ? User : BaseUser));
@@ -160,7 +162,8 @@ export const setupAuthentication = (authOptions: any) => {
       Token: token,
       utils: utils,
       session: true,
-      emailer: config.emailer,
+      emailer: emailer,
+      frontEndUrl: config.emailer.frontEndUrl,
     };
     return setupUserManager(userMngrOPtions);
   };

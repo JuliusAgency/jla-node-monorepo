@@ -4,7 +4,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GihubStrategy } from 'passport-github2';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
-import { setupCors, setupHeaders, setupErrorHandler, setupLogger } from '../common';
+import { setupCors, setupHeaders, setupErrorHandler, setupLogger, setupEmailer } from '../common';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const startupServer = ({ config, db, setupExtension, appDomain }) => {
@@ -18,6 +18,8 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
   const { logger, httpLogger } = setupLogger(config);
   app.use(httpLogger);
 
+  const emailer = setupEmailer(config);
+
   const router = Router();
   // Ping
   router.get('/', (_req: Request, res: Response) => {
@@ -29,6 +31,7 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
     config,
     db,
     logger,
+    emailer,
     app,
     router,
     Router,

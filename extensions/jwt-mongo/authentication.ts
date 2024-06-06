@@ -23,6 +23,7 @@ export type AuthOptions = {
   db: any;
   User: any;
   logger: any;
+  emailer?: any;
 };
 
 export type StrategiesPathOptions = {
@@ -34,7 +35,7 @@ export type StrategiesPathOptions = {
 
 // Setup Auth with JWT and Mongo Db
 export const setupAuthentication = (authOptions: AuthOptions) => {
-  const { config, db, logger, passport, User } = authOptions;
+  const { config, db, logger, emailer, passport, User } = authOptions;
 
   // Wrap up the User and the Token
   console.log(db.name);
@@ -144,7 +145,8 @@ export const setupAuthentication = (authOptions: AuthOptions) => {
       Token: token,
       utils: utils,
       session: true,
-      emailer: config.emailer,
+      emailer: emailer,
+      frontEndUrl: config.emailer.frontEndUrl,
     };
     return setupUserManager(userMngrOPtions);
   };

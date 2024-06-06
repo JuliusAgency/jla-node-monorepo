@@ -6,6 +6,7 @@ export type ExtensionOptions = {
   config: any;
   db: any;
   logger: any;
+  emailer?: any;
   app: any;
   router: any;
   Router: any;
@@ -15,7 +16,7 @@ export type ExtensionOptions = {
 };
 
 export const setupExtension = async (options: ExtensionOptions) => {
-  const { config, db, logger, app, router, Router, passport, strategies, appDomain } = options;
+  const { config, db, logger, emailer, app, router, Router, passport, strategies, appDomain } = options;
   const User = appDomain.User;
 
   const authOptions: AuthOptions = {
@@ -25,6 +26,7 @@ export const setupExtension = async (options: ExtensionOptions) => {
     db: db,
     User: User,
     logger: logger,
+    emailer: emailer,
   };
 
   const { authMngr, sessionMiddleware, passwordMngr } = authentication(authOptions);

@@ -10,6 +10,7 @@ export const getConfigMapping = () => {
     ...configAuthMapping['authentication'][authType.toLowerCase()],
     ...configAuthStrategies,
     ...configAuthorizationMapping,
+    ...configEmailer,
   };
 };
 
@@ -96,3 +97,10 @@ const configAuthorizationMapping = {
   test: 'TEST',
 };
 
+const configEmailer = {
+  "emailer": {
+    frontEndUrl: 'CLIENT_URL',
+    smtpUserName: 'SMTP_USERNAME',
+    smtpPassword: 'SMTP_PASSWORD',
+  },
+};
