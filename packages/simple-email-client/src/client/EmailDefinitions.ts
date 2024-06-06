@@ -2,8 +2,8 @@ import type { EmailParams, EmailResources } from "./Types";
 
 
 const linkFormatter = (params: EmailParams): EmailParams => {
-  const { name, email, token, id } = params; 
-  const link = `${process.env.CLIENT_URL}/reset-password?token=${token}&id=${id}`;
+  const { name, email, token, id, frontEndUrl } = params; 
+  const link = `${frontEndUrl}/reset-password?token=${token}&id=${id}`;
   return {
     name: name,
     email: email,
