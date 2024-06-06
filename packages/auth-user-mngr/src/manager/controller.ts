@@ -33,6 +33,7 @@ export const setupUserMngrController = (options: UserMngrOPtions, service: any) 
     const { email } = req.body;
     try {
       const emailParams = await service.resetPasswordRequest(email);
+      emailParams['frontEndUrl'] = options.frontEndUrl;
       await sendEmail('resetPasswordRequest', emailParams);
       return res.status(200).send({ params: emailParams, success: true });
     } catch (error: Error | any) {
