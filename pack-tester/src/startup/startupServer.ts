@@ -1,8 +1,4 @@
 import express, { Express, Router, Request, Response } from 'express';
-import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
-import { Strategy as GihubStrategy } from 'passport-github2';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
 import { setupCors, setupHeaders, setupErrorHandler, setupLogger, setupEmailer } from '../common';
 
@@ -26,7 +22,6 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
     res.json({ message: `Is live` });
   });
 
-  const strategies = { local: LocalStrategy, github: GihubStrategy, google: GoogleStrategy };
   const options = {
     config,
     db,
@@ -35,8 +30,6 @@ export const startupServer = ({ config, db, setupExtension, appDomain }) => {
     app,
     router,
     Router,
-    passport,
-    strategies,
     appDomain,
   };
 
