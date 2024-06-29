@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { authentication, authorization, AuthOptions } from '../../../extensions';
-import { StrategiesPathOptions } from '../../../extensions/ses-mongo/authentication';
+import { authentication, authorization, AuthOptions, StrategiesPathOptions } from '../../../extensions';
 
 export type ExtensionOptions = {
   config: any;
@@ -24,12 +23,12 @@ export const setupExtension = async (options: ExtensionOptions) => {
     passport: passport,
     config: config,
     db: db,
-    User: User,
+    user: User,
     logger: logger,
     emailer: emailer,
   };
 
-  const { authMngr, sessionMiddleware, passwordMngr } = authentication(authOptions);
+  const { authMngr, passwordMngr, authMiddleware } = authentication(authOptions);
 
   // Init strategies for each authentication path
   const authRouters = [];
@@ -62,7 +61,6 @@ export const setupExtension = async (options: ExtensionOptions) => {
   router.use('/passw', passwordRouter);
 
   // Auth middleware usage
-  const authMiddleware = sessionMiddleware();
   app.use(appDomain.protectedRoutes, authMiddleware);
 
   const authorizationOptions = {
