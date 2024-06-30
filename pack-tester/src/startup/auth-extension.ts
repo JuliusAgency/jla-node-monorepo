@@ -14,13 +14,11 @@ export type AuthExtensionDependencies = {
   app: any;
   router: any;
   Router: any;
-  appDomain: any;
+  User: any;
 };
 
 export const authExtension = async (dependencies: AuthExtensionDependencies) => {
-  const { config, db, logger, emailer, app, router, Router, appDomain } = dependencies;
-  const User = appDomain.User;
-
+  const { config, db, logger, emailer, app, router, Router, User } = dependencies;
   const strategies = { local: LocalStrategy, github: GihubStrategy, google: GoogleStrategy };
 
   const authOptions: AuthOptions = {
@@ -48,8 +46,7 @@ export const authExtension = async (dependencies: AuthExtensionDependencies) => 
   const passwordRouter = passwordMngr();
   router.use('/passw', passwordRouter);
 
-  // Auth middleware usage
-  app.use(appDomain.protectedRoutes, authMiddleware);
+  return authMiddleware;
 };
 
 export type AuthorizationExtensionDependencies = {

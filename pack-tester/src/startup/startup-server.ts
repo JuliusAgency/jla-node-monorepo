@@ -43,9 +43,12 @@ export const startupServer = async (dependencies: ServerDependencies) => {
     app,
     router,
     Router,
-    appDomain,
+    User: appDomain.User,
   };
-  authExtension(authExtensionDependencies);
+  const authMiddleware = await authExtension(authExtensionDependencies);
+
+  // Auth middleware usage
+  app.use(appDomain.protectedRoutes, authMiddleware);
 
   const authorizationExtensionDependencies = {
     config: config,
