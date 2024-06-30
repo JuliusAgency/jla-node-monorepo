@@ -4,9 +4,9 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GihubStrategy } from 'passport-github2';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
-import { authentication, authorization, AuthOptions, StrategiesPathOptions } from '../../../extensions';
+import { authentication, AuthOptions, authorization, StrategiesPathOptions } from '../../../extensions';
 
-export type ExtensionOptions = {
+export type AuthExtensionDependencies = {
   config: any;
   db: any;
   logger: any;
@@ -17,8 +17,8 @@ export type ExtensionOptions = {
   appDomain: any;
 };
 
-export const setupExtension = async (options: ExtensionOptions) => {
-  const { config, db, logger, emailer, app, router, Router, appDomain } = options;
+export const authExtension = async (dependencies: AuthExtensionDependencies) => {
+  const { config, db, logger, emailer, app, router, Router, appDomain } = dependencies;
   const User = appDomain.User;
 
   const strategies = { local: LocalStrategy, github: GihubStrategy, google: GoogleStrategy };
@@ -50,21 +50,15 @@ export const setupExtension = async (options: ExtensionOptions) => {
 
   // Auth middleware usage
   app.use(appDomain.protectedRoutes, authMiddleware);
-
-  const authorizationOptions = {
-    config: config,
-    db: db,
-  };
-  const isAuthorized = await authorization(authorizationOptions);
-
-  // Setup the app domain
-  appDomain.setupAppDomain({
-    router,
-    isAuthorized,
-    repository: db,
-  });
 };
 
+export type AuthorizationExtensionDependencies = {
+  config: any;
+  db: any;
+};
+export const authorizationExtension = async (options: AuthorizationExtensionDependencies) => {
+  return await authorization(options);
+};
 
 const buildAuthRouters = (config: any, logger: any, authMngr: any, Router: any, strategies: any): Array<any> => {
   const authRouters = [];

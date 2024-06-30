@@ -3,9 +3,9 @@ import { appConfig } from '../configuration';
 
 import * as appDomain from '../app-domain';
 
-import { startupDb } from './startupDb';
-import { setupExtension } from './setupExtension';
-import { startupServer } from './startupServer';
+import { startupDb } from './startup-db';
+import { authExtension, authorizationExtension } from './auth-extension';
+import { ServerDependencies, startupServer } from './startup-server';
 
 export const startup = async () => {
   const configMapping = getConfigMapping();
@@ -15,5 +15,12 @@ export const startup = async () => {
 
   const db = await startupDb(config, dbType, appDomain.User);
 
-  startupServer({ config, db, setupExtension, appDomain });
+  const serverDependencies: ServerDependencies = {
+    config: config,
+    db: db,
+    authExtension: authExtension,
+    authorizationExtension: authorizationExtension,
+    appDomain,
+  };
+  await startupServer(serverDependencies);
 };
