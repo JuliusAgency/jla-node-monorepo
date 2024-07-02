@@ -1,12 +1,15 @@
 import { Request, Response } from 'express';
 
-import { AppError, AppErrorArgs, ResponseCode } from '../../../../../packages/simple-error-handler/src';
+import { AppError, AppErrorArgs, ResponseCode } from '../../../common/error-handler';
 
 import { User } from './model';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setupUserController = ({}) => {
+export const setupUserController = (logger: any) => {
+  logger.debug(`setupUserController - ${__filename}`);
+
   const getAllUsers = async (_req: Request, res: Response) => {
+    logger.debug(`getAllUsers - ${__filename}`);
     const users = await User.find({});
     if (!users) {
       const errorArgs: AppErrorArgs = {
@@ -20,6 +23,7 @@ export const setupUserController = ({}) => {
   };
   const getUserById = async (req: Request, res: Response) => {
     const { userId } = req.params;
+    logger.debug(`getUserById - ${userId} - ${__filename}`);
     const user = await getUserData(userId);
     if (!user) {
       const errorArgs: AppErrorArgs = {

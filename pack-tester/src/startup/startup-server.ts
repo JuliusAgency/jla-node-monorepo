@@ -1,6 +1,7 @@
 import express, { Express, Router, Request, Response } from 'express';
 
 import { setupCors, setupHeaders, setupErrorHandler, setupLogger, setupEmailer } from '../common';
+// import { AppDomainDependencies } from '../app-domain';
 
 export type ServerDependencies = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,13 +37,13 @@ export const startupServer = async (dependencies: ServerDependencies) => {
   });
 
   const authExtensionDependencies = {
-    config,
-    db,
-    logger,
-    emailer,
-    app,
-    router,
-    Router,
+    config: config,
+    db: db,
+    logger: logger,
+    emailer: emailer,
+    app: app,
+    router: router,
+    Router: Router,
     User: appDomain.User,
   };
   const authMiddleware = await authExtension(authExtensionDependencies);
@@ -56,16 +57,21 @@ export const startupServer = async (dependencies: ServerDependencies) => {
   };
   const isAuthorized = await authorizationExtension(authorizationExtensionDependencies);
 
+  const errorHandler = setupErrorHandler();
   // Setup the app domain
-  appDomain.setupAppDomain({
-    router,
-    isAuthorized,
+
+  const appDomainDependencies = {
+    logger: logger,
+    router: router,
+    Router: Router,
+    isAuthorized: isAuthorized,
     repository: db,
-  });
+  };
+  appDomain.appDomain(appDomainDependencies);
 
   app.use(router);
 
-  app.use(setupErrorHandler());
+  app.use(errorHandler);
 
   app.listen(config.port, () => {
     logger.info(`⚡️[server]: Server is running

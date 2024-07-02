@@ -1,6 +1,9 @@
-import { Router } from 'express';
+import { AppDomainDependencies } from '..';
 
-export const setupUserRouter = ({ isAuthorized, controller }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setupUserRouter = (dependencies: AppDomainDependencies, controller: any) => {
+  const { logger, Router, isAuthorized } = dependencies;
+  logger.debug(`setupUserRouter - ${__filename}`);
   const router = Router();
   router.get(
     '/',
