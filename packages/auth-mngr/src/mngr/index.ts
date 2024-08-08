@@ -10,7 +10,7 @@ export type AuthMngrOptionsCommon = {
   User: any;
   utils: any;
   session: boolean;
-  encode: any;
+  encode?: any;
   logger?: any;
 };
 

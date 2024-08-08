@@ -5,13 +5,13 @@ export const setupAuthStrategyService = (options: AuthMngrOptionsCommon) => {
   const { User, utils } = options;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const register = async (loginFieldName: string, newUser: any) => {
+  const register = async (userUniquePropName: string, newUser: any) => {
     try {
-      if (!newUser[loginFieldName]) throw new Error('missing credentials');
-      if (loginFieldName === 'email') {
-        newUser[loginFieldName].toLowerCase();
+      if (!newUser[userUniquePropName]) throw new Error('missing credentials');
+      if (userUniquePropName === 'email') {
+        newUser[userUniquePropName].toLowerCase();
       };
-      const user = await User.findOne({ [loginFieldName]: newUser[loginFieldName] });
+      const user = await User.findOne({ [userUniquePropName]: newUser[userUniquePropName] });
       if (user) {
         throw new Error('User already exist');
       } else {

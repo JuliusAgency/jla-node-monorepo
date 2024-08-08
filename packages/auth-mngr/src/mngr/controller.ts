@@ -5,13 +5,16 @@ export const setupAuthStrategyController = (options: AuthMngrControllerOptions) 
   const session = options.common.session;
   const encode = options.common.encode;
   const logger = options.common.logger;
+  const strategy = options.strategyDef.strategy;
 
-  logger?.debug(`setupAuthStrategyController for ${options.strategyDef.strategy.name}`);
+  logger?.debug(`setupAuthStrategyController for: ${strategy.name}`);
+  // for social strategies _usernameField is undefined
+  logger?.debug(`setupAuthStrategyController unique prop name: ${strategy._usernameField}`);
 
   const register = async (req: Request, res: Response) => {
     const newUser = req.body;
     try {
-      const user = await options.service.register('email',newUser);
+      const user = await options.service.register(strategy._usernameField, newUser);
       return res.send(user);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: Error | any) {
@@ -21,7 +24,7 @@ export const setupAuthStrategyController = (options: AuthMngrControllerOptions) 
 
   const login = (req: Request, res: Response, next: NextFunction) => {
     options.strategyDef.passport.authenticate(
-      options.strategyDef.strategy.name,
+      strategy.name,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (error: Error, user: any, info: any): any => {
         if (error) return res.status(403).json(error);
