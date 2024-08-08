@@ -3,7 +3,7 @@ export type AuthOptions = {
   passport: any;
   config: any;
   db: any;
-  logger: any;
+  logger?: any;
   emailer?: any;
   user: any;
 };
