@@ -4,9 +4,15 @@ import { Request, Response } from 'express';
 import { UserMngrOPtions } from './types';
 
 export const setupUserMngrController = (options: UserMngrOPtions, service: any) => {
+  const logger = options.logger;
 
-  const register = async (req: Request, res: Response) => {
+  logger?.debug(`setupUserMngrController ${__filename}`);
+
+
+  const register = async (req: Request, res: Response) => { 
     const newUser = req.body;
+    logger?.debug(`register new user ${newUser} in ${__filename}`);
+
     try {
       const user = await service.register('email',newUser);
       return res.send(user);
@@ -17,6 +23,8 @@ export const setupUserMngrController = (options: UserMngrOPtions, service: any) 
 
   const changePassword = async (req: Request, res: Response) => {
     const { email, password, passwordNew } = req.body;
+    logger?.debug(`change password for user ${email} in ${__filename}`);
+
     try {
       const emailParams = await service.changePassword(
         email,
@@ -31,6 +39,8 @@ export const setupUserMngrController = (options: UserMngrOPtions, service: any) 
 
   const resetPasswordRequest = async (req: Request, res: Response) => {
     const { email } = req.body;
+    logger?.debug(`reset password request for user ${email} in ${__filename}`);
+
     try {
       const emailParams = await service.resetPasswordRequest(email);
       emailParams['frontEndUrl'] = options.frontEndUrl;
@@ -43,6 +53,8 @@ export const setupUserMngrController = (options: UserMngrOPtions, service: any) 
 
   const resetPassword = async (req: Request, res: Response) => {
     const { user, token, password } = req.body;
+    logger?.debug(`reset password for user ${user} in ${__filename}`);
+    
     try {
       const emailParams = await service.resetPassword(user, token, password);
       await sendEmail('resetPassword', emailParams);

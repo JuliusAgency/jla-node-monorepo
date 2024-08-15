@@ -6,5 +6,6 @@ export type UserMngrOPtions = {
   encode?: any;
   session: boolean;
   emailer?: any;
+  logger?: any;
   frontEndUrl?: string;
 };

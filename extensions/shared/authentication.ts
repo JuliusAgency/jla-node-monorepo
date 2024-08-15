@@ -110,6 +110,7 @@ export const setupAuthenticationShared = (authOptionsShared: AuthOptionsShared) 
       utils: utils,
       session: authOptionsShared['withSession'],
       emailer: emailer,
+      logger: logger,
       frontEndUrl: config.emailer.frontEndUrl,
     };
     return setupUserManager(userMngrOPtions);

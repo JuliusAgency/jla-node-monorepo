@@ -8,8 +8,8 @@ export const setupUserMngrRouter = (controller: any) => {
     res.send('user mngr is live');
   });
 
-  router.post('/register', controller.register);
-  router.post('/change-password', controller.changePassword);
+  // router.post('/register', controller.register);
+  // router.post('/change-password', controller.changePassword);
 
   router.post('/reset-password-request', controller.resetPasswordRequest);
   router.post('/reset-password', controller.resetPassword);
