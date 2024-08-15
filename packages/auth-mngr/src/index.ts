@@ -31,7 +31,7 @@ export const initAuthMngr = (options: AuthMngrOptions) => {
       common: options.common,
       service: service,
     };
-    const controller = setupAuthStrategyController(controllerOptions);
+    const controller = setupAuthStrategyController(controllerOptions, service);
 
     const routerOptions: AuthMngrRouterOptions = {
       strategyDef: strategyDef,

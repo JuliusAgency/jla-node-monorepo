@@ -29,7 +29,33 @@ export const setupAuthStrategyService = (options: AuthMngrOptionsCommon) => {
       throw(e);
     }
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const changePassword = async (userUniquePropName: string, data: any) => {
+    if (!data[userUniquePropName]) throw new Error('missing credentials');
+    if (userUniquePropName === 'email') {
+      data[userUniquePropName].toLowerCase();
+    };
+    const user = await User.findOne({ [userUniquePropName]: data[userUniquePropName] });
+    if (!user) throw new Error("the user doesn't exists!");
+
+    // Check credentials
+    if (!(await utils.compare(data['password'], user.password))) {
+      throw new Error('Something wrong with credentials');
+    }
+
+    // Change password
+    const hash = await utils.hash(data['passwordNew']);
+    await User.findOneAndUpdate(
+      {[userUniquePropName]: data[userUniquePropName] },
+      { password: hash }, { new: true }
+    );
+
+    return;
+  };
+
   return {
     register,
+    changePassword,
   };
 };      

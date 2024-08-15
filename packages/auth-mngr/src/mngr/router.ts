@@ -25,6 +25,12 @@ export const setupAuthStrategyRouter = (options: AuthMngrRouterOptions) => {
         await validation(req, res, next);
         await controller.login(req, res, next);
       });
+    router.route('/change-password') 
+      .post(async (req: Request, res: Response, next: any) => {
+        await validation(req, res, next);
+        await controller.changePassword(req, res, next);
+      });
+
   } else {
     router.route(`/${strategy.name}`)
       .get(async (req: Request, res: Response, next: any) => {

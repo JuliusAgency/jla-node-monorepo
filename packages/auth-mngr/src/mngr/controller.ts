@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthMngrControllerOptions } from ".";
 
-export const setupAuthStrategyController = (options: AuthMngrControllerOptions) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setupAuthStrategyController = (options: AuthMngrControllerOptions, service: any) => {
   const session = options.common.session;
   const encode = options.common.encode;
   const logger = options.common.logger;
@@ -58,10 +59,24 @@ export const setupAuthStrategyController = (options: AuthMngrControllerOptions) 
       },
     )(req, res, next);
   };
+
+  const changePassword = async (req: Request, res: Response) => {
+    // const { email, password, passwordNew } = req.body;
+    logger?.debug(`change password in ${__filename}`);
+    const data = req.body;
+    try {
+      await service.changePassword(strategy._usernameField, data);
+      return res.status(200).send({ success: true });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: Error | any) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
   
   return {
     register,
     login,
+    changePassword,
   };
 };
 
